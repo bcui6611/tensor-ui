@@ -1,0 +1,27 @@
+<div class="container-fluid">
+    <div class="col-md-12">
+        <div class="row">
+            <div class="login-page col-md-offset-5 col-sm-offset-3">
+                <div class="card card-block">
+                    <img src="assets/img/SB-admin.png" width="150px"/>
+                    <h1>Tensor</h1>
+                    <form (submit)="onSubmit(loginForm.value)" [formGroup]="loginForm">
+                        <div class="form-group">
+                            <input type="text" [formControl]="username" name="username"
+                                   class="form-control input-lg" placeholder="Email" id="username">
+                        </div>
+                        <div class="form-group">
+                            <input type="password" [formControl]="password"
+                                   class="form-control input-lg" placeholder="Password" name="password">
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block btn-lg"
+                                [disabled]="!loginForm.valid">
+                            Sign in
+                        </button>
+                    </form>
+                </div>
+                <simple-notifications [options]="options"></simple-notifications>
+            </div>
+        </div>
+    </div>
+</div>
