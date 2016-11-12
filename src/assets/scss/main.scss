@@ -28,7 +28,7 @@ body {
     }
 
     .nav-link:focus, .nav-link:hover {
-      border-bottom: 5px solid #E8E8E8;
+      border-bottom: 0.4rem solid #E8E8E8;
       background-color: #FAFAFA;
     }
     .nav-item + .nav-item {
@@ -273,14 +273,10 @@ body {
 }
 
 .login-page {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
   text-align: center;
-  margin-top: 4em;
-  width: 20em;
+  width: 25rem;
+  float: none;
+  margin: 0 auto;
 
   .col-lg-4 {
     padding: 0;
