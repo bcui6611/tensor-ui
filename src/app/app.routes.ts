@@ -8,7 +8,7 @@ import { SettingsHomeComponent } from './settings/settingsHome/settings-home.com
 
 import { InventoriesHomeComponent } from './inventories/inventoriesHome/inventories-home.component';
 import { InventoriesTableComponent } from './inventories/inventoriesTable/inventories-table.component';
-import {AuthGuard} from "./base/auth.guard";
+import {AuthGuard} from "./guards";
 
 export const rootRouterConfig: Routes = [
     {path: '', component: LoginComponent},

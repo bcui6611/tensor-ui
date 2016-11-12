@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Headers, Http, Response } from '@angular/http';
 import { User } from '../models/user';
+import { AuthenticationService } from '../services';
 import 'rxjs/add/operator/toPromise';
 
 @Injectable()
@@ -8,7 +9,7 @@ export class UserService {
     private usersUrl = '/users';
     private userUrl = '/users';
 
-    constructor(private http: Http) {
+    constructor(private http: Http, private authenticationService: AuthenticationService) {
     }
 
     getUsers(): Promise<User[]> {
