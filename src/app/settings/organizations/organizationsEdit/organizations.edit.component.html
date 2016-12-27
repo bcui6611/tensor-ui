@@ -1,0 +1,128 @@
+<div class="card card-block">
+  <div class="row">
+    <div class="col-md-1 pull-md-left">
+      <p>Organization</p>
+    </div>
+    <div class="col-md-1 pull-md-right">
+      <a type="btn" class="close" aria-label="Close">
+        <i class="fa fa-times-circle"></i>
+      </a>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <ngb-tabset type="pills">
+        <ngb-tab title="Details">
+
+          <template ngbTabContent>
+            <div class="row">
+              <div class="col-md-12">
+                <br>
+                <form>
+                  <div class="row">
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <label for="first_name">First Name</label>
+                        <input type="text" class="form-control" id="first_name"
+                               aria-describedby="First Name" placeholder="First Name">
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <label for="last_name">Last Name</label>
+                        <input type="text" class="form-control" id="last_name"
+                               aria-describedby="Last Name" placeholder="Last Name">
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" class="form-control" id="email"
+                               aria-describedby="Email" placeholder="Email">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <label for="username">Username</label>
+                        <input type="text" class="form-control" id="username"
+                               aria-describedby="Username" placeholder="Username">
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" class="form-control" id="password"
+                               aria-describedby="Password" placeholder="Password">
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <label for="confirm_password">Confirm Password</label>
+                        <input type="password" class="form-control" id="confirm_password"
+                               aria-describedby="Confirm Password" placeholder="Confirm Password">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <label for="username">User Type</label>
+                        <select class="custom-select form-control">
+                          <option selected>Open this select menu</option>
+                          <option value="1">One</option>
+                          <option value="2">Two</option>
+                          <option value="3">Three</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-md-4">
+                      <button type="submit" class="btn btn-warning">Cancel</button>
+                      <button type="submit" class="btn btn-success">Save</button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </template>
+        </ngb-tab>
+        <ngb-tab title="Organizations">
+
+          <template ngbTabContent>
+            <div class="row">
+              <div class="col-md-12">
+                <user-organizations></user-organizations>
+              </div>
+            </div>
+          </template>
+        </ngb-tab>
+        <ngb-tab title="Teams">
+
+          <template ngbTabContent>
+            <div class="row">
+              <div class="col-md-12">
+                <user-teams></user-teams>
+              </div>
+            </div>
+          </template>
+        </ngb-tab>
+
+        <ngb-tab title="Granted Permissions">
+
+          <template ngbTabContent>
+            <div class="row">
+              <div class="col-md-12">
+                <br>
+                <user-permissions></user-permissions>
+              </div>
+            </div>
+          </template>
+        </ngb-tab>
+      </ngb-tabset>
+    </div>
+  </div>
+</div>
