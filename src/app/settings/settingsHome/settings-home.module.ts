@@ -1,9 +1,10 @@
 import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
 
 import { SettingsHomeComponent } from './settings-home.component';
 
 @NgModule({
-    imports: [],
+    imports: [RouterModule],
     declarations: [SettingsHomeComponent],
     exports: [SettingsHomeComponent]
 })
