@@ -1,0 +1,111 @@
+<div class="card card-block">
+  <div class="row">
+    <div class="col-md-1 pull-md-left">
+      <p class="text-uppercase font-weight-bold">New User</p>
+    </div>
+    <div class="col-md-1 pull-md-right">
+      <a type="btn" class="close" routerLink="/settings/users" aria-label="Close">
+        <i class="fa fa-times-circle"></i>
+      </a>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <ngb-tabset type="pills">
+        <ngb-tab title="Details">
+
+          <template ngbTabContent>
+            <div class="row">
+              <div class="col-md-12">
+                <br>
+                <form #userAddForm="ngForm">
+                  <div class="row">
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <label for="first_name">First Name</label>
+                        <input type="text" class="form-control" id="first_name"
+                               aria-describedby="First Name" placeholder="First Name">
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <label for="last_name">Last Name</label>
+                        <input type="text" class="form-control" id="last_name"
+                               aria-describedby="Last Name" placeholder="Last Name">
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" class="form-control" id="email"
+                               aria-describedby="Email" placeholder="Email">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <label for="username">Username</label>
+                        <input type="text" class="form-control" id="username"
+                               aria-describedby="Username" placeholder="Username">
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <label for="organization">Organization</label>
+                        <div class="input-group">
+                          <span class="input-group-addon"><i class="fa fa-search"></i></span>
+                          <input type="text" class="form-control" [(ngModel)]="model" [ngbTypeahead]="search" name="organization">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" class="form-control" id="password"
+                               aria-describedby="Password" placeholder="Password">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <label for="confirm_password">Confirm Password</label>
+                        <input type="password" class="form-control" id="confirm_password"
+                               aria-describedby="Confirm Password" placeholder="Confirm Password">
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <label for="username">User Type</label>
+                        <div class="input-group">
+                          <span class="input-group-addon" id="basic-addon1">@</span>
+                          <input type="text" class="form-control" placeholder="Username" aria-describedby="basic-addon1">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-md-12 text-md-right">
+                      <a class="btn btn-secondary" routerLink="/settings/users" aria-label="Close">
+                        Cancel
+                      </a>
+                      <button type="submit" class="btn btn-success">Save</button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </template>
+        </ngb-tab>
+        <ngb-tab title="Organizations" [disabled]="true">
+        </ngb-tab>
+        <ngb-tab title="Teams" [disabled]="true">
+        </ngb-tab>
+        <ngb-tab title="Granted Permissions" [disabled]="true">
+        </ngb-tab>
+      </ngb-tabset>
+    </div>
+  </div>
+</div>

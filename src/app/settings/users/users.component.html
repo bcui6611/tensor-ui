@@ -1,0 +1,25 @@
+<div class="col-md-12">
+    <div class="row">
+        <div class="col-md-12">
+            <user-add *ngIf="isAdd"></user-add>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card card-block">
+                <div class="row">
+                    <div class="col-md-1 pull-md-left">
+                        <p class="text-uppercase">Users <span class="tag tag-pill tag-default"> 14</span></p>
+                    </div>
+                    <div class="col-md-1 pull-md-right">
+                        <a class="btn btn-success text-uppercase pull-md-right" routerLink="/settings/users/add" routerLinkActive="active" aria-pressed="true">
+                          + Add
+                        </a>
+                    </div>
+                </div>
+                <br>
+                <users-table></users-table>
+            </div>
+        </div>
+    </div>
+</div>
