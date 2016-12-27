@@ -4,7 +4,6 @@ import { Router } from '@angular/router';
 @Component({
     selector: 'inventories-home',
     templateUrl: 'inventories-home.component.html',
-    encapsulation: ViewEncapsulation.None
 })
 
 export class InventoriesHomeComponent implements OnInit {
