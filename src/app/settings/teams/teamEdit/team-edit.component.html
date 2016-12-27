@@ -1,0 +1,76 @@
+<div class="card card-block">
+  <div class="row">
+    <div class="col-md-1 pull-md-left">
+      <p>Team</p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <ngb-tabset type="pills">
+        <ngb-tab title="Details">
+
+          <template ngbTabContent>
+            <div class="row">
+              <div class="col-md-12">
+                <br>
+                <form>
+                  <div class="row">
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" class="form-control" id="name"
+                               aria-describedby="Name" placeholder="Name">
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <label for="description">Description</label>
+                        <input type="text" class="form-control" id="description"
+                               aria-describedby="Description" placeholder="Description">
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <label for="organization">Organization</label>
+                        <input type="text" class="form-control" id="organization"
+                               aria-describedby="Organization" placeholder="Organization">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-4">
+                      <button type="submit" class="btn btn-warning">Cancel</button>
+                      <button type="submit" class="btn btn-success">Save</button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </template>
+        </ngb-tab>
+        <ngb-tab title="Users">
+
+          <template ngbTabContent>
+            <div class="row">
+              <div class="col-md-12">
+                <team-users></team-users>
+              </div>
+            </div>
+          </template>
+        </ngb-tab>
+
+        <ngb-tab title="Granted Permissions">
+
+          <template ngbTabContent>
+            <div class="row">
+              <div class="col-md-12">
+                <br>
+                <team-permissions></team-permissions>
+              </div>
+            </div>
+          </template>
+        </ngb-tab>
+      </ngb-tabset>
+    </div>
+  </div>
+</div>
