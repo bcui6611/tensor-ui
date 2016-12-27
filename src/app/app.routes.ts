@@ -8,7 +8,10 @@ import { SettingsHomeComponent } from './settings/settingsHome/settings-home.com
 
 import { InventoriesHomeComponent } from './inventories/inventoriesHome/inventories-home.component';
 import { InventoriesTableComponent } from './inventories/inventoriesTable/inventories-table.component';
+import { UsersComponent } from './settings/users/users.component';
+import { OrganizationsComponent } from './settings/organizations/organizations.component';
 import {AuthGuard} from "./guards";
+import { TeamsComponent } from './settings/teams/teams.component';
 
 export const rootRouterConfig: Routes = [
     {path: '', component: LoginComponent},
@@ -34,10 +37,10 @@ export const rootRouterConfig: Routes = [
     component: SettingsComponent,
     children: [
       {path: '', component: SettingsHomeComponent},
-      //{path: 'users', component: UsersComponent},
-      //{path: 'users/add', component: UsersComponent, data: {addUser: true}},
-      //{path: 'teams', component: TeamsComponent},
-      //{path: 'organizations', component: OrganizationsComponent},
+      {path: 'users', component: UsersComponent},
+      {path: 'users/add', component: UsersComponent, data: {addUser: true}},
+      {path: 'teams', component: TeamsComponent},
+      {path: 'organizations', component: OrganizationsComponent},
       //{path: 'organizations/add', component: OrganizationsComponent, data: {addOrganization: true}},
       //{path: 'credentials', component: CredentialsComponent},
     ],
