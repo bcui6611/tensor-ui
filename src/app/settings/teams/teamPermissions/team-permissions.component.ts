@@ -1,6 +1,6 @@
-import { Component, OnInit } from "@angular/core";
-import { UserPermissionsData } from "./table-permissions";
-import { SweetAlertService } from "../../../services/sweetalert.service";
+import { Component, OnInit } from '@angular/core';
+import { UserPermissionsData } from './table-permissions';
+import { SweetAlertService } from 'ng2-sweetalert2';
 
 @Component({
     selector: 'team-permissions',
