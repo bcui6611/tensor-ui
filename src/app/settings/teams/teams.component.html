@@ -1,7 +1,7 @@
 <div class="col-md-12">
     <div class="row">
         <div class="col-md-12">
-            <team-edit></team-edit>
+            <team-edit *ngIf="isAdd"></team-edit>
         </div>
     </div>
     <div class="row">
@@ -12,7 +12,7 @@
                         <p class="text-uppercase">Teams <span class="ag tag-pill tag-default"> 14</span></p>
                     </div>
                     <div class="col-md-1 pull-md-right">
-                        <button type="button" class="btn btn-success font-weight-bold pull-md-right"><i
+                        <button type="button" class="btn btn-success font-weight-bold pull-md-right" routerLink="/settings/teams/add" routerLinkActive="active" aria-pressed="true"><i
                                 class="fa fa-plus"></i>Add
                         </button>
                     </div>
