@@ -5,13 +5,14 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { DashboardHomeComponent } from './dashboard/components/dashboardHome/dashboard-home.component';
 import { SettingsComponent } from './settings/settings.component';
 import { SettingsHomeComponent } from './settings/settingsHome/settings-home.component'
-
+import { TeamEditComponent } from './settings/teams/teamEdit/team-edit.component'
 import { InventoriesHomeComponent } from './inventories/inventoriesHome/inventories-home.component';
 import { InventoriesTableComponent } from './inventories/inventoriesTable/inventories-table.component';
 import { UsersComponent } from './settings/users/users.component';
 import { OrganizationsComponent } from './settings/organizations/organizations.component';
 import {AuthGuard} from "./guards";
 import { TeamsComponent } from './settings/teams/teams.component';
+import { CredentialsComponent } from './settings/credentials/credentials.component';
 
 export const rootRouterConfig: Routes = [
     {path: '', component: LoginComponent},
@@ -40,9 +41,11 @@ export const rootRouterConfig: Routes = [
       {path: 'users', component: UsersComponent},
       {path: 'users/add', component: UsersComponent, data: {addUser: true}},
       {path: 'teams', component: TeamsComponent},
+      {path: 'teams/add', component: TeamsComponent, data: {addTeam: true}},
       {path: 'organizations', component: OrganizationsComponent},
-      //{path: 'organizations/add', component: OrganizationsComponent, data: {addOrganization: true}},
-      //{path: 'credentials', component: CredentialsComponent},
+      {path: 'organizations/add', component: OrganizationsComponent, data: {addOrganization: true}},
+      {path: 'credentials', component: CredentialsComponent},
+      {path: 'credentials/add', component: CredentialsComponent, data: {addCredentials: true}}
     ],
     canActivate: [AuthGuard]
   },

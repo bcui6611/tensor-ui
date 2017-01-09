@@ -31,7 +31,10 @@ import { TeamsComponent } from './settings/teams/teams.component';
 import { TeamEditComponent } from './settings/teams/teamEdit/team-edit.component';
 import { TeamsTableComponent } from './settings/teams/teamsTable/teams-table.component';
 import { TeamUsersComponent } from './settings/teams/teamsUsers/team-users.component';
-import { TeamPermissionsComponent } from './settings/teams/teamPermissions/team-permissions.component'
+import { TeamPermissionsComponent } from './settings/teams/teamPermissions/team-permissions.component';
+import { CredentialsComponent } from './settings/credentials/credentials.component';
+import { CredentialsTableComponent } from "./settings/credentials/credentials-table/credentials-table.component";
+import { CredentialsAddComponent } from './settings/credentials/credentials-add/credentials-add.component'
 
 
 @NgModule({
@@ -65,7 +68,11 @@ import { TeamPermissionsComponent } from './settings/teams/teamPermissions/team-
         TeamEditComponent,
         TeamsTableComponent,
         TeamUsersComponent,
-        TeamPermissionsComponent
+        TeamPermissionsComponent,
+        CredentialsComponent,
+        CredentialsTableComponent,
+        CredentialsAddComponent
+
     ],
     providers: [appRoutingProviders, {provide: API_BASE, useValue: 'http://10.76.196.18:8010'}],
     bootstrap: [AppComponent]
