@@ -134,7 +134,7 @@ export class TeamsTableComponent implements OnInit {
   }
 
   public userEditClick(): void {
-    alert('sfsdfs');
+    alert('Teams-table edit');
   }
 
   ngOnInit(): void {

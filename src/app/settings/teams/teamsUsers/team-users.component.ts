@@ -117,7 +117,7 @@ export class TeamUsersComponent implements OnInit {
   }
 
   public userEditClick(): void {
-    alert('sfsdfs');
+    alert('team user edit');
   }
 
   ngOnInit(): void {

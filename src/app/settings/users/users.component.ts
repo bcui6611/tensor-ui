@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
-import { UserAddComponent } from './usersAdd/user-add.component'
+import { UserAddComponent } from './usersAdd/user-add.component';
+import { CommonModule } from '@angular/common'
 
 @Component({
     selector: 'users-cmp',
