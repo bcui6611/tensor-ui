@@ -1,0 +1,81 @@
+<div class="card card-block">
+  <div class="row">
+    <div class="col-md-2 pull-md-left">
+      <p class="text-uppercase font-weight-bold">New Pojects</p>
+    </div>
+    <div class="col-md-1 pull-md-right">
+      <a type="btn" class="close" routerLink="/projects" aria-label="Close">
+        <i class="fa fa-times-circle"></i>
+      </a>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <ngb-tabset type="pills">
+        <ngb-tab title="Details">
+
+          <template ngbTabContent>
+            <div class="row">
+              <div class="col-md-12">
+                <br>
+                <form #userAddForm="ngForm">
+                  <div class="row">
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <label for="Name">Name</label>
+                        <input type="text" class="form-control" id="Name" aria-describedby="Name" placeholder="Name">
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <label for="description">Description</label>
+                        <input type="text" class="form-control" id="description" aria-describedby="Description" placeholder="Description">
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <label for="organization">Organization</label>
+                        <div class="input-group">
+                          <span class="input-group-addon"><i class="fa fa-search"></i></span>
+                          <input type="text" class="form-control" [(ngModel)]="model" [ngbTypeahead]="search" name="organization">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <label for="organization">SCM Type</label>
+                        <div class="input-group">
+                          <select class="form-control" id="selectSCM" name="selectSCM" [(ngModel)]="selectedSCMId" (ngModelChange)="onChange($event)" #selectSCM="ngModel">
+                            <option *ngFor="let scmType of scmTypes" [value]="scmType.id">{{ scmType.type }}</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <manual-cmp *ngIf="selectedSCMId==2"></manual-cmp>
+                  <git-cmp *ngIf="selectedSCMId==3"></git-cmp>
+                  <marcurial-cmp *ngIf="selectedSCMId==4"></marcurial-cmp>
+                  <subversion-cmp *ngIf="selectedSCMId==5"></subversion-cmp>
+                  <div class="row">
+                    <div class="col-md-12 text-md-right">
+                      <a class="btn btn-warning" routerLink="/projects" aria-label="Close">
+                        Cancel
+                      </a>
+                      <button type="submit" class="btn btn-success">Save</button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </template>
+        </ngb-tab>
+        <ngb-tab title="Permissions" [disabled]="true">
+        </ngb-tab>
+        <ngb-tab title="Notifications" [disabled]="true">
+        </ngb-tab>
+      </ngb-tabset>
+    </div>
+  </div>
+</div>
