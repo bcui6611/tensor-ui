@@ -10,9 +10,12 @@ import { InventoriesHomeComponent } from './inventories/inventoriesHome/inventor
 import { InventoriesTableComponent } from './inventories/inventoriesTable/inventories-table.component';
 import { UsersComponent } from './settings/users/users.component';
 import { OrganizationsComponent } from './settings/organizations/organizations.component';
-import {AuthGuard} from "./guards";
+import { AuthGuard } from "./guards";
 import { TeamsComponent } from './settings/teams/teams.component';
 import { CredentialsComponent } from './settings/credentials/credentials.component';
+import { ProjectsAddComponent } from './projects/projects-add/projects-add.component';
+import { ProjectsComponent } from './projects/projects.component';
+import { ProjectsHomeComponent } from './projects/projects-home/projects-home.component';
 
 export const rootRouterConfig: Routes = [
     {path: '', component: LoginComponent},
@@ -49,6 +52,14 @@ export const rootRouterConfig: Routes = [
     ],
     canActivate: [AuthGuard]
   },
+  {
+      path: 'projects',
+      component: ProjectsComponent,
+      children: [
+          {path: '', component: ProjectsHomeComponent},
+          {path: 'add', component: ProjectsAddComponent, data: {addProject: true}}
+      ]
+  }
 ];
 
 export const appRoutingProviders: any[] = [
