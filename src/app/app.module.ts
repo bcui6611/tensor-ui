@@ -34,8 +34,14 @@ import { TeamUsersComponent } from './settings/teams/teamsUsers/team-users.compo
 import { TeamPermissionsComponent } from './settings/teams/teamPermissions/team-permissions.component';
 import { CredentialsComponent } from './settings/credentials/credentials.component';
 import { CredentialsTableComponent } from "./settings/credentials/credentials-table/credentials-table.component";
-import { CredentialsAddComponent } from './settings/credentials/credentials-add/credentials-add.component'
-
+import { CredentialsAddComponent } from './settings/credentials/credentials-add/credentials-add.component';
+import { ProjectsAddComponent } from './projects/projects-add/projects-add.component';
+import { ProjectsComponent } from './projects/projects.component';
+import { ProjectsHomeComponent } from './projects/projects-home/projects-home.component';
+import { GitComponent } from './projects/scm-types/git/git.component';
+import { ManualComponent } from './projects/scm-types/manual/manual.component';
+import { MarcurialComponent } from './projects/scm-types/marcurial/marcurial.component';
+import { SubversionComponent } from './projects/scm-types/subversion/subversion.component';
 
 @NgModule({
     imports: [
@@ -71,7 +77,15 @@ import { CredentialsAddComponent } from './settings/credentials/credentials-add/
         TeamPermissionsComponent,
         CredentialsComponent,
         CredentialsTableComponent,
-        CredentialsAddComponent
+        CredentialsAddComponent,
+        ProjectsComponent,
+        ProjectsAddComponent,
+        ProjectsHomeComponent,
+        GitComponent,
+        ManualComponent,
+        MarcurialComponent,
+        SubversionComponent
+
 
     ],
     providers: [appRoutingProviders, {provide: API_BASE, useValue: 'http://10.76.196.18:8010'}],
