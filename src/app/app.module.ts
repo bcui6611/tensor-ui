@@ -38,10 +38,15 @@ import { CredentialsAddComponent } from './settings/credentials/credentials-add/
 import { ProjectsAddComponent } from './projects/projects-add/projects-add.component';
 import { ProjectsComponent } from './projects/projects.component';
 import { ProjectsHomeComponent } from './projects/projects-home/projects-home.component';
+import { ProjectsTableComponent } from './projects/projects-table/projects-table.component'
 import { GitComponent } from './projects/scm-types/git/git.component';
 import { ManualComponent } from './projects/scm-types/manual/manual.component';
 import { MarcurialComponent } from './projects/scm-types/marcurial/marcurial.component';
 import { SubversionComponent } from './projects/scm-types/subversion/subversion.component';
+
+import { JobTemplatesComponent } from './job-templates/job-templates.component';
+import { JobTemplatesAddComponent } from './job-templates/job-templates-add/job-templates-add.component';
+import { JobTemplateHomeComponent } from './job-templates/job-templates-home/job-template-home.component';
 
 @NgModule({
     imports: [
@@ -81,11 +86,15 @@ import { SubversionComponent } from './projects/scm-types/subversion/subversion.
         ProjectsComponent,
         ProjectsAddComponent,
         ProjectsHomeComponent,
+        ProjectsTableComponent,
         GitComponent,
         ManualComponent,
         MarcurialComponent,
-        SubversionComponent
+        SubversionComponent,
 
+        JobTemplatesComponent,
+        JobTemplatesAddComponent,
+        JobTemplateHomeComponent
 
     ],
     providers: [appRoutingProviders, {provide: API_BASE, useValue: 'http://10.76.196.18:8010'}],

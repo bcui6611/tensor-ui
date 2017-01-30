@@ -17,6 +17,10 @@ import { ProjectsAddComponent } from './projects/projects-add/projects-add.compo
 import { ProjectsComponent } from './projects/projects.component';
 import { ProjectsHomeComponent } from './projects/projects-home/projects-home.component';
 
+import { JobTemplatesComponent } from './job-templates/job-templates.component';
+import { JobTemplatesAddComponent } from './job-templates/job-templates-add/job-templates-add.component';
+import { JobTemplateHomeComponent } from './job-templates/job-templates-home/job-template-home.component';
+
 export const rootRouterConfig: Routes = [
     {path: '', component: LoginComponent},
     {
@@ -57,9 +61,17 @@ export const rootRouterConfig: Routes = [
       component: ProjectsComponent,
       children: [
           {path: '', component: ProjectsHomeComponent},
-          {path: 'add', component: ProjectsAddComponent, data: {addProject: true}}
+          {path: 'add', component: ProjectsHomeComponent, data: {addProject: true}}
       ]
-  }
+  },
+  {
+      path: 'job_templates',
+      component: JobTemplatesComponent,
+      children: [
+          {path: '', component: JobTemplateHomeComponent},
+          {path: 'add', component: JobTemplateHomeComponent, data: {addTemplate: true}}
+      ]
+  },
 ];
 
 export const appRoutingProviders: any[] = [
