@@ -22,6 +22,6 @@ export class CredentialsComponent implements OnInit {
 
         this.path = this._route.data.subscribe(data => {
             this.isAdd = data['addCredentials'];
-        })
+        });
     }
 }
