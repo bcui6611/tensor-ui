@@ -1,17 +1,17 @@
-<div class="col-md-12">
+<div class="col">
   <div class="row">
-    <div class="col-md-12">
+    <div class="col mb-2">
       <organizations-add *ngIf="isAdd"></organizations-add>
     </div>
   </div>
   <div class="row">
-    <div class="col-md-12">
+    <div class="col">
       <div class="card card-block">
         <div class="row">
-          <div class="col-md-1 pull-md-left">
-            <p class="text-uppercase">Users <span class="ag tag-pill tag-default"> 14</span></p>
+          <div class="col-11 text-left">
+            <p class="text-uppercase">Users <span class="badge badge-pill badge-default"> 14</span></p>
           </div>
-          <div class="col-md-1 pull-md-right">
+          <div class="col-1 text-right">
 
             <a class="btn btn-success text-uppercase font-weight-bold pull-md-right" routerLink="/settings/organizations/add" routerLinkActive="active" aria-pressed="true">
               <i class="fa fa-plus"></i> Add
@@ -20,7 +20,7 @@
         </div>
         <br>
         <div class="row">
-          <div class="col-md-12">
+          <div class="col">
             <div class="input-group input-group-search">
               <div class="input-group-addon">
                 <select class="custom-select search-selector">
@@ -38,13 +38,13 @@
         <br>
         <div *ngFor="let row of rows | chunk:4" class="row">
 
-          <div *ngFor="let item of row" class="card col-md-3 org-card">
+          <div *ngFor="let item of row" class="card col-3 org-card mb-2">
             <div class="row">
-              <div class="col-md-8">
-                <h6 class="card-title font-weight-bold text-md-left">{{getData(item, 'name')}}</h6>
+              <div class="col-8">
+                <h6 class="card-title font-weight-bold text-left">{{getData(item, 'name')}}</h6>
               </div>
-              <div class="col-md-4">
-                <div class="action-button-group text-md-right" role="group" aria-label="actions">
+              <div class="col-4">
+                <div class="action-button-group text-right" role="group" aria-label="actions">
                   <a class="btn btn-outline-primary" href="javascript:;" (click)="userEditClick()"><i
                     class="fa fa-pencil"></i></a> &nbsp;
                   <a class="btn btn-outline-danger" href="javascript:;" (click)="userDeleteClick()"><i
@@ -54,29 +54,29 @@
             </div>
             <p class="description">{{getData(item, 'description')}}</p>
             <div class="row">
-              <div class="col-md-6">
+              <div class="col-6">
                 <ul class="list-group list-group-flush">
                   <li class="list-group-item">
-                    <span class="tag tag-pill tag-default">2</span>
+                    <span class="badge badge-pill badge-default"> 2</span>
                     <a href="javascript:;" class="card-link">Users</a></li>
                   <li class="list-group-item">
-                    <span class="tag tag-pill tag-default">3</span>
+                    <span class="badge badge-pill badge-default"> 3</span>
                     <a href="javascript:;" class="card-link">Inventories</a>
                   </li>
-                  <li class="list-group-item"><span class="tag tag-pill tag-default">2</span>
+                  <li class="list-group-item"><span class="badge badge-pill badge-default"> 2</span>
                     <a href="javascript:;" class="card-link">Job Templates</a></li>
                 </ul>
               </div>
-              <div class="col-md-6">
+              <div class="col-6">
                 <ul class="list-group list-group-flush">
                   <li class="list-group-item">
-                    <span class="tag tag-pill tag-default">1</span>
+                    <span class="badge badge-pill badge-default"> 1</span>
                     <a href="javascript:;" class="card-link">Teams</a></li>
                   <li class="list-group-item">
-                    <span class="tag tag-pill tag-default">5</span>
+                    <span class="badge badge-pill badge-default"> 5</span>
                     <a href="javascript:;" class="card-link">Projects</a></li>
                   <li class="list-group-item">
-                    <span class="tag tag-pill tag-default">3</span>
+                    <span class="badge badge-pill badge-default"> 3</span>
                     <a href="javascript:;" class="card-link">Admins</a></li>
                 </ul>
               </div>

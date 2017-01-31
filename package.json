@@ -1,6 +1,6 @@
 {
   "name": "tensor-ui",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "User Intefaces for Tensor",
   "scripts": {
     "build": "webpack --inline --colors --progress --display-error-details --display-cached",
@@ -15,7 +15,7 @@
   "license": "Apache-2.0",
   "devDependencies": {
     "lite-server": "^2.2.2",
-    "typescript": "^2.0.3",
+    "typescript": "2.0.10",
     "@types/core-js": "^0.9.34",
     "@types/node": "^6.0.46",
     "angular2-template-loader": "0.5.0",
@@ -40,7 +40,7 @@
     "@angular/platform-server": "2.0.2",
     "@angular/router": "~3.1.2",
     "@angular/upgrade": "~2.1.2",
-    "@ng-bootstrap/ng-bootstrap": "1.0.0-alpha.6",
+    "@ng-bootstrap/ng-bootstrap": "1.0.0-alpha.19",
     "angular-in-memory-web-api": "~0.1.13",
     "angular2-in-memory-web-api": "0.0.21",
     "angular2-notifications": "^0.4.4",

@@ -1,38 +1,38 @@
 <div class="card card-block">
   <div class="row">
-    <div class="col-md-2 pull-md-left">
+    <div class="col-11 text-left">
       <p class="text-uppercase font-weight-bold">New Pojects</p>
     </div>
-    <div class="col-md-1 pull-md-right">
+    <div class="col-1 text-right">
       <a type="btn" class="close" routerLink="/projects" aria-label="Close">
         <i class="fa fa-times-circle"></i>
       </a>
     </div>
   </div>
   <div class="row">
-    <div class="col-md-12">
+    <div class="col-12">
       <ngb-tabset type="pills">
         <ngb-tab title="Details">
 
           <template ngbTabContent>
             <div class="row">
-              <div class="col-md-12">
+              <div class="col-12">
                 <br>
                 <form #userAddForm="ngForm">
                   <div class="row">
-                    <div class="col-md-4">
+                    <div class="col-4">
                       <div class="form-group">
                         <label for="Name">Name</label>
                         <input type="text" class="form-control" id="Name" aria-describedby="Name" placeholder="Name">
                       </div>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-4">
                       <div class="form-group">
                         <label for="description">Description</label>
                         <input type="text" class="form-control" id="description" aria-describedby="Description" placeholder="Description">
                       </div>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-4">
                       <div class="form-group">
                         <label for="organization">Organization</label>
                         <div class="input-group">
@@ -43,7 +43,7 @@
                     </div>
                   </div>
                   <div class="row">
-                    <div class="col-md-4">
+                    <div class="col-4">
                       <div class="form-group">
                         <label for="organization">SCM Type</label>
                         <div class="input-group">
@@ -59,7 +59,7 @@
                   <marcurial-cmp *ngIf="selectedSCMId==4"></marcurial-cmp>
                   <subversion-cmp *ngIf="selectedSCMId==5"></subversion-cmp>
                   <div class="row">
-                    <div class="col-md-12 text-md-right">
+                    <div class="col-12 text-right">
                       <a class="btn btn-warning" routerLink="/projects" aria-label="Close">
                         Cancel
                       </a>

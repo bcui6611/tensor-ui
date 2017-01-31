@@ -9,11 +9,11 @@ export class CredentialsTableComponent implements OnInit {
 
     public rows: Array<any> = [];
     public columns: Array<any> = [
-        { title: 'Name', name: 'username', sort: 'asc', type: 'link' },
-        { title: 'Description', name: 'firstname', sort: '', type: 'text' },
-        { title: 'Type', name: 'lastname', sort: '', type: 'text' },
-        { title: 'Owners', name: 'lastname', sort: '', type: 'link' },
-        { title: 'Actions', name: 'actions', sort: false, type: 'actions' }
+        { title: 'Name', name: 'username', sort: 'asc', link: true },
+        { title: 'Description', name: 'firstname', sort: '', text: true },
+        { title: 'Type', name: 'lastname', sort: '', text: true },
+        { title: 'Owners', name: 'lastname', sort: '', link: true },
+        { title: 'Actions', name: 'actions', sort: false, actions: true }
     ];
     public page: number = 1;
     public itemsPerPage: number = 10;
