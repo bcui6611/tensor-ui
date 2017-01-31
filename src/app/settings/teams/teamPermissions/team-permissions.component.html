@@ -1,12 +1,12 @@
-<div class="col-md-12">
+<div class="col">
     <div class="row">
-        <div class="col-md-12">
+        <div class="col">
             <table class="table custom-table" role="grid">
                 <thead>
                 <tr role="row">
                     <th *ngFor="let column of columns" [ngTableSorting]="config" [column]="column"
                         (sortChanged)="onChangeTable($event)"
-                        [ngClass]="{'col-md-3 text-nowrap': column.type !== 'actions', 'col-md-3 actions': column.type === 'actions'}">
+                        [ngClass]="{'col text-nowrap': !column.actions, 'col-3 actions text-right': column.actions}">
                         {{column.title}}
                         <i *ngIf="config" class="sort fa"
                            [ngClass]="{'fa-sort-desc': column.sort === 'desc', 'fa-sort-asc': column.sort === 'asc',
@@ -18,12 +18,12 @@
                 <tbody>
                 <tr *ngFor="let row of rows">
                     <td *ngFor="let column of columns"
-                        [ngClass]="{'col-md-3 text-nowrap': column.type !== 'actions', 'col-md-1 text-nowrap pull-md-right': column.type === 'actions'}">
+                        [ngClass]="{'col text-nowrap': !column.actions, 'col-1 text-nowrap text-right':column.actions}">
 
-                        <span *ngIf="column.type === 'text'">{{getData(row, column.name)}}</span>
+                        <span *ngIf="column.text">{{getData(row, column.name)}}</span>
                         <a class="card-link" href="javascript:;" (click)="usernameClick()"
-                           *ngIf="column.type === 'link'">{{getData(row, column.name)}}</a>
-                        <div *ngIf="column.type === 'actions'" class="action-button-group" role="group" aria-label="actions">
+                           *ngIf="column.link">{{getData(row, column.name)}}</a>
+                        <div *ngIf="column.actions" class="action-button-group" role="group" aria-label="actions">
                             <a class="btn btn-outline-info" href="javascript:;" (click)="permissionDelete()"><i
                                     class="fa fa-times"></i></a>
                         </div>

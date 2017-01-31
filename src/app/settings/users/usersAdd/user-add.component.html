@@ -1,40 +1,40 @@
 <div class="card card-block">
   <div class="row">
-    <div class="col-md-1 pull-md-left">
+    <div class="col-11 text-left">
       <p class="text-uppercase font-weight-bold">New User</p>
     </div>
-    <div class="col-md-1 pull-md-right">
+    <div class="col-1 text-right">
       <a type="btn" class="close" routerLink="/settings/users" aria-label="Close">
         <i class="fa fa-times-circle"></i>
       </a>
     </div>
   </div>
   <div class="row">
-    <div class="col-md-12">
+    <div class="col">
       <ngb-tabset type="pills">
         <ngb-tab title="Details">
 
           <template ngbTabContent>
             <div class="row">
-              <div class="col-md-12">
+              <div class="col">
                 <br>
                 <form #userAddForm="ngForm">
                   <div class="row">
-                    <div class="col-md-4">
+                    <div class="col-4">
                       <div class="form-group">
                         <label for="first_name">First Name</label>
                         <input type="text" class="form-control" id="first_name"
                                aria-describedby="First Name" placeholder="First Name">
                       </div>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-4">
                       <div class="form-group">
                         <label for="last_name">Last Name</label>
                         <input type="text" class="form-control" id="last_name"
                                aria-describedby="Last Name" placeholder="Last Name">
                       </div>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-4">
                       <div class="form-group">
                         <label for="email">Email</label>
                         <input type="email" class="form-control" id="email"
@@ -43,14 +43,14 @@
                     </div>
                   </div>
                   <div class="row">
-                    <div class="col-md-4">
+                    <div class="col-4">
                       <div class="form-group">
                         <label for="username">Username</label>
                         <input type="text" class="form-control" id="username"
                                aria-describedby="Username" placeholder="Username">
                       </div>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-4">
                       <div class="form-group">
                         <label for="organization">Organization</label>
                         <div class="input-group">
@@ -59,7 +59,7 @@
                         </div>
                       </div>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-4">
                       <div class="form-group">
                         <label for="password">Password</label>
                         <input type="password" class="form-control" id="password"
@@ -68,14 +68,14 @@
                     </div>
                   </div>
                   <div class="row">
-                    <div class="col-md-4">
+                    <div class="col-4">
                       <div class="form-group">
                         <label for="confirm_password">Confirm Password</label>
                         <input type="password" class="form-control" id="confirm_password"
                                aria-describedby="Confirm Password" placeholder="Confirm Password">
                       </div>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-4">
                       <div class="form-group">
                         <label for="username">User Type</label>
                         <div class="input-group">
@@ -87,7 +87,7 @@
                   </div>
 
                   <div class="row">
-                    <div class="col-md-12 text-md-right">
+                    <div class="col text-right">
                       <a class="btn btn-warning" routerLink="/settings/users" aria-label="Close">
                         Cancel
                       </a>

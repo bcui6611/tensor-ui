@@ -11,10 +11,10 @@ export class TeamPermissionsComponent implements OnInit {
 
     public rows: Array<any> = [];
     public columns: Array<any> = [
-        { title: 'Name', name: 'name', sort: 'asc', type: 'link' },
-        { title: 'Type', name: 'type', sort: '', type: 'text' },
-        { title: 'Role', name: 'role', sort: '', type: 'text' },
-        { title: 'Actions', name: 'actions', sort: false, type: 'actions' },
+        { title: 'Name', name: 'name', sort: 'asc', link: true },
+        { title: 'Type', name: 'type', sort: '', text: true },
+        { title: 'Role', name: 'role', sort: '', text: true },
+        { title: 'Actions', name: 'actions', sort: false, actions: true },
     ];
     public page: number = 1;
     public itemsPerPage: number = 10;

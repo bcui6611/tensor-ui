@@ -59,7 +59,7 @@ import { JobTemplateHomeComponent } from './job-templates/job-templates-home/job
         TopNavModule,
         HttpModule,
         DashboardHomeModule,
-        NgbModule,
+        NgbModule.forRoot(),
         SettingsHomeModule,
         RouterModule.forRoot(rootRouterConfig)
     ],
@@ -91,7 +91,6 @@ import { JobTemplateHomeComponent } from './job-templates/job-templates-home/job
         ManualComponent,
         MarcurialComponent,
         SubversionComponent,
-
         JobTemplatesComponent,
         JobTemplatesAddComponent,
         JobTemplateHomeComponent

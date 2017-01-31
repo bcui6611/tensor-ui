@@ -1,12 +1,12 @@
-<div class="col-md-12">
+<div class="col">
     <div class="row">
-        <div class="col-md-12">
+        <div class="col">
             <div class="card card-block">
                 <div class="row">
-                    <div class="col-md-8 pull-md-left">
-                        <p class="text-uppercase">Inventories <span class="ag tag-pill tag-default"> 14</span></p>
+                    <div class="col-md-11 text-left">
+                        <p class="text-uppercase">Inventories <span class="badge badge-pill badge-default"> 14</span></p>
                     </div>
-                    <div class="col-md-1 pull-md-right">
+                    <div class="col-md-1 text-right">
                         <button type="button" class="btn btn-success font-weight-bold pull-md-right"><i
                             class="fa fa-plus"></i>Add
                         </button>
@@ -15,7 +15,7 @@
                 <br>
                 <!-- Search row -->
                 <div class="row">
-                    <div class="col-md-12">
+                    <div class="col">
                         <div class="input-group input-group-search">
                             <div class="input-group-addon">
                                 <select class="custom-select search-selector">
@@ -34,13 +34,13 @@
 
                 <!-- Table -->
                 <div class="row">
-                    <div class="col-md-12">
+                    <div class="col">
                         <table class="table custom-table" role="grid">
                             <thead>
                             <tr role="row">
                                 <th *ngFor="let tableh of columns" [ngTableSorting]="config" [column]="tableh"
                                     (sortChanged)="onChangeTable($event)"
-                                    ngClass="{'col-md-1 pull-md-right': tableh.actions, 'col-md-4': !tableh.actions}">
+                                    [ngClass]="{'col-1 text-right': tableh.actions, 'col': !tableh.actions}">
                                     {{tableh.title}}
                                     <i *ngIf="config" class="sort fa"
                                        [ngClass]="{'fa-sort-desc': tableh.sort === 'desc', 'fa-sort-asc': tableh.sort === 'asc',
@@ -52,7 +52,7 @@
                             <tbody>
                             <tr *ngFor="let row of rows">
                                 <td *ngFor="let column of columns"
-                                    [ngClass]="{'col-md-1 pull-md-right': column.actions, 'col-md-5': !column.actions}">
+                                    [ngClass]="{'col-1 text-right': column.actions, 'col': !column.actions}">
 
                                     <span *ngIf="column.text">{{getData(row, column.name)}}</span>
                                     <a class="card-link" routerLink="/inventories/inventory/1" *ngIf="column.link">{{getData(row,

@@ -1,7 +1,7 @@
-<div class="col-md-12">
+<div class="col">
   <br>
   <div class="row">
-    <div class="col-md-8">
+    <div class="col-5">
       <div class="input-group">
         <span class="input-group-addon">User</span>
         <input placeholder="Search"
@@ -10,21 +10,21 @@
         <div class="input-group-addon"><i class="fa fa-search"></i></div>
       </div>
     </div>
-    <div class="col-md-1 pull-md-right">
-      <button type="button" class="btn btn-success font-weight-bold pull-md-right"><i
+    <div class="col">
+      <button type="button" class="btn btn-success font-weight-bold"><i
         class="fa fa-plus"></i>Add
       </button>
     </div>
   </div>
   <br>
   <div class="row">
-    <div class="col-md-12">
+    <div class="col">
       <table class="table custom-table" role="grid">
         <thead>
         <tr role="row">
           <th *ngFor="let column of columns" [ngTableSorting]="config" [column]="column"
               (sortChanged)="onChangeTable($event)"
-              [ngClass]="{'col-md-3 text-nowrap': column.type !== 'actions', 'col-md-1 text-nowrap pull-md-right': column.type === 'actions'}">
+              [ngClass]="{'col-3 text-nowrap': column.type !== 'actions', 'col-1 text-nowrap pull-right': column.type === 'actions'}">
             {{column.title}}
             <i *ngIf="config" class="sort fa"
                [ngClass]="{'fa-sort-desc': column.sort === 'desc', 'fa-sort-asc': column.sort === 'asc',
@@ -36,7 +36,7 @@
         <tbody>
         <tr *ngFor="let row of rows">
           <td *ngFor="let column of columns"
-              [ngClass]="{'col-md-3 text-nowrap': column.type !== 'actions', 'col-md-1 text-nowrap pull-md-right': column.type === 'actions'}">
+              [ngClass]="{'col-3 text-nowrap': column.type !== 'actions', 'col-1 text-nowrap pull-right': column.type === 'actions'}">
 
             <span *ngIf="column.type === 'text'">{{getData(row, column.name)}}</span>
             <a class="card-link" href="javascript:;" (click)="usernameClick()"

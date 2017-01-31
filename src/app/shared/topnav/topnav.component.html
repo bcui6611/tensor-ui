@@ -1,9 +1,9 @@
-<button class="navbar-toggler hidden-sm-up" type="button" data-toggle="collapse" data-target="#exCollapsingNavbar2"
-        aria-controls="exCollapsingNavbar2" aria-expanded="false" aria-label="Toggle navigation">
-  &#9776;
+<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#exCollapsingNavbar2" aria-controls="exCollapsingNavbar2"
+  aria-expanded="false" aria-label="Toggle navigation">
+  <span class="navbar-toggler-icon"></span>
 </button>
-<div class="collapse navbar-toggleable-xs">
-  <ul class="nav navbar-nav">
+<div class="collapse navbar-collapse" id="exCollapsingNavbar2">
+  <ul class="nav navbar-nav mr-auto mt-2 mt-md-0">
     <li class="nav-item">
       <a class="nav-link" [routerLink]="['/dashboard']" routerLinkActive="active">Tensor <span class="sr-only">(current)</span></a>
     </li>
@@ -20,8 +20,7 @@
       <a class="nav-link" [routerLink]="['/jobs']" routerLinkActive="active">Jobs</a>
     </li>
   </ul>
-
-  <ul class="nav navbar-nav top-nav navbar-right pull-xs-right top-right-nav">
+  <ul class="nav navbar-nav  mr-sm-2 my-2 my-lg-0">
     <li class="nav-item">
       <a href="javascript:;" class="nav-link">
         <i class="fa fa-user fa-1x"></i> Gamunu Balagalla
