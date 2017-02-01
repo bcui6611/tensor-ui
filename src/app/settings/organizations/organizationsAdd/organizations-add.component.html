@@ -1,33 +1,31 @@
 <div class="card card-block">
   <div class="row">
-    <div class="col-md-11">
+    <div class="col-11">
       <p class="text-uppercase font-weight-bold">New Organization</p>
     </div>
-    <div class="col-md-1 pull-md-right">
+    <div class="col-1 pull-md-right">
       <a type="btn" class="close" routerLink="/settings/organizations" aria-label="Close">
         <i class="fa fa-times-circle"></i>
       </a>
     </div>
   </div>
   <div class="row">
-    <div class="col-md-12">
+    <div class="col-12">
       <ngb-tabset type="pills">
         <ngb-tab title="Details">
-
           <template ngbTabContent>
-            <div class="row">
-              <div class="col-md-12">
-                <br>
+            <div class="row mt-2">
+              <div class="col-12">
                 <form #userAddForm="ngForm">
                   <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-6">
                       <div class="form-group">
                         <label for="name">Name</label>
                         <input type="text" class="form-control" id="name"
                                aria-describedby="Name" placeholder="Name">
                       </div>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-6">
                       <div class="form-group">
                         <label for="description">Description</label>
                         <input type="text" class="form-control" id="description"
@@ -37,7 +35,7 @@
                   </div>
 
                   <div class="row">
-                    <div class="col-md-12 text-md-right">
+                    <div class="col text-md-right">
                       <a class="btn btn-warning" routerLink="/settings/organizations" aria-label="Close">
                         Cancel
                       </a>

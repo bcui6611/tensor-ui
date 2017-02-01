@@ -111,7 +111,6 @@ export class OrganizationsComponent implements OnInit {
   }
 
   public userDeleteClick(): void {
-    alert('sfsdfs');
   }
 
   public userEditClick(): void {

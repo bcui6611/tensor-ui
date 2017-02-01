@@ -126,7 +126,7 @@ export class ProjectsTableComponent implements OnInit {
     }
 
     public userDeleteClick(row): void {
-        alert('User Delete Click -> ' + row.username);
+
     }
 
     public userEditClick(row): void {

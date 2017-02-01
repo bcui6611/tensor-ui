@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ProjectsAddComponent } from '../projects-add/projects-add.component';
 
 @Component({
-    selector: 'project-cmp',
+    selector: 'project-home-cmp',
     templateUrl: './projects-home.component.html'
 })
 export class ProjectsHomeComponent implements OnInit{

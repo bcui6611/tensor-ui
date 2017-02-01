@@ -8,41 +8,44 @@
     "server": "webpack-dev-server --inline --colors --progress --display-error-details --display-cached --port 3000  --content-base src",
     "start": "npm run server"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/pearsonappeng/tensor-ui.git"
+  },
   "author": "Udaya Balagalla <udaya.balagalla@pearson.com>",
   "contributors": [
     "Shavindra Manathunga <shavindra.manathunga@pearson.com>"
   ],
   "license": "Apache-2.0",
   "devDependencies": {
-    "lite-server": "^2.2.2",
-    "typescript": "2.0.10",
     "@types/core-js": "^0.9.34",
     "@types/node": "^6.0.46",
     "angular2-template-loader": "0.5.0",
     "awesome-typescript-loader": "2.2.4",
     "css-loader": "^0.25.0",
+    "lite-server": "^2.2.2",
     "node-sass": "^3.8.0",
     "raw-loader": "^0.5.1",
     "sass-loader": "^4.0.0",
     "to-string-loader": "^1.1.4",
+    "typescript": "~2.0.10",
     "webpack": "^1.12.9",
     "webpack-dev-server": "^1.14.0",
     "webpack-merge": "0.14.1"
   },
   "dependencies": {
-    "@angular/common": "~2.1.2",
-    "@angular/compiler": "~2.1.2",
-    "@angular/core": "~2.1.2",
-    "@angular/forms": "~2.1.2",
-    "@angular/http": "~2.1.2",
-    "@angular/platform-browser": "~2.1.2",
-    "@angular/platform-browser-dynamic": "~2.1.2",
-    "@angular/platform-server": "2.0.2",
-    "@angular/router": "~3.1.2",
-    "@angular/upgrade": "~2.1.2",
+    "@angular/common": "~2.4.0",
+    "@angular/compiler": "~2.4.0",
+    "@angular/core": "~2.4.0",
+    "@angular/forms": "~2.4.0",
+    "@angular/http": "~2.4.0",
+    "@angular/platform-browser": "~2.4.0",
+    "@angular/platform-browser-dynamic": "~2.4.0",
+    "@angular/platform-server": "~2.4.5",
+    "@angular/router": "~3.4.0",
     "@ng-bootstrap/ng-bootstrap": "1.0.0-alpha.19",
-    "angular-in-memory-web-api": "~0.1.13",
-    "angular2-in-memory-web-api": "0.0.21",
+    "@toverux/ngsweetalert2": "^1.2.0",
+    "angular-in-memory-web-api": "~0.2.4",
     "angular2-notifications": "^0.4.4",
     "bootstrap": "^3.3.7",
     "copy-webpack-plugin": "^4.0.1",
@@ -51,10 +54,10 @@
     "jquery": "^3.1.1",
     "ng2-sweetalert2": "0.0.8",
     "reflect-metadata": "^0.1.8",
-    "rxjs": "5.0.0-beta.12",
+    "rxjs": "5.0.1",
     "style-loader": "^0.13.1",
-    "sweetalert2": "^6.2.1",
+    "sweetalert2": "^6.3.2",
     "typings": "1.4.0",
-    "zone.js": "^0.6.26"
+    "zone.js": "^0.7.4"
   }
 }

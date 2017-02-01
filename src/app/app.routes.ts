@@ -1,4 +1,4 @@
-import {Routes, RouterModule} from '@angular/router';
+import { Routes, RouterModule } from '@angular/router';
 
 import { LoginComponent } from './login/login.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
@@ -21,57 +21,71 @@ import { JobTemplatesComponent } from './job-templates/job-templates.component';
 import { JobTemplatesAddComponent } from './job-templates/job-templates-add/job-templates-add.component';
 import { JobTemplateHomeComponent } from './job-templates/job-templates-home/job-template-home.component';
 
+import { JobsComponent } from './jobs/jobs.component';
+import { JobsHomeComponent } from './jobs/jobs-home/jobs-home.component';
+import { JobSummaryComponent } from './jobs/job-summary/job-summary.component';
+
+import { InventoriesComponent } from './inventories/inventories.component';
+
 export const rootRouterConfig: Routes = [
-    {path: '', component: LoginComponent},
+    { path: '', component: LoginComponent },
     {
         path: 'dashboard',
         component: DashboardComponent,
         children: [
-            {path: '', component: DashboardHomeComponent},
+            { path: '', component: DashboardHomeComponent },
         ],
         canActivate: [AuthGuard]
     },
     {
         path: 'inventories',
-        component: InventoriesHomeComponent,
+        component: InventoriesComponent,
         children: [
-            {path: '', component: InventoriesTableComponent}
+            { path: '', component: InventoriesTableComponent }
             //{path: 'inventory/:id', component: InventoriesEditComponent}
         ],
         canActivate: [AuthGuard]
     },
     {
-    path: 'settings',
-    component: SettingsComponent,
-    children: [
-      {path: '', component: SettingsHomeComponent},
-      {path: 'users', component: UsersComponent},
-      {path: 'users/add', component: UsersComponent, data: {addUser: true}},
-      {path: 'teams', component: TeamsComponent},
-      {path: 'teams/add', component: TeamsComponent, data: {addTeam: true}},
-      {path: 'organizations', component: OrganizationsComponent},
-      {path: 'organizations/add', component: OrganizationsComponent, data: {addOrganization: true}},
-      {path: 'credentials', component: CredentialsComponent},
-      {path: 'credentials/add', component: CredentialsComponent, data: {addCredentials: true}}
-    ],
-    canActivate: [AuthGuard]
-  },
-  {
-      path: 'projects',
-      component: ProjectsComponent,
-      children: [
-          {path: '', component: ProjectsHomeComponent},
-          {path: 'add', component: ProjectsHomeComponent, data: {addProject: true}}
-      ]
-  },
-  {
-      path: 'job_templates',
-      component: JobTemplatesComponent,
-      children: [
-          {path: '', component: JobTemplateHomeComponent},
-          {path: 'add', component: JobTemplateHomeComponent, data: {addTemplate: true}}
-      ]
-  },
+        path: 'settings',
+        component: SettingsComponent,
+        children: [
+            { path: '', component: SettingsHomeComponent },
+            { path: 'users', component: UsersComponent },
+            { path: 'users/add', component: UsersComponent, data: { addUser: true } },
+            { path: 'teams', component: TeamsComponent },
+            { path: 'teams/add', component: TeamsComponent, data: { addTeam: true } },
+            { path: 'organizations', component: OrganizationsComponent },
+            { path: 'organizations/add', component: OrganizationsComponent, data: { addOrganization: true } },
+            { path: 'credentials', component: CredentialsComponent },
+            { path: 'credentials/add', component: CredentialsComponent, data: { addCredentials: true } }
+        ],
+        canActivate: [AuthGuard]
+    },
+    {
+        path: 'projects',
+        component: ProjectsComponent,
+        children: [
+            { path: '', component: ProjectsHomeComponent },
+            { path: 'add', component: ProjectsHomeComponent, data: { addProject: true } }
+        ]
+    },
+    {
+        path: 'job_templates',
+        component: JobTemplatesComponent,
+        children: [
+            { path: '', component: JobTemplateHomeComponent },
+            { path: 'add', component: JobTemplateHomeComponent, data: { addTemplate: true } }
+        ]
+    },
+    {
+        path: 'jobs',
+        component: JobsComponent,
+        children: [
+            { path: '', component: JobsHomeComponent },
+            { path: 'summary', component: JobSummaryComponent },
+        ]
+    },
 ];
 
 export const appRoutingProviders: any[] = [

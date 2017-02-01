@@ -1,15 +1,17 @@
 import { Component, OnInit } from '@angular/core';
-import { TableData } from '../table-data';
+import { TableData } from './table-data';
 
 @Component({
-    selector: 'users-table',
-    templateUrl: './users-table.component.html'
+    selector: 'jobs-table',
+    templateUrl: './jobs-table.component.html'
 })
-export class InventoriesTableComponent implements OnInit{
+export class JobsTableComponent implements OnInit {
     public rows: Array<any> = [];
     public columns: Array<any> = [
-        { title: 'Name', name: 'username', sort: 'asc', link: true },
-        { title: 'Organization', name: 'firstname', sort: '', link: true },
+        { title: 'ID', name: 'id', sort: 'asc', text: true },
+        { title: 'Name', name: 'name', sort: '', link: true },
+        { title: 'Type', name: 'type', sort: '', text: true },
+        { title: 'Finished', name: 'finished', sort: '', text: true },
         { title: 'Actions', name: 'actions', sort: false, actions: true }
     ];
     public page: number = 1;
@@ -22,7 +24,7 @@ export class InventoriesTableComponent implements OnInit{
     public config: any = {
         paging: true,
         sorting: { columns: this.columns },
-        filtering: { filterString: '', columnName: 'username' },
+        filtering: { filterString: '', columnName: 'name' },
         className: ['table-striped', 'table-bordered']
     };
 
@@ -126,13 +128,16 @@ export class InventoriesTableComponent implements OnInit{
     }
 
     public userDeleteClick(row): void {
+
     }
 
     public userEditClick(row): void {
+        //username attribute is can be return in following way
+        alert('User Edit Click at ->' + row.username);
     }
 
     ngOnInit(): void {
-        console.log('hello `InventoriesTable` component');
+        console.log('hello `ProjectsTable` component');
 
         this.onChangeTable(this.config);
     }

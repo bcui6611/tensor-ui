@@ -1,11 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { UserPermissionsData } from './table-permissions';
-import { SweetAlertService } from 'ng2-sweetalert2';
 
 @Component({
     selector: 'team-permissions',
-    templateUrl: './team-permissions.component.html',
-    providers: [SweetAlertService]
+    templateUrl: './team-permissions.component.html'
 })
 export class TeamPermissionsComponent implements OnInit {
 
@@ -22,7 +20,7 @@ export class TeamPermissionsComponent implements OnInit {
     public numPages: number = 1;
     public length: number = 0;
 
-    public constructor(private swal: SweetAlertService) {
+    public constructor() {
         this.length = this.data.length;
     }
 
@@ -95,29 +93,6 @@ export class TeamPermissionsComponent implements OnInit {
     }
 
     public permissionDelete(): void {
-        let alert = this.swal;
-        alert.question({
-            title: 'Are you sure?',
-            text: 'You won\'t be able to revert this!',
-            type: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Yes, delete it!'
-        }).then(function () {
-            alert.success({
-                title: 'Deleted!',
-                text: 'Your file has been deleted.'
-            });
-        }, function (dismiss) {
-            // dismiss can be 'cancel', 'overlay', 'close', 'timer'
-            if (dismiss === 'cancel') {
-                alert.error({
-                    title: 'Cancelled',
-                    text: 'Your imaginary file is safe :)'
-                });
-            }
-        });
     }
 
     ngOnInit(): void {

@@ -23,9 +23,8 @@
                                     <option value="organization">Orgnaization</option>
                                 </select>
                             </div>
-                            <input placeholder="Search"
-                                   [ngTableFiltering]="config.filtering"
-                                   (tableChanged)="onChangeTable(config)" type="text" class="form-control"/>
+                            <input placeholder="Search" [ngTableFiltering]="config.filtering" (tableChanged)="onChangeTable(config)" type="text" class="form-control"
+                            />
                             <div class="input-group-addon"><i class="fa fa-search"></i></div>
                         </div>
                     </div>
@@ -37,48 +36,41 @@
                     <div class="col">
                         <table class="table custom-table" role="grid">
                             <thead>
-                            <tr role="row">
-                                <th *ngFor="let tableh of columns" [ngTableSorting]="config" [column]="tableh"
-                                    (sortChanged)="onChangeTable($event)"
-                                    [ngClass]="{'col-1 text-right': tableh.actions, 'col': !tableh.actions}">
-                                    {{tableh.title}}
-                                    <i *ngIf="config" class="sort fa"
-                                       [ngClass]="{'fa-sort-desc': tableh.sort === 'desc', 'fa-sort-asc': tableh.sort === 'asc',
+                                <tr role="row">
+                                    <th *ngFor="let tableh of columns" [ngTableSorting]="config" [column]="tableh" (sortChanged)="onChangeTable($event)" [ngClass]="{'col-1 text-right': tableh.actions, 'col': !tableh.actions}">
+                                        {{tableh.title}}
+                                        <i *ngIf="config" class="sort fa" [ngClass]="{'fa-sort-desc': tableh.sort === 'desc', 'fa-sort-asc': tableh.sort === 'asc',
             'fa-sort': tableh.sort === ''}">
                                     </i>
-                                </th>
-                            </tr>
+                                    </th>
+                                </tr>
                             </thead>
                             <tbody>
-                            <tr *ngFor="let row of rows">
-                                <td *ngFor="let column of columns"
-                                    [ngClass]="{'col-1 text-right': column.actions, 'col': !column.actions}">
+                                <tr *ngFor="let row of rows">
+                                    <td *ngFor="let column of columns" [ngClass]="{'col-1 text-right': column.actions, 'col': !column.actions}">
 
-                                    <span *ngIf="column.text">{{getData(row, column.name)}}</span>
-                                    <a class="card-link" routerLink="/inventories/inventory/1" *ngIf="column.link">{{getData(row,
+                                        <span *ngIf="column.text">{{getData(row, column.name)}}</span>
+                                        <a class="card-link" routerLink="/inventories/inventory/1" *ngIf="column.link">{{getData(row,
                                         column.name)}}</a>
-                                    <div *ngIf="column.actions" class="action-button-group" role="group"
-                                         aria-label="actions">
-                                        <a class="btn btn-outline-info" href="javascript:;"
-                                           (click)="userEditClick()"><i
+                                        <div *ngIf="column.actions" class="action-button-group" role="group" aria-label="actions">
+                                            <a class="btn btn-outline-info" href="javascript:;" (click)="userEditClick()"><i
                                             class="fa fa-pencil"></i></a>
-                                        <a class="btn btn-outline-danger" href="javascript:;"
-                                           (click)="userDeleteClick()"><i
+                                            <a class="btn btn-outline-danger" href="javascript:;" (click)="userDeleteClick()"><i
                                             class="fa fa-trash"></i></a>
-                                    </div>
+                                        </div>
 
-                                </td>
-                            </tr>
+                                    </td>
+                                </tr>
                             </tbody>
                         </table>
 
+
                         <div class=row>
-                            <div class="col-md-8">
-                                <ngb-pagination [collectionSize]="length"  [(page)]="page" (click)="setPage()" [directionLinks]="false"></ngb-pagination>
+                            <div class="col-11">
+                                <ngb-pagination [collectionSize]="length" [(page)]="page" (click)="setPage()"></ngb-pagination>
                             </div>
-                            <div class="col-md-4">
-                                <br>
-                                <h6 class="pull-md-right">Current page: {{page}}</h6>
+                            <div class="col-1 text-right">
+                                <span><b>Page:</b> {{page}}</span>
                             </div>
                         </div>
 
