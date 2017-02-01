@@ -1,6 +1,6 @@
 <!-- Search row -->
 <div class="row">
-    <div class="col-md-12">
+    <div class="col-12">
         <div class="input-group input-group-search">
             <div class="input-group-addon">
                 <select class="custom-select search-selector">
@@ -18,11 +18,11 @@
 
 <!-- Table -->
 <div class="row">
-    <div class="col-md-12">
+    <div class="col-12">
         <table class="table custom-table" role="grid">
             <thead>
                 <tr role="row">
-                    <th *ngFor="let tableh of columns" [ngTableSorting]="config" [column]="tableh" (sortChanged)="onChangeTable($event)" ngClass="{'col-md-1 pull-md-right': tableh.actions, 'col-md-4': !tableh.actions}">
+                    <th *ngFor="let tableh of columns" [ngTableSorting]="config" [column]="tableh" (sortChanged)="onChangeTable($event)" [ngClass]="{'col-3 actions text-right': tableh.actions, 'col': !tableh.actions}">
                         {{tableh.title}}
                         <i *ngIf="config" class="sort fa" [ngClass]="{'fa-sort-desc': tableh.sort === 'desc', 'fa-sort-asc': tableh.sort === 'asc',
             'fa-sort': tableh.sort === ''}">
@@ -32,14 +32,13 @@
             </thead>
             <tbody>
                 <tr *ngFor="let row of rows">
-                    <td *ngFor="let column of columns" [ngClass]="{'col-md-1 pull-md-right': column.actions, 'col-md-5': !column.actions}">
+                    <td *ngFor="let column of columns" [ngClass]="{'col-3 text-right': column.actions, 'col': !column.actions}">
 
                         <span *ngIf="column.text">{{getData(row, column.name)}}</span>
                         <a class="card-link" routerLink="/inventories/inventory/1" *ngIf="column.link">{{getData(row,
                                         column.name)}}</a>
-                        <div *ngIf="column.actions" class="action-button-group" role="group" aria-label="actions">
-                            <a class="btn btn-outline-info" href="javascript:;" (click)="userEditClick(row)"><i
-                                            class="fa fa-pencil"></i></a>
+                        <div *ngIf="column.actions" class="action-button-group" role="group" aria-label="actions">            
+                            <a class="btn btn-outline-info" href="javascript:;" (click)="userEditClick(row)"><i class="fa fa-rocket" aria-hidden="true"></i></a>
                             <button class="btn btn-outline-danger" [swal]="{ titleText:'Delete?', text: 'This cannot be undone.', type: 'warning', showCancelButton: true}" (confirm)="userDeleteClick(row)"><i class="fa fa-trash"></i></button>
                         </div>
 
@@ -49,11 +48,12 @@
         </table>
 
         <div class=row>
-            <div class="col-11">
-                <ngb-pagination [collectionSize]="length" [(page)]="page" (click)="setPage()"></ngb-pagination>
+            <div class="col-8">
+                <ngb-pagination [collectionSize]="length" [(page)]="page" (click)="setPage()" [directionLinks]="false"></ngb-pagination>
             </div>
-            <div class="col-1 text-right">
-                <span><b>Page:</b> {{page}}</span>
+            <div class="col-4">
+                <br>
+                <h6 class="pull-md-right">Current page: {{page}}</h6>
             </div>
         </div>
     </div>

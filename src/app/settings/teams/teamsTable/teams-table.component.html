@@ -42,8 +42,8 @@
           <div *ngIf="column.actions" class="action-button-group" role="group" aria-label="actions">
             <a class="btn btn-outline-info" href="javascript:;" (click)="userEditClick()"><i
               class="fa fa-pencil"></i></a> &nbsp;
-            <a class="btn btn-outline-danger" href="javascript:;" (click)="userDeleteClick()"><i
-              class="fa fa-trash"></i></a>
+              <button class="btn btn-outline-danger" [swal]="{ titleText:'Delete?', text: 'This cannot be undone.', type: 'warning', showCancelButton: true}" (confirm)="userDeleteClick(row)"><i class="fa fa-trash"></i></button>
+                  
           </div>
 
         </td>
