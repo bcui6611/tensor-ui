@@ -1,18 +1,22 @@
 import { Component, OnInit } from "@angular/core";
 import { TableData } from "./table-data";
 
+import { CredentialsService } from '../../../services/credentials.service';
+import { Credentials } from '../../../models/credentials'
+
 @Component({
     selector: 'credentials-table',
     templateUrl: './credentials-table.component.html',
+    providers: [CredentialsService]
 })
 export class CredentialsTableComponent implements OnInit {
-
+    credentials: Credentials[]
     public rows: Array<any> = [];
     public columns: Array<any> = [
-        { title: 'Name', name: 'username', sort: 'asc', link: true },
-        { title: 'Description', name: 'firstname', sort: '', text: true },
-        { title: 'Type', name: 'lastname', sort: '', text: true },
-        { title: 'Owners', name: 'lastname', sort: '', link: true },
+        { title: 'Name', name: 'name', sort: 'asc', link: true },
+        { title: 'Description', name: 'description', sort: '', text: true },
+        { title: 'Type', name: 'type', sort: '', text: true },
+        { title: 'Owners', name: 'type', sort: '', link: true },
         { title: 'Actions', name: 'actions', sort: false, actions: true }
     ];
     public page: number = 1;
@@ -22,15 +26,26 @@ export class CredentialsTableComponent implements OnInit {
     public length: number = 0;
 
 
-    private data: Array<any> = TableData;
+    private data: Array<any>;
     public config: any = {
         paging: true,
         sorting: { columns: this.columns },
         filtering: { filterString: '', columnName: 'username' }
     };
 
-    public constructor() {
-        this.length = this.data.length;
+    constructor(
+        private credentialsService: CredentialsService,
+    ) {
+        this.credentialsService.getCredentialsTableData()
+            .subscribe(res => {
+                this.credentials = res;
+                this.length = res.length;
+                this.data = this.credentials;
+                this.onChangeTable(this.config);
+            },
+            err => {
+                console.log(err);
+            });
     }
 
     public get configColumns(): any {
@@ -44,7 +59,6 @@ export class CredentialsTableComponent implements OnInit {
 
         return { columns: sortColumns };
     }
-
 
     public changePage(data: Array<any> = this.data): Array<any> {
         let start = (this.page - 1) * this.itemsPerPage;
@@ -132,8 +146,6 @@ export class CredentialsTableComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        console.log('hello `UserTable` component');
-
-        this.onChangeTable(this.config);
+        
     }
 }
