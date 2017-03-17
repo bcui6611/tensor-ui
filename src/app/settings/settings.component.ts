@@ -20,5 +20,8 @@ export class SettingsComponent {
 
         breadcrumbService.addFriendlyNameForRoute('/settings/organizations', 'Organizations');
         breadcrumbService.addFriendlyNameForRoute('/settings/organizations/add', 'Create Organization');
+        breadcrumbService.addFriendlyNameForRoute('/settings/credentials', 'Credentials');
+        breadcrumbService.addFriendlyNameForRoute('/settings/credentials/add', 'Create Credentials');
+        breadcrumbService.addFriendlyNameForRoute('/settings/teams', 'Teams');
     }
 }
