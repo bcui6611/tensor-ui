@@ -6,7 +6,7 @@ import { NotificationsService, SimpleNotificationsComponent } from "angular2-not
 @Component({
     selector: 'login-cmp',
     templateUrl: './login.component.html',
-    providers: [AuthenticationService]
+    providers: [AuthenticationService, NotificationsService]
 })
 
 export class LoginComponent implements OnInit {

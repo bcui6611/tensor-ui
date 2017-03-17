@@ -1,13 +1,12 @@
-import { Component, ChangeDetectionStrategy, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
-import { CredentialsService } from '../../../services/credentials.service';
-import { OrganizationService } from '../../../services/organization.service';
-import { Organization } from '../../../models/organization';
-import { Credentials } from '../../../models/credentials';
-import { CredentialsType } from '../../../models/credentials-type'
-
-import 'rxjs/add/operator/debounceTime';
-import 'rxjs/add/operator/map'
+import {Component, OnInit} from "@angular/core";
+import {Observable} from "rxjs";
+import {CredentialsService} from "../../../services/credentials.service";
+import {OrganizationService} from "../../../services/organization.service";
+import {Organization} from "../../../models/organization";
+import {Credentials} from "../../../models/credentials";
+import {CredentialsType} from "../../../models/credentials-type";
+import "rxjs/add/operator/debounceTime";
+import "rxjs/add/operator/map";
 
 @Component({
     selector: 'credentials-add',
@@ -25,23 +24,24 @@ export class CredentialsAddComponent implements OnInit {
     hasOrganizationError = false;
     organization: string;
 
-    constructor(
-        private credentialsService: CredentialsService,
-        private organizationService: OrganizationService
-    ) { }
+    constructor(private credentialsService: CredentialsService,
+                private organizationService: OrganizationService) {
+    }
 
     search = (text$: Observable<string>) =>
         text$
             .debounceTime(200)
             .map(term => {
-                if (term.length < 2) { return [] }
+                if (term.length < 2) {
+                    return []
+                }
                 else {
                     term = term.replace(/[|\\{}()[\]^$+*?.]/g, '\\$&');
                     return this.organizations.filter(v => new RegExp(term, 'gi').test(v.name)).splice(0, 10);
                 }
             });
 
-    formatter = (x: { name: string }) => x.name;
+    formatter = (x: {name: string}) => x.name;
 
     ngOnInit(): void {
         console.log('hello `CredentialsAdd` component');
@@ -51,15 +51,15 @@ export class CredentialsAddComponent implements OnInit {
     getOrganizations(): void {
         this.organizationService.getOrganizations()
             .subscribe(res => {
-                this.organizationList = [];
-                this.organizations = res
-                for (let organization of this.organizations) {
-                    this.organizationList.push(organization.name);
-                }
-            },
-            err => {
-                console.log(err);
-            });
+                    this.organizationList = [];
+                    this.organizations = res
+                    for (let organization of this.organizations) {
+                        this.organizationList.push(organization.name);
+                    }
+                },
+                err => {
+                    console.log(err);
+                });
     }
 
     addCredentials(): void {
@@ -86,7 +86,7 @@ export class CredentialsAddComponent implements OnInit {
 
     /**
      * ---- Valid form states ---
-     * Name + Machine 
+     * Name + Machine
      * Name + Network + Network Username
      * Name + Source control
      * Name + AWS + Access key + Secret key
