@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
-import { CredentialsAddComponent } from './credentials-add/credentials-add.component'
+import { CredentialsAddComponent } from './credentials-add/credentials-add.component';
 
 @Component({
     selector: 'credentials-cmp',
@@ -18,8 +18,6 @@ export class CredentialsComponent implements OnInit {
     ) { }
 
     ngOnInit(): void {
-        console.log('hello `Credentials` Component');
-
         this.path = this._route.data.subscribe(data => {
             this.isAdd = data['addCredentials'];
         });
