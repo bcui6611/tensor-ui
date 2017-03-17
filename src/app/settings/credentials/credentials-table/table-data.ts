@@ -1,8 +1,9 @@
 export const TableData: Array<any> = [
     {
-        'username': 'Victoria Cantrell',
+        'username': 'Victoria Cantrell ddfd',
         'firstname': 'Integer Corporation',
         'lastname': 'Croatia',
+        'org': 'dfddfd'
     },
     {
         'username': 'Pearl Crosby',
