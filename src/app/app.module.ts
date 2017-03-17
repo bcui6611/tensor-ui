@@ -51,13 +51,19 @@ import { JobTemplatesAddComponent } from './job-templates/job-templates-add/job-
 import { JobTemplateHomeComponent } from './job-templates/job-templates-home/job-template-home.component';
 import { SweetAlert2Module } from '@toverux/ngsweetalert2';
 
+import { InputPassword } from './shared/input-password/input-password.component';
 
 import { JobsHomeComponent } from './jobs/jobs-home/jobs-home.component';
-import { JobsTableComponent } from './jobs/jobs-table/jobs-table.component'
-import { JobSummaryComponent } from './jobs/job-summary/job-summary.component'
+import { JobsTableComponent } from './jobs/jobs-table/jobs-table.component';
+import { JobSummaryComponent } from './jobs/job-summary/job-summary.component';
 import { DashboardModule } from './dashboard/dashboard.module';
 import { InventoriesModule } from './inventories/inventories.module';
 import { JobTemplatesModule } from './job-templates/job-templates.module';
+
+import { MachineCredentialsComponent } from './settings/credentials/credentials-add/machine-credentials/machine-credentials.component';
+import { NetworkComponent } from './settings/credentials/credentials-add/network/network.component';
+import { SourceControlComponent } from './settings/credentials/credentials-add/source-control/source-control.component';
+import { AwsComponent } from './settings/credentials/credentials-add/aws/aws.component'
 
 @NgModule({
     imports: [
@@ -111,6 +117,11 @@ import { JobTemplatesModule } from './job-templates/job-templates.module';
         JobsHomeComponent,
         JobsTableComponent,
         JobSummaryComponent,
+        MachineCredentialsComponent,
+        InputPassword,
+        NetworkComponent,
+        SourceControlComponent,
+        AwsComponent
     ],
     providers: [appRoutingProviders, { provide: API_BASE, useValue: 'http://10.76.196.18:8010' }],
     bootstrap: [AppComponent]
