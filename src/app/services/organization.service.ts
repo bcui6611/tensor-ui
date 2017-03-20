@@ -7,7 +7,7 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 
 @Injectable()
-export class OrganizationsService {
+export class OrganizationService {
     private headers: Headers;
     private organizationsUrl: string;
 

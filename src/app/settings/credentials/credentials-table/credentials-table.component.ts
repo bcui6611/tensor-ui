@@ -1,13 +1,12 @@
 import { Component, OnInit } from "@angular/core";
-import { TableData } from "./table-data";
 
-import { CredentialsService } from '../../../services/credentials.service';
+import { CredentialService } from '../../../services/credential.service';
 import { Credential } from '../../../models/credential'
 
 @Component({
     selector: 'credentials-table',
     templateUrl: './credentials-table.component.html',
-    providers: [CredentialsService]
+    providers: [CredentialService]
 })
 export class CredentialsTableComponent implements OnInit {
     credentials: Credential[]
@@ -34,9 +33,9 @@ export class CredentialsTableComponent implements OnInit {
     };
 
     constructor(
-        private credentialsService: CredentialsService,
+        private credentialsService: CredentialService,
     ) {
-        this.credentialsService.getCredentialsTableData()
+        this.credentialsService.getAll()
             .subscribe(res => {
                 this.credentials = res;
                 this.length = res.length;
@@ -146,6 +145,6 @@ export class CredentialsTableComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        
+
     }
 }

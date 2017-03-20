@@ -6,10 +6,9 @@ import 'rxjs/add/operator/map';
 import { AppConfig } from '../app.config';
 
 import { Credential } from '../models/credential';
-import { Organization } from '../models/organization';
 
 @Injectable()
-export class CredentialsService {
+export class CredentialService {
     private headers: Headers;
     private credentialUrl: string;
 
@@ -34,7 +33,7 @@ export class CredentialsService {
             new RequestOptions({ headers: this.headers }))
             .map(response => response.json() as Credential);
     }
-    
+
     get(id: string): Observable<Credential> {
         return this._http
             .get(this.credentialUrl + id, new RequestOptions({ headers: this.headers }))
@@ -46,12 +45,12 @@ export class CredentialsService {
             .put(this.credentialUrl + credential.id, credential, new RequestOptions({ headers: this.headers }))
             .map(response => response.json().result as Credential);
     }
-    
+
     delete(id: string) {
         return this._http
             .delete(this.credentialUrl + id, new RequestOptions({ headers: this.headers }))
     }
-    
+
     getToken(): string {
         return JSON.parse(localStorage.getItem('_tensor_user')).token;
     }

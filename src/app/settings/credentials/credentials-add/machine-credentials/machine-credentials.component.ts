@@ -1,19 +1,19 @@
 import { Component, Output, EventEmitter } from '@angular/core';
-import { CredentialsType } from '../../../../models/credentials-type';
+import { Credential } from '../../../../models/credential';
 
 @Component({
     selector: 'machine-credentials',
     templateUrl: './machine-credentials.component.html'
 })
 export class MachineCredentialsComponent {
-    credentialsType = new CredentialsType();
+    credentialsType = new Credential();
     selectedPrivilege = "none"
-    @Output() machineCredential: EventEmitter<CredentialsType> = new EventEmitter<CredentialsType> ();
-    
+    @Output() machineCredential: EventEmitter<Credential> = new EventEmitter<Credential> ();
+
     onChange() {
 
     }
-    
+
     onTextChange(): void {
         this.machineCredential.emit(this.credentialsType);
     }
