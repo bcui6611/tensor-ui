@@ -1,6 +1,6 @@
 import { Injectable, Inject } from '@angular/core';
 import { Headers, Http, Response, RequestOptions } from '@angular/http';
-import { API_BASE } from '../base/config';
+import { AppConfig } from '../app.config';
 import { Observable } from 'rxjs';
 import 'rxjs/add/operator/map'
 // api url stored in config
@@ -9,13 +9,13 @@ import 'rxjs/add/operator/map'
 export class AuthenticationService {
     token: string;
 
-    constructor(private http: Http, @Inject(API_BASE) private apiBase: string) {
+    constructor(private http: Http, private config: AppConfig) {
         var currentUser = JSON.parse(localStorage.getItem('_tensor_user'));
         this.token = currentUser && currentUser.token;
     }
 
     login(username, password): Observable<boolean> {
-        return this.http.post(this.apiBase + '/v1/authtoken', JSON.stringify({ username: username, password: password }))
+        return this.http.post(this.config.getConfig('host') + '/v1/authtoken', JSON.stringify({ username: username, password: password }))
             .map((response: Response) => {
                 if (response.status == 200) {
                     // login successful if there's a jwt token in the response

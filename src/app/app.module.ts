@@ -1,4 +1,5 @@
 //Built-in modules
+import { APP_INITIALIZER } from '@angular/core';
 import { NgModule } from "@angular/core";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { HttpModule } from "@angular/http";
@@ -7,7 +8,7 @@ import { RouterModule } from "@angular/router";
 import { TopNavModule } from "./shared/topnav/topnav.module";
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
-import { API_BASE } from "./base/config";
+import { AppConfig } from "./app.config";
 import { SimpleNotificationsModule } from "angular2-notifications";
 import { rootRouterConfig, appRoutingProviders } from "./app.routes";
 
@@ -78,7 +79,7 @@ import { AwsComponent } from './settings/credentials/credentials-add/aws/aws.com
         HttpModule,
         DashboardHomeModule,
         NgbModule.forRoot(),
-        SettingsHomeModule, 
+        SettingsHomeModule,
         SweetAlert2Module,
         JobsModule,
         DashboardModule,
@@ -123,7 +124,11 @@ import { AwsComponent } from './settings/credentials/credentials-add/aws/aws.com
         SourceControlComponent,
         AwsComponent
     ],
-    providers: [appRoutingProviders, { provide: API_BASE, useValue: 'http://10.76.196.18:8010' }],
+    providers: [
+        appRoutingProviders,
+        AppConfig,
+        { provide: APP_INITIALIZER, useFactory: (config: AppConfig) => () => config.load(), deps: [AppConfig], multi: true }
+    ],
     bootstrap: [AppComponent]
 })
 export class AppModule {

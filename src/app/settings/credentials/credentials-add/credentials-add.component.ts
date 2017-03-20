@@ -1,10 +1,10 @@
-import {Component, OnInit} from "@angular/core";
-import {Observable} from "rxjs";
-import {CredentialsService} from "../../../services/credentials.service";
-import {OrganizationService} from "../../../services/organization.service";
-import {Organization} from "../../../models/organization";
-import {Credentials} from "../../../models/credentials";
-import {CredentialsType} from "../../../models/credentials-type";
+import { Component, OnInit } from "@angular/core";
+import { Observable } from "rxjs";
+import { CredentialsService } from "../../../services/credentials.service";
+import { OrganizationService } from "../../../services/organization.service";
+import { Organization } from "../../../models/organization";
+import { Credential } from "../../../models/credential";
+import { CredentialsType } from "../../../models/credentials-type";
 import "rxjs/add/operator/debounceTime";
 import "rxjs/add/operator/map";
 
@@ -18,14 +18,14 @@ export class CredentialsAddComponent implements OnInit {
     organizations: Organization[];
     organizationList: string[];
     selectedType = "default";
-    credentials = new Credentials();
+    credentials = new Credential();
     validForm = false;
     hasTypeError = false;
     hasOrganizationError = false;
     organization: string;
 
     constructor(private credentialsService: CredentialsService,
-                private organizationService: OrganizationService) {
+        private organizationService: OrganizationService) {
     }
 
     search = (text$: Observable<string>) =>
@@ -41,7 +41,7 @@ export class CredentialsAddComponent implements OnInit {
                 }
             });
 
-    formatter = (x: {name: string}) => x.name;
+    formatter = (x: { name: string }) => x.name;
 
     ngOnInit(): void {
         console.log('hello `CredentialsAdd` component');
@@ -51,15 +51,15 @@ export class CredentialsAddComponent implements OnInit {
     getOrganizations(): void {
         this.organizationService.getOrganizations()
             .subscribe(res => {
-                    this.organizationList = [];
-                    this.organizations = res
-                    for (let organization of this.organizations) {
-                        this.organizationList.push(organization.name);
-                    }
-                },
-                err => {
-                    console.log(err);
-                });
+                this.organizationList = [];
+                this.organizations = res
+                for (let organization of this.organizations) {
+                    this.organizationList.push(organization.name);
+                }
+            },
+            err => {
+                console.log(err);
+            });
     }
 
     addCredentials(): void {

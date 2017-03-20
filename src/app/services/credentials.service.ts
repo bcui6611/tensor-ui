@@ -1,61 +1,57 @@
 import { Injectable, Inject } from '@angular/core';
 import { Http, Headers, RequestOptions } from '@angular/http';
-import { API_BASE } from '../base/config';
 
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
+import { AppConfig } from '../app.config';
 
-import { Credentials } from '../models/credentials';
+import { Credential } from '../models/credential';
 import { Organization } from '../models/organization';
 
 @Injectable()
 export class CredentialsService {
+    private headers: Headers;
+    private credentialUrl: string;
 
-    constructor(private _http: Http, @Inject(API_BASE) private apiBase: string) { }
-
-    getCredentialsTableData(): Observable<Credentials[]> {
-        let headers = new Headers({
-            'Authorization': 'Bearer ' + this.getToken() 
+    constructor(private _http: Http, private config: AppConfig) {
+        this.headers = new Headers({
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+            'Authorization': 'Bear ' + this.getToken()
         });
-        let options = new RequestOptions({headers: headers});
-
-        return this._http
-            .get(this.apiBase + '/v1/credentials/', options)
-            .map(response => response.json().results as Credentials[]);
+        this.credentialUrl = this.config.getConfig('host') + '/v1/credentials/';
     }
 
-    addCredentials(credentials: Credentials): Observable<any> {
-        let headers = new Headers({
-            'Authorization': 'Bearer ' + this.getToken()
-        });
-        let options = new RequestOptions({headers: headers});
-
+    getAll(): Observable<Credential[]> {
         return this._http
-            .post(this.apiBase + '/v1/credentials', Credentials, options);
+            .get(this.credentialUrl, new RequestOptions({ headers: this.headers }))
+            .map(response => response.json().results as Credential[]);
     }
 
-    editCredentials(credentials: Credentials, credentialID: string) {
-        let headers = new Headers({
-            'Authorization': 'Bearer ' + this.getToken()
-        });
-        let options = new RequestOptions({headers: headers});
-
+    create(credentials: Credential): Observable<Credential> {
         return this._http
-            .put(this.apiBase + '/v1/credentials' + credentialID, credentials);
-    }
-
-    // Delete credentials for given credential ID
-    deleteCredentials(credentialID: string) {
-        let header = new Headers({
-            'Authorization': 'Bearer ' + this.getToken()
-        });
-        let option = new RequestOptions({headers: header});
-
-        return this._http
-            .delete(this.apiBase + '/v1/credentials/' + credentialID)
+            .post(this.credentialUrl, Credential,
+            new RequestOptions({ headers: this.headers }))
+            .map(response => response.json() as Credential);
     }
     
-    // Return the token that is stored in localStorage
+    get(id: string): Observable<Credential> {
+        return this._http
+            .get(this.credentialUrl + id, new RequestOptions({ headers: this.headers }))
+            .map(response => response.json().result as Credential)
+    }
+
+    update(credential: Credential): Observable<Credential> {
+        return this._http
+            .put(this.credentialUrl + credential.id, credential, new RequestOptions({ headers: this.headers }))
+            .map(response => response.json().result as Credential);
+    }
+    
+    delete(id: string) {
+        return this._http
+            .delete(this.credentialUrl + id, new RequestOptions({ headers: this.headers }))
+    }
+    
     getToken(): string {
         return JSON.parse(localStorage.getItem('_tensor_user')).token;
     }

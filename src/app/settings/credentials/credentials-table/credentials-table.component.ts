@@ -2,7 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { TableData } from "./table-data";
 
 import { CredentialsService } from '../../../services/credentials.service';
-import { Credentials } from '../../../models/credentials'
+import { Credential } from '../../../models/credential'
 
 @Component({
     selector: 'credentials-table',
@@ -10,7 +10,7 @@ import { Credentials } from '../../../models/credentials'
     providers: [CredentialsService]
 })
 export class CredentialsTableComponent implements OnInit {
-    credentials: Credentials[]
+    credentials: Credential[]
     public rows: Array<any> = [];
     public columns: Array<any> = [
         { title: 'Name', name: 'name', sort: 'asc', link: true },
