@@ -1,12 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
-    selector: 'manual-cmp',
-    templateUrl: './manual.component.html',
+  selector: 'manual-cmp',
+  templateUrl: './manual.component.html',
 })
 export class ManualComponent {
-    basePath = "/var/lib/awx/projects"
-    isPlaybookAvailable(): boolean {
-        return true;
-    }
+  public basePath = '/var/lib/tensor/projects';
+
+  public isPlaybookAvailable(): boolean {
+    return true;
+  }
 }

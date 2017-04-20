@@ -4,22 +4,23 @@ import { RouterModule } from '@angular/router';
 import { TopNavModule } from '../shared/topnav/topnav.module';
 import { SettingsComponent } from './settings.component';
 
-import { BreadcrumbModule, BreadcrumbService } from '../shared/breadcrumb/breadcrumb.module'
+import { BreadcrumbService, Ng2BreadcrumbModule } from 'ng2-breadcrumb/ng2-breadcrumb';
 
 @NgModule({
-    imports: [
-        TopNavModule,
-        RouterModule,
-        BreadcrumbModule
-    ],
-    declarations: [
-        SettingsComponent
-    ],
-    exports:[
-        TopNavModule
-    ],
-    providers: [
-        BreadcrumbService
-    ]
+  imports: [
+    TopNavModule,
+    RouterModule,
+    Ng2BreadcrumbModule
+  ],
+  declarations: [
+    SettingsComponent
+  ],
+  exports: [
+    TopNavModule
+  ],
+  providers: [
+    BreadcrumbService
+  ]
 })
-export class SettingsModule {}
+export class SettingsModule {
+}

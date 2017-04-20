@@ -10,23 +10,24 @@ import { InventoriesTableComponent } from './inventories-table.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
-    declarations: [
-        NgTableComponent,
-        NgTableFilteringDirective,
-        NgTablePagingDirective,
-        NgTableSortingDirective,
-        InventoriesTableComponent
-    ],
-    imports: [
-        CommonModule,
-        NgbModule
-    ],
-    exports: [
-        NgTableComponent,
-        NgTableFilteringDirective,
-        NgTablePagingDirective,
-        NgTableSortingDirective,
-        InventoriesTableComponent
-    ]
+  declarations: [
+    NgTableComponent,
+    NgTableFilteringDirective,
+    NgTablePagingDirective,
+    NgTableSortingDirective,
+    InventoriesTableComponent
+  ],
+  imports: [
+    CommonModule,
+    NgbModule
+  ],
+  exports: [
+    NgTableComponent,
+    NgTableFilteringDirective,
+    NgTablePagingDirective,
+    NgTableSortingDirective,
+    InventoriesTableComponent
+  ]
 })
-export class InventoriesTableModule { }
+export class InventoriesTableModule {
+}

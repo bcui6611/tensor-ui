@@ -1,25 +1,25 @@
 export class Inventory {
-  id: string;
+  public id: string;
 
-  name: string;
-  description: string;
-  organization_id: string;
-  variables: number;
+  public name: string;
+  public description: string;
+  public organization_id: string;
+  public variables: number;
 
-  total_hosts: number;
-  hosts_with_active_failures: number;
-  total_groups: number;
-  groups_with_active_failures: number;
-  total_inventory_sources: number;
-  inventory_sources_with_failures: number;
+  public total_hosts: number;
+  public hosts_with_active_failures: number;
+  public total_groups: number;
+  public groups_with_active_failures: number;
+  public total_inventory_sources: number;
+  public inventory_sources_with_failures: number;
 
-  has_inventory_sources: boolean;
-  has_active_failures: boolean;
+  public has_inventory_sources: boolean;
+  public has_active_failures: boolean;
 
-  created: Date;
-  modified: Date;
+  public created: Date;
+  public modified: Date;
 
-  type: string;
-  links: Object;
-  meta: Object;
+  public type: string;
+  public links: Object;
+  public meta: Object;
 }

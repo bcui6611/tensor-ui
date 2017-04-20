@@ -1,13 +1,13 @@
 export class Organization {
-    id: number;
-    name: string;
-    description: string;
+  public id: number;
+  public name: string;
+  public description: string;
 
-    created: Date;
-    modified: Date;
+  public created: Date;
+  public modified: Date;
 
-    type: string;
-    url: string;
-    links: Object;
-    meta: Object;
+  public type: string;
+  public url: string;
+  public links: Object;
+  public meta: Object;
 }

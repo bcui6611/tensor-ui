@@ -7,31 +7,29 @@ import { OrganizationsTableData } from './organizations-data';
 })
 export class TeamUsersComponent implements OnInit {
 
-  public rows: Array<any> = [];
-  public columns: Array<any> = [
-    { title: 'Name', name: 'name', sort: 'asc', type: 'link' },
-    { title: 'Description', name: 'description', sort: '', type: 'text' },
+  public rows: any[] = [];
+  public columns: any[] = [
+    {title: 'Name', name: 'name', sort: 'asc', type: 'link'},
+    {title: 'Description', name: 'description', sort: '', type: 'text'},
   ];
   public page: number = 1;
   public itemsPerPage: number = 10;
   public maxSize: number = 5;
   public numPages: number = 1;
   public length: number = 0;
-
-
-  private data: Array<any> = OrganizationsTableData;
-
   public config: any = {
     paging: true,
-    sorting: { columns: this.columns },
-    filtering: { filterString: '', columnName: 'name' }
+    sorting: {columns: this.columns},
+    filtering: {filterString: '', columnName: 'name'}
   };
+
+  private data: any[] = OrganizationsTableData;
 
   public constructor() {
     this.length = this.data.length;
   }
 
-  public changePage(data: Array<any> = this.data): Array<any> {
+  public changePage(data: any[] = this.data): any[] {
     let start = (this.page - 1) * this.itemsPerPage;
     let end = this.itemsPerPage > -1 ? (start + this.itemsPerPage) : data.length;
     return data.slice(start, end);
@@ -65,8 +63,9 @@ export class TeamUsersComponent implements OnInit {
       return data;
     }
 
-    let regx = new RegExp(this.config.filtering.filterString.replace(/[.?*+^$[\]\\(){}|-]/g, '\\$&'), 'i');
-    let filteredData: Array<any> = data.filter((item: any) =>
+    let regx = new RegExp(this.config.filtering.filterString
+      .replace(/[.?*+^$[\]\\(){}|-]/g, '\\$&'), 'i');
+    let filteredData: any[] = data.filter((item: any) =>
       item[config.filtering.columnName].match(regx));
 
     return filteredData;
@@ -81,10 +80,10 @@ export class TeamUsersComponent implements OnInit {
     let columnName: string = void 0;
     let sort: string = void 0;
 
-    for (let i = 0; i < columns.length; i++) {
-      if (columns[i].sort !== '' && columns[i].sort !== false) {
-        columnName = columns[i].name;
-        sort = columns[i].sort;
+    for (let c of columns) {
+      if (c.sort !== '' && c.sort !== false) {
+        columnName = c.name;
+        sort = c.sort;
       }
     }
 
@@ -120,7 +119,7 @@ export class TeamUsersComponent implements OnInit {
     alert('team user edit');
   }
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     console.log('hello `TeamUsers` component');
 
     this.onChangeTable(this.config);

@@ -1,14 +1,14 @@
 export class Team {
-  id: string;
+  public id: string;
 
-  name: string;
-  organization_id: string;
-  description: string;
+  public name: string;
+  public organization_id: string;
+  public description: string;
 
-  created: Date;
-  modified: Date;
+  public created: Date;
+  public modified: Date;
 
-  type: string;
-  links: Object;
-  meta: Object;
+  public type: string;
+  public links: Object;
+  public meta: Object;
 }

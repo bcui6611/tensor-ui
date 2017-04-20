@@ -1,14 +1,14 @@
 export class Activity {
-  id: string;
+  public id: string;
 
-  actor_id: string;
-  object1: Object;
-  object2: Object;
-  timestamp: Date;
-  operation: string;
-  changes: Object;
+  public actor_id: string;
+  public object1: Object;
+  public object2: Object;
+  public timestamp: Date;
+  public operation: string;
+  public changes: Object;
 
-  type: string;
-  links: Object;
-  meta: Object;
+  public type: string;
+  public links: Object;
+  public meta: Object;
 }

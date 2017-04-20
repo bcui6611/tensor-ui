@@ -21,37 +21,38 @@ export class CredentialService {
         this.credentialUrl = this.config.getConfig('host') + '/v1/credentials/';
     }
 
-    getAll(): Observable<Credential[]> {
+    public getAll(): Observable<Credential[]> {
         return this._http
             .get(this.credentialUrl, new RequestOptions({ headers: this.headers }))
-            .map(response => response.json().results as Credential[]);
+            .map((response) => response.json().results as Credential[]);
     }
 
-    create(credentials: Credential): Observable<Credential> {
+    public create(credentials: Credential): Observable<Credential> {
         return this._http
             .post(this.credentialUrl, Credential,
             new RequestOptions({ headers: this.headers }))
-            .map(response => response.json() as Credential);
+            .map((response) => response.json() as Credential);
     }
 
-    get(id: string): Observable<Credential> {
+    public get(id: string): Observable<Credential> {
         return this._http
             .get(this.credentialUrl + id, new RequestOptions({ headers: this.headers }))
-            .map(response => response.json().result as Credential)
+            .map((response) => response.json().result as Credential);
     }
 
-    update(credential: Credential): Observable<Credential> {
+    public update(credential: Credential): Observable<Credential> {
         return this._http
-            .put(this.credentialUrl + credential.id, credential, new RequestOptions({ headers: this.headers }))
-            .map(response => response.json().result as Credential);
+            .put(this.credentialUrl + credential.id, credential,
+              new RequestOptions({ headers: this.headers }))
+            .map((response) => response.json().result as Credential);
     }
 
-    delete(id: string) {
+    public delete(id: string) {
         return this._http
-            .delete(this.credentialUrl + id, new RequestOptions({ headers: this.headers }))
+            .delete(this.credentialUrl + id, new RequestOptions({ headers: this.headers }));
     }
 
-    getToken(): string {
+    public getToken(): string {
         return JSON.parse(localStorage.getItem('_tensor_user')).token;
     }
 

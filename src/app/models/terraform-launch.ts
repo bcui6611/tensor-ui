@@ -1,5 +1,5 @@
 export class TerraformLaunch {
-  vars: string;
-  job_type: string;
-  machine_credential_id: string;
+  public vars: string;
+  public job_type: string;
+  public machine_credential_id: string;
 }

@@ -4,22 +4,22 @@ import { RouterModule } from '@angular/router';
 import { TopNavModule } from '../shared/topnav/topnav.module';
 import { JobTemplatesComponent } from './job-templates.component';
 
-import { BreadcrumbModule, BreadcrumbService } from '../shared/breadcrumb/breadcrumb.module'
+import { Ng2BreadcrumbModule, BreadcrumbService } from 'ng2-breadcrumb/ng2-breadcrumb';
 
 @NgModule({
     imports: [
         TopNavModule,
         RouterModule,
-        BreadcrumbModule
+        Ng2BreadcrumbModule
     ],
     declarations: [
         JobTemplatesComponent
     ],
-    exports:[
+    exports: [
         TopNavModule
     ],
     providers: [
         BreadcrumbService
     ]
 })
-export class JobTemplatesModule {}
+export class JobTemplatesModule { }

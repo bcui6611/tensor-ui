@@ -6,9 +6,8 @@
                     <p class="text-uppercase font-weight-bold">Results</p>
                 </div>
                 <div class="col-1 text-right action-button-group">
-                    <button class="btn btn-outline-info" (click)="userEditClick(row)"><i class="fa fa-rocket" aria-hidden="true"></i></button>
-                    <button class="btn btn-outline-danger" [swal]="{ titleText:'Delete?', text: 'This cannot be undone.', type: 'warning', showCancelButton: true}"
-                        (confirm)="userDeleteClick(row)"><i class="fa fa-trash"></i></button>
+                    <button class="btn btn-outline-info"><i class="fa fa-rocket" aria-hidden="true"></i></button>
+                    <button class="btn btn-outline-danger" [swal]="{ titleText:'Delete?', text: 'This cannot be undone.', type: 'warning', showCancelButton: true}"><i class="fa fa-trash"></i></button>
                 </div>
             </div>
             <div class="row">

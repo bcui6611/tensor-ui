@@ -12,7 +12,7 @@ export class UserService {
     constructor(private http: Http, private authenticationService: AuthenticationService) {
     }
 
-    getUsers(): Promise<User[]> {
+    public getUsers(): Promise<User[]> {
         return this.http.get(this.usersUrl)
             .toPromise()
             .then(this.extractData)
@@ -21,14 +21,14 @@ export class UserService {
 
     // Create an new user
     // To update the password use updatePassword method
-    addUser(user: User): Promise<User> {
+    public addUser(user: User): Promise<User> {
         return this.http.get(this.usersUrl)
             .toPromise()
             .then(this.extractData)
             .catch(this.handleError);
     }
 
-    getUser(): Promise<User> {
+    public getUser(): Promise<User> {
         return this.http.get(this.userUrl)
             .toPromise()
             .then(this.extractData)
@@ -36,7 +36,7 @@ export class UserService {
     }
 
     // Update user password
-    updatePassword(userId: number, pwd: string) {
+    public updatePassword(userId: number, pwd: string) {
         let url = this.usersUrl + '/' + userId + '/password';
         let body = JSON.stringify({password: pwd});
 
@@ -49,7 +49,7 @@ export class UserService {
     }
 
     // Update existing user and password
-    updateUser(user: User) {
+    public updateUser(user: User) {
         let url = this.usersUrl + '/' + user.id;
 
         return this.http.put(url, JSON.stringify({user}), {
@@ -63,7 +63,7 @@ export class UserService {
     }
 
     // Delete existing user
-    deleteUser(userId: number) {
+    public deleteUser(userId: number) {
         let url = this.usersUrl + '/' + userId;
 
         return this.http.delete(url)

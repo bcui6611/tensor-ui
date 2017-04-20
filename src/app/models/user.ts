@@ -1,17 +1,17 @@
 export class User {
-  id: number;
-  username: string;
-  first_name: string;
-  last_name: string;
-  email: string;
+  public id: number;
+  public username: string;
+  public first_name: string;
+  public last_name: string;
+  public email: string;
 
-  is_superuser: boolean;
-  is_system_auditor: boolean;
+  public is_superuser: boolean;
+  public is_system_auditor: boolean;
 
-  created: Date;
-  modified: Date;
+  public created: Date;
+  public modified: Date;
 
-  type: string;
-  links: Object;
-  meta: Object;
+  public  type: string;
+  public  links: Object;
+  public  meta: Object;
 }

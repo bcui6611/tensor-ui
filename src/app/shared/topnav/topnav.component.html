@@ -2,10 +2,13 @@
   aria-expanded="false" aria-label="Toggle navigation">
   <span class="navbar-toggler-icon"></span>
 </button>
+<a class="navbar-brand" href="/">
+  <img src="/assets/img/logo.png" width="50" height="50" alt="">
+</a>
 <div class="collapse navbar-collapse" id="exCollapsingNavbar2">
   <ul class="nav navbar-nav mr-auto mt-2 mt-md-0">
     <li class="nav-item">
-      <a class="nav-link" [routerLink]="['/dashboard']" routerLinkActive="active">Tensor <span class="sr-only">(current)</span></a>
+      <a class="nav-link" [routerLink]="['/dashboard']" routerLinkActive="active">Dashboard <span class="sr-only">(current)</span></a>
     </li>
     <li class="nav-item">
       <a class="nav-link" [routerLink]="['/projects']" routerLinkActive="active">Projects</a>

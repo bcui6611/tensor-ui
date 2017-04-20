@@ -1,34 +1,36 @@
-import { Component, Output, EventEmitter } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { Credential } from '../../../../models/credential';
 
 @Component({
-    selector: 'machine-credentials',
-    templateUrl: './machine-credentials.component.html'
+  selector: 'machine-credentials',
+  templateUrl: './machine-credentials.component.html'
 })
 export class MachineCredentialsComponent {
-    credentialsType = new Credential();
-    selectedPrivilege = "none"
-    @Output() machineCredential: EventEmitter<Credential> = new EventEmitter<Credential> ();
+  public credentialsType = new Credential();
+  @Output() public machineCredential: EventEmitter<Credential> = new EventEmitter<Credential>();
+  public selectedPrivilege = 'none';
 
-    onChange() {
+  public onChange() {
+    console.log('chage');
+  }
 
-    }
+  public onTextChange(): void {
+    this.machineCredential.emit(this.credentialsType);
+  }
 
-    onTextChange(): void {
-        this.machineCredential.emit(this.credentialsType);
-    }
+  // Following methods can be replaced with ngModel
+  public onPasswordNotify(message: string) {
+    this.credentialsType.password = message;
+    this.machineCredential.emit(this.credentialsType);
+  }
 
-    // Following methods can be replaced with ngModel
-    onPasswordNotify(message: string) {
-        this.credentialsType.password = message;
-        this.machineCredential.emit(this.credentialsType);
-    }
-    onPassphaseNotify(message: string) {
-        this.credentialsType.authorize_password = message;
-        this.machineCredential.emit(this.credentialsType);
-    }
-    onVaultPasswordNotify(message: string) {
-        this.credentialsType.vault_password = message
-        this.machineCredential.emit(this.credentialsType);
-    }
+  public onPassphaseNotify(message: string) {
+    this.credentialsType.authorize_password = message;
+    this.machineCredential.emit(this.credentialsType);
+  }
+
+  public onVaultPasswordNotify(message: string) {
+    this.credentialsType.vault_password = message;
+    this.machineCredential.emit(this.credentialsType);
+  }
 }

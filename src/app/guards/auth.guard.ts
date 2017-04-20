@@ -4,7 +4,8 @@ import { Router, CanActivate } from '@angular/router';
 @Injectable()
 export class AuthGuard implements CanActivate {
     constructor(private router: Router) { }
-    canActivate() {
+
+    public canActivate() {
         console.log('calling auth guard');
         if (localStorage.getItem('_tensor_user')) {
             // logged in so return true

@@ -1,5 +1,5 @@
-import {Component, OnInit} from "@angular/core";
-import {TableData} from "./table-data";
+import { Component, OnInit } from '@angular/core';
+import { TableData } from './table-data';
 
 @Component({
   selector: 'teams-table',
@@ -7,22 +7,19 @@ import {TableData} from "./table-data";
 })
 export class TeamsTableComponent implements OnInit {
 
-  public rows: Array<any> = [];
-  public columns: Array<any> = [
+  public rows: any[] = [];
+  public columns: any[] = [
     {title: 'Name', name: 'username', sort: 'asc', link: true},
     {title: 'Description', name: 'firstname', sort: '', text: true},
     {title: 'Organization', name: 'lastname', sort: '', text: true},
-    {title: 'Actions', name: 'actions', sort: false,  actions: true}
+    {title: 'Actions', name: 'actions', sort: false, actions: true}
   ];
   public page: number = 1;
   public itemsPerPage: number = 10;
   public maxSize: number = 5;
   public numPages: number = 1;
   public length: number = 0;
-
-
-  private data: Array<any> = TableData;
-  // Table values
+// Table values
   // @Input() public rows: Array<any> = [];
   // @Input() public config: any = {};
 
@@ -32,12 +29,14 @@ export class TeamsTableComponent implements OnInit {
     filtering: {filterString: '', columnName: 'username'}
   };
 
+  private data: any[] = TableData;
+
   public constructor() {
     this.length = this.data.length;
   }
 
   public get configColumns(): any {
-    let sortColumns: Array<any> = [];
+    let sortColumns: any[] = [];
 
     this.columns.forEach((column: any) => {
       if (column.sort) {
@@ -48,8 +47,7 @@ export class TeamsTableComponent implements OnInit {
     return {columns: sortColumns};
   }
 
-
-  public changePage(data: Array<any> = this.data): Array<any> {
+  public changePage(data: any[] = this.data): any[] {
     let start = (this.page - 1) * this.itemsPerPage;
     let end = this.itemsPerPage > -1 ? (start + this.itemsPerPage) : data.length;
     return data.slice(start, end);
@@ -83,8 +81,9 @@ export class TeamsTableComponent implements OnInit {
       return data;
     }
 
-    let filteredData: Array<any> = data.filter((item: any) =>
-      item[config.filtering.columnName.toLowerCase()].match(new RegExp(this.config.filtering.filterString)));
+    let filteredData: any[] = data.filter((item: any) =>
+      item[config.filtering.columnName.toLowerCase()]
+        .match(new RegExp(this.config.filtering.filterString)));
 
     return filteredData;
   }
@@ -98,10 +97,10 @@ export class TeamsTableComponent implements OnInit {
     let columnName: string = void 0;
     let sort: string = void 0;
 
-    for (let i = 0; i < columns.length; i++) {
-      if (columns[i].sort !== '' && columns[i].sort !== false) {
-        columnName = columns[i].name;
-        sort = columns[i].sort;
+    for (let c of columns) {
+      if (c.sort !== '' && c.sort !== false) {
+        columnName = c.name;
+        sort = c.sort;
       }
     }
 
@@ -130,13 +129,14 @@ export class TeamsTableComponent implements OnInit {
   }
 
   public userDeleteClick(): void {
+    alert('Delete');
   }
 
   public userEditClick(): void {
     alert('Teams-table edit');
   }
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     console.log('hello `TeamsTable` component');
 
     this.onChangeTable(this.config);

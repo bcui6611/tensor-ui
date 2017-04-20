@@ -1,20 +1,27 @@
-import { Component, Output, EventEmitter } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { Credential } from '../../../../models/credential';
 
 @Component({
-    selector: 'aws',
-    templateUrl: './aws.component.html'
+  selector: 'aws',
+  templateUrl: './aws.component.html'
 })
 export class AwsComponent {
-    credential = new Credential();
-    @Output() sourceControlCredentials: EventEmitter<Credential> = new EventEmitter<Credential>();
+  public credential = new Credential();
+  @Output() public sourceControlCredentials: EventEmitter<Credential>
+    = new EventEmitter<Credential>();
 
-    onPasswordNotify(message: string) {
-        this.credential.password = message;
-        this.sourceControlCredentials.emit(this.credential);
-    }
-    onSTSTokenNotify(message: string) {
-        this.credential.authorize_password = message;
-        this.sourceControlCredentials.emit(this.credential);
-    }
+  public onPasswordNotify(message: string) {
+    this.credential.password = message;
+    this.sourceControlCredentials.emit(this.credential);
+  }
+
+  public onSTSTokenNotify(message: string) {
+    this.credential.authorize_password = message;
+    this.sourceControlCredentials.emit(this.credential);
+  }
+
+  public onTextChange(message: string) {
+    this.credential.username = message;
+    this.sourceControlCredentials.emit(this.credential);
+  }
 }

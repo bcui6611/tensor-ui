@@ -1,19 +1,17 @@
 import { Component, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
-    selector: 'jobs-home-cmp',
-    templateUrl: './jobs-home.component.html'
+  selector: 'jobs-home-cmp',
+  templateUrl: './jobs-home.component.html'
 })
-export class JobsHomeComponent implements OnInit{
+export class JobsHomeComponent implements OnInit {
 
-    constructor(
-        private _route: ActivatedRoute,
-        private _router: Router
-    ) { }
+  constructor(private _route: ActivatedRoute,
+              private _router: Router) {
+  }
 
-    ngOnInit(): void {
-        console.log('hello `Project` Component');
-    }
+  public ngOnInit(): void {
+    console.log('hello `Project` Component');
+  }
 }

@@ -1,9 +1,9 @@
 export class AnsibleLaunch {
-  limit: string;
-  extra_vars: Object;
-  job_tags: string;
-  skip_tags: string;
-  job_type: string;
-  inventory_id: string;
-  credential_id: string;
+  public limit: string;
+  public extra_vars: Object;
+  public job_tags: string;
+  public skip_tags: string;
+  public job_type: string;
+  public inventory_id: string;
+  public credential_id: string;
 }

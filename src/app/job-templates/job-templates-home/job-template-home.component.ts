@@ -1,27 +1,24 @@
 import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { ActivatedRoute, Router } from '@angular/router'
-import { JobTemplatesAddComponent } from '../job-templates-add/job-templates-add.component';
-
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
-    selector: 'job-template-home',
-    templateUrl: './job-template-home.component.html'
+  selector: 'job-template-home',
+  templateUrl: './job-template-home.component.html'
 })
-export class JobTemplateHomeComponent implements OnInit{
-    private path: Subscription;
-    private isAdd: boolean;
+export class JobTemplateHomeComponent implements OnInit {
+  public isAdd: boolean;
+  private path: Subscription;
 
-    constructor(
-        private _route: ActivatedRoute,
-        private _router: Router
-    ) { }
+  constructor(private _route: ActivatedRoute,
+              private _router: Router) {
+  }
 
-    ngOnInit(): void {
-        console.log('hello from `Job Template Home` component');
+  public ngOnInit(): void {
+    console.log('hello from `Job Template Home` component');
 
-        this.path = this._route.data.subscribe(data => {
-            this.isAdd = data['addTemplate'];
-        })
-    }
+    this.path = this._route.data.subscribe((data) => {
+      this.isAdd = data['addTemplate'];
+    });
+  }
 }

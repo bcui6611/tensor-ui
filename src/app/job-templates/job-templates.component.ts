@@ -1,6 +1,6 @@
-import { Component, ViewEncapsulation } from "@angular/core";
-import { BreadcrumbService } from "../shared/breadcrumb/breadcrumb.service";
-import { Router } from "@angular/router";
+import { Component, ViewEncapsulation } from '@angular/core';
+import { BreadcrumbService } from 'ng2-breadcrumb/ng2-breadcrumb';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'job-template',

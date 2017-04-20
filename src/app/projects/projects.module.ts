@@ -4,13 +4,13 @@ import { TopNavModule } from '../shared/topnav/topnav.module';
 import { ProjectsComponent } from './projects.component';
 import {  } from './projects-table';
 
-import { BreadcrumbModule, BreadcrumbService } from '../shared/breadcrumb/breadcrumb.module'
+import { Ng2BreadcrumbModule, BreadcrumbService } from 'ng2-breadcrumb/ng2-breadcrumb';
 
 @NgModule({
     imports: [
         TopNavModule,
         RouterModule,
-        BreadcrumbModule
+        Ng2BreadcrumbModule
     ],
     declarations: [
         ProjectsComponent
@@ -19,4 +19,4 @@ import { BreadcrumbModule, BreadcrumbService } from '../shared/breadcrumb/breadc
         BreadcrumbService
     ]
 })
-export class ProjectsModule {}
+export class ProjectsModule { }

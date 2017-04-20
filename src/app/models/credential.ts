@@ -1,35 +1,35 @@
 export class Credential {
-  id: string;
+  public id: string;
 
-  name: string;
-  kind: string;
+  public name: string;
+  public kind: string;
 
-  cloud: boolean;
-  description: string;
-  host: string;
-  username: string;
-  password: string;
-  security_token: string;
-  project: string;
-  domain: string;
-  ssh_key_data: string;
-  ssh_key_unlock: string;
-  become_method: string;
-  become_username: string;
-  become_password: string;
-  vault_password: string;
-  subscription: string;
-  tenant: string;
-  secret: string;
-  client: string;
-  authorize: boolean;
-  authorize_password: string;
-  orgization: string;
+  public cloud: boolean;
+  public description: string;
+  public host: string;
+  public username: string;
+  public password: string;
+  public security_token: string;
+  public project: string;
+  public domain: string;
+  public ssh_key_data: string;
+  public ssh_key_unlock: string;
+  public become_method: string;
+  public become_username: string;
+  public become_password: string;
+  public vault_password: string;
+  public subscription: string;
+  public tenant: string;
+  public secret: string;
+  public client: string;
+  public authorize: boolean;
+  public authorize_password: string;
+  public orgization: string;
 
-  created: Date;
-  modified: Date;
+  public created: Date;
+  public modified: Date;
 
-  type: string;
-  links: Object;
-  meta: Object;
+  public type: string;
+  public links: Object;
+  public meta: Object;
 }

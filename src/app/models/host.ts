@@ -1,24 +1,24 @@
 export class Host {
-  id: string;
+  public id: string;
 
-  name: string;
-  description: string;
-  inventory_id: string;
-  group_id: string;
-  instance_id: boolean;
-  variables: number;
-  enabled: boolean;
+  public name: string;
+  public description: string;
+  public inventory_id: string;
+  public group_id: string;
+  public instance_id: boolean;
+  public variables: number;
+  public enabled: boolean;
 
-  last_job_id: string;
-  last_job_host_summary_id: string;
+  public last_job_id: string;
+  public last_job_host_summary_id: string;
 
-  has_active_failures: boolean;
-  has_inventory_sources: boolean;
+  public has_active_failures: boolean;
+  public has_inventory_sources: boolean;
 
-  created: Date;
-  modified: Date;
+  public created: Date;
+  public modified: Date;
 
-  type: string;
-  links: Object;
-  meta: Object;
+  public type: string;
+  public links: Object;
+  public meta: Object;
 }

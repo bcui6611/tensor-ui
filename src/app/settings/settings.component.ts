@@ -1,12 +1,11 @@
-import { Component, ViewEncapsulation } from "@angular/core";
-import { BreadcrumbService } from "../shared/breadcrumb/breadcrumb.service";
+import { Component, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
+import { BreadcrumbService } from 'ng2-breadcrumb/ng2-breadcrumb';
 
 @Component({
     selector: 'settings-cmp',
     templateUrl: 'settings.component.html',
-    encapsulation: ViewEncapsulation.None,
-    providers: [BreadcrumbService]
+    encapsulation: ViewEncapsulation.None
 })
 
 export class SettingsComponent {
@@ -19,9 +18,11 @@ export class SettingsComponent {
         breadcrumbService.addFriendlyNameForRoute('/settings/users/add', 'Create User');
 
         breadcrumbService.addFriendlyNameForRoute('/settings/organizations', 'Organizations');
-        breadcrumbService.addFriendlyNameForRoute('/settings/organizations/add', 'Create Organization');
+        breadcrumbService.addFriendlyNameForRoute('/settings/organizations/add',
+            'Create Organization');
         breadcrumbService.addFriendlyNameForRoute('/settings/credentials', 'Credentials');
-        breadcrumbService.addFriendlyNameForRoute('/settings/credentials/add', 'Create Credentials');
+        breadcrumbService.addFriendlyNameForRoute('/settings/credentials/add',
+            'Create Credentials');
         breadcrumbService.addFriendlyNameForRoute('/settings/teams', 'Teams');
     }
 }
