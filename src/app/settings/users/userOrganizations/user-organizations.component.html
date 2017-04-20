@@ -1,0 +1,64 @@
+<div class="col-md-12">
+    <br>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="input-group input-group-search">
+                <div class="input-group-addon">
+                    <select class="custom-select search-selector">
+                        <option selected>Username</option>
+                        <option value="1">First Name</option>
+                        <option value="2">Last Name</option>
+                    </select>
+                </div>
+                <input placeholder="Filter"
+                       [ngTableFiltering]="config.filtering"
+                       (tableChanged)="onChangeTable(config)" type="text" class="form-control"/>
+                <div class="input-group-addon"><i class="fa fa-search"></i></div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table custom-table" role="grid">
+                <thead>
+                <tr role="row">
+                    <th *ngFor="let column of columns" [ngTableSorting]="config" [column]="column"
+                        (sortChanged)="onChangeTable($event)" class="col-md-3">
+                        {{column.title}}
+                        <i *ngIf="config" class="sort fa"
+                           [ngClass]="{'fa-sort-desc': column.sort === 'desc', 'fa-sort-asc': column.sort === 'asc',
+            'fa-sort': column.sort === ''}">
+                        </i>
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let row of rows">
+                    <td *ngFor="let column of columns" class="col-md-3">
+                        <span *ngIf="column.type === 'text'">{{getData(row, column.name)}}</span>
+                        <a class="card-link" href="javascript:;" (click)="usernameClick()"
+                           *ngIf="column.type === 'link'">{{getData(row, column.name)}}</a>
+                        <div *ngIf="column.type === 'actions'" class="text-nowrap" role="group" aria-label="actions">
+                            <a class="btn btn-outline-info" href="javascript:;" (click)="userEditClick()"><i
+                                    class="fa fa-edit"></i></a> &nbsp;
+                            <a class="btn btn-outline-info" href="javascript:;" (click)="userDeleteClick()"><i
+                                    class="fa fa-trash"></i></a>
+                        </div>
+
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+           <!-- <pagination *ngIf="config.paging" class="pagination-sm" [(ngModel)]="page"
+                        [totalItems]="length"
+                        [itemsPerPage]="itemsPerPage"
+                        [maxSize]="maxSize"
+                        [boundaryLinks]="true"
+                        [rotate]="false"
+                        (pageChanged)="onChangeTable(config, $event)"
+                        (numPages)="numPages = $event">
+            </pagination> -->
+        </div>
+    </div>
+</div>

@@ -1,0 +1,59 @@
+<!-- Search row -->
+<div class="row">
+    <div class="col-12">
+        <div class="input-group input-group-search">
+            <div class="input-group-addon">
+                <select class="custom-select search-selector">
+                                    <option selected value="name">Name</option>
+                                    <option value="organization">Orgnaization</option>
+                                </select>
+            </div>
+            <input placeholder="Search" [ngTableFiltering]="config.filtering" (tableChanged)="onChangeTable(config)" type="text" class="form-control"
+            />
+            <div class="input-group-addon"><i class="fa fa-search"></i></div>
+        </div>
+    </div>
+</div>
+<br>
+
+<!-- Table -->
+<div class="row">
+    <div class="col-12">
+        <table class="table custom-table" role="grid">
+            <thead>
+                <tr role="row">
+                    <th *ngFor="let tableh of columns" [ngTableSorting]="config" [column]="tableh" (sortChanged)="onChangeTable($event)" [ngClass]="{'col-3 actions text-right': tableh.actions, 'col': !tableh.actions}">
+                        {{tableh.title}}
+                        <i *ngIf="config" class="sort fa" [ngClass]="{'fa-sort-desc': tableh.sort === 'desc', 'fa-sort-asc': tableh.sort === 'asc',
+            'fa-sort': tableh.sort === ''}">
+                                    </i>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let row of rows">
+                    <td *ngFor="let column of columns" [ngClass]="{'col-3 text-right': column.actions, 'col': !column.actions}">
+
+                        <span *ngIf="column.text">{{getData(row, column.name)}}</span>
+                        <a class="card-link" routerLink="/inventories/inventory/1" *ngIf="column.link">{{getData(row,
+                                        column.name)}}</a>
+                        <div *ngIf="column.actions" class="action-button-group" role="group" aria-label="actions">            
+                            <a class="btn btn-outline-info" href="javascript:;" (click)="userEditClick(row)"><i class="fa fa-rocket" aria-hidden="true"></i></a>
+                            <button class="btn btn-outline-danger" [swal]="{ titleText:'Delete?', text: 'This cannot be undone.', type: 'warning', showCancelButton: true}" (confirm)="userDeleteClick(row)"><i class="fa fa-trash"></i></button>
+                        </div>
+
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class=row>
+            <div class="col-11">
+                <ngb-pagination [collectionSize]="length" [(page)]="page" (click)="setPage()"></ngb-pagination>
+            </div>
+            <div class="col-1 text-right">
+                <span><b>Page:</b> {{page}}</span>
+            </div>
+        </div>
+    </div>
+</div>

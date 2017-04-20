@@ -1,0 +1,97 @@
+<div class="row">
+    <div class="col-6">
+        <div class="card card-block">
+            <div class="row">
+                <div class="col-11 text-left">
+                    <p class="text-uppercase font-weight-bold">Results</p>
+                </div>
+                <div class="col-1 text-right action-button-group">
+                    <button class="btn btn-outline-info"><i class="fa fa-rocket" aria-hidden="true"></i></button>
+                    <button class="btn btn-outline-danger" [swal]="{ titleText:'Delete?', text: 'This cannot be undone.', type: 'warning', showCancelButton: true}"><i class="fa fa-trash"></i></button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="row">
+                        <div class="col">
+                            <div class="row">
+                                <label class="col text-uppercase">Status</label>
+                                <span class="col"><i class="fa fa-circle text-success" aria-hidden="true"></i> Successful</span>
+                            </div>
+                            <div class="row">
+                                <label class="col text-uppercase">Started</label>
+                                <span class="col">1/31/2017 7:39:57 PM</span>
+                            </div>
+                            <div class="row">
+                                <label class="col text-uppercase">Finished</label>
+                                <span class="col">1/31/2017 7:40:04 PM</span>
+                            </div>
+                            <div class="row">
+                                <label class="col text-uppercase">Elapsed</label>
+                                <span class="col">00:00:06</span>
+                            </div>
+                            <div class="row">
+                                <label class="col text-uppercase">Project</label>
+                                <span class="col"><a href="javascript:;">Demo Project</a></span>
+                            </div>
+                            <div class="row">
+                                <label class="col text-uppercase">Machine Credential</label>
+                                <span class="col"><a href="javascript:;">Demo Credential</a></span>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="row">
+                                <label class="col text-uppercase">Template</label>
+                                <span class="col"><a href="javascript:;">Demo Job Template</a></span>
+                            </div>
+                            <div class="row">
+                                <label class="col text-uppercase">Job Type</label>
+                                <span class="col">Run</span>
+                            </div>
+                            <div class="row">
+                                <label class="col text-uppercase">Launched By</label>
+                                <span class="col"><a href="javascript:;">Admin</a></span>
+                            </div>
+                            <div class="row">
+                                <label class="col text-uppercase">Inventory</label>
+                                <span class="col"><a href="javascript:;">Demo Inventory</a></span>
+                            </div>
+                            <div class="row">
+                                <label class="col text-uppercase">Playbook</label>
+                                <span class="col">hello_world.yml</span>
+                            </div>
+                            <div class="row">
+                                <label class="col text-uppercase">Verbosity</label>
+                                <span class="col">Default</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col form-group">
+                            <label for="extra-variables" class="text-uppercase">Extra Variables</label>
+                            <textarea rows="5" class="form-control" id="extra-variables" aria-describedby="Extra Variables"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-6">
+        <div class="card card-block">
+            <div class="row">
+                <div class="col-11 text-left">
+                    <p class="text-uppercase font-weight-bold">Standard Out</p>
+                </div>
+                <div class="col-1 text-right action-button-group">
+                    <button class="btn btn-outline-info">
+                        <i class="fa fa-download" aria-hidden="true"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,206 @@
+<div class="card card-block">
+  <div class="row">
+    <div class="col-11 text-left">
+      <p class="text-uppercase font-weight-bold">Job Templates</p>
+    </div>
+    <div class="col-1 text-right">
+      <a type="btn" class="close" routerLink="/job_templates" aria-label="Close">
+        <i class="fa fa-times-circle"></i>
+      </a>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <ngb-tabset type="pills">
+        <ngb-tab title="Details">
+
+          <template ngbTabContent>
+            <div class="row">
+              <div class="col">
+                <br>
+                <form #userAddForm="ngForm">
+                  <div class="row">
+                    <div class="col">
+                      <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" class="form-control" id="name" aria-describedby="Name">
+                      </div>
+                    </div>
+                    <div class="col">
+                      <div class="form-group">
+                        <label for="descriptions">Description</label>
+                        <input type="text" class="form-control" id="descriptions" aria-describedby="Descriptions">
+                      </div>
+                    </div>
+                    <div class="col">
+                      <div class="form-group">
+                        <label for="job_type">Job Type</label>
+                        <div class="input-group">
+                          <select class="form-control" id="job_type" name="job_type">
+                            <option>Choose a job type</option>
+                            <option id="run">Run</option>
+                            <option id="check">Check</option>
+                            <option id="scan">Scan</option>
+                          </select>
+                        </div>
+                        <input type="checkbox" name="job_type_on_prompt" value="job_type_on_prompt"> Prompt on launch
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col">
+                      <div class="form-group">
+                        <label for="inventory">Inventory</label>
+                        <div class="input-group">
+                          <span class="input-group-addon"><i class="fa fa-search"></i></span>
+                          <input type="text" class="form-control" [(ngModel)]="model" [ngbTypeahead]="search" name="inventory">
+                        </div>
+                        <input type="checkbox" name="job_type_on_prompt" value="job_type_on_prompt"> Prompt on launch
+                      </div>
+                    </div>
+                    <div class="col">
+                      <div class="form-group">
+                        <label for="project">Project</label>
+                        <div class="input-group">
+                          <span class="input-group-addon"><i class="fa fa-search"></i></span>
+                          <input type="text" class="form-control" [(ngModel)]="model" [ngbTypeahead]="search" name="project">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col">
+                      <div class="form-group">
+                        <label for="job_type">Playbook</label>
+                        <div class="input-group">
+                          <select class="form-control" id="job_type" name="job_type">
+                            <option>Choose a Playbook</option>
+                            <option id="run">Run</option>
+                            <option id="check">Check</option>
+                            <option id="scan">Scan</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col">
+                      <div class="form-group">
+                        <label for="inventory">Machine Credential</label>
+                        <div class="input-group">
+                          <span class="input-group-addon"><i class="fa fa-search"></i></span>
+                          <input type="text" class="form-control" [(ngModel)]="model" [ngbTypeahead]="search" name="inventory">
+                        </div>
+                        <input type="checkbox" name="job_type_on_prompt" value="job_type_on_prompt"> Prompt on launch
+                      </div>
+                    </div>
+                    <div class="col">
+                      <div class="form-group">
+                        <label for="inventory">Cloud Credential</label>
+                        <div class="input-group">
+                          <span class="input-group-addon"><i class="fa fa-search"></i></span>
+                          <input type="text" class="form-control" [(ngModel)]="model" [ngbTypeahead]="search" name="inventory">
+                        </div>
+                        <input type="checkbox" name="job_type_on_prompt" value="job_type_on_prompt"> Prompt on launch
+                      </div>
+                    </div>
+                    <div class="col">
+                      <div class="form-group">
+                        <label for="inventory">Network Credential</label>
+                        <div class="input-group">
+                          <span class="input-group-addon"><i class="fa fa-search"></i></span>
+                          <input type="text" class="form-control" [(ngModel)]="model" [ngbTypeahead]="search" name="inventory">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col">
+                      <div class="form-group">
+                        <label for="name">Forks</label>
+                        <input type="number" class="form-control" id="forks" aria-describedby="Forks" placeholder="0">
+                      </div>
+                    </div>
+                    <div class="col">
+                      <div class="form-group">
+                        <label for="inventory">Limit</label>
+                        <div class="input-group">
+                          <span class="input-group-addon"><i class="fa fa-search"></i></span>
+                          <input type="text" class="form-control" id="limit" aria-describedby="Limit">
+                        </div>
+                        <input type="checkbox" name="limit_on_prompt" value="limit_on_prompt"> Prompt on launch
+                      </div>
+                    </div>
+                    <div class="col">
+                      <label for="verbosity">Verbosity</label>
+                      <div class="input-group">
+                        <select class="form-control" id="verbosity" name="verbosity">
+                            <option>Choose a verbosity</option>
+                            <option value="0">0 (Normal)</option>
+                            <option value="0">1 (Verbose)</option>
+                            <option value="0">2 (More Verbose)</option>
+                            <option value="0">3 (Debug)</option>
+                            <option value="0">4 (Connection Debug)</option>
+                            <option value="0">5 (WinRM Debug)</option>
+                          </select>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col">
+                      <div class="form-group">
+                        <label for="job_tags">Job Tags</label>
+                        <textarea type="textarea" rows="5" class="form-control" id="job_tags" aria-describedby="Job Tags"></textarea>
+                        <input type="checkbox" name="job_tags_on_prompt" value="job_tags_on_prompt"> Prompt on launch
+                      </div>
+                    </div>
+                    <div class="col">
+                      <div class="form-group">
+                        <label for="skip_tags">Skip Tags</label>
+                        <textarea type="textarea" rows="5" class="form-control" id="skip_tags" aria-describedby="Skip Tags"></textarea>
+                        <input type="checkbox" name="skip_tags_on_prompt" value="skip_tags_on_prompt"> Prompt on launch
+                      </div>
+                    </div>
+                    <div class="col">
+                      <div class="form-group">
+                        <label for="options">Options</label>
+                        <div class="form-group">
+                          <label class="custom-control custom-checkbox">
+                            <input type="checkbox" name="become_enabled" value="become_enabled" class="custom-control-input">
+                            <span class="custom-control-indicator"></span>
+                            <span class="custom-control-description">Enable Privilege Escalation</span>
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col">
+                      <div class="form-group">
+                        <label for="extra_variables">Extra Variables (JSON)</label>
+                        <textarea type="textarea" rows="5" class="form-control" id="extra_variables" aria-describedby="Extra Variables"></textarea>
+                        <input type="checkbox" name="extra_variables_on_prompt" value="extra_variables_on_prompt"> Prompt on launch
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col text-right">
+                      <a class="btn btn-warning" routerLink="/job_templates" aria-label="Close">
+                        Cancel
+                      </a>
+                      <button type="submit" class="btn btn-success">Save</button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </template>
+        </ngb-tab>
+        <ngb-tab title="Completed Jobs" [disabled]="true">
+        </ngb-tab>
+        <ngb-tab title="Permissions" [disabled]="true">
+        </ngb-tab>
+        <ngb-tab title="Notifications" [disabled]="true">
+        </ngb-tab>
+      </ngb-tabset>
+    </div>
+  </div>
+</div>

@@ -1,58 +1,50 @@
-import { Component, OnInit } from "@angular/core";
-import { Router } from "@angular/router";
-import { Auth } from "../services/auth.service";
-import { NotificationsService, SimpleNotificationsComponent } from "angular2-notifications";
-import {FormGroup, FormBuilder, Validators} from "@angular/forms";
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { AuthenticationService } from '../services';
+import { NotificationsService } from 'angular2-notifications';
 
 @Component({
   selector: 'login-cmp',
   templateUrl: './login.component.html',
-  providers: [Auth, FormBuilder]
+  providers: [AuthenticationService, NotificationsService]
 })
 
 export class LoginComponent implements OnInit {
-  options = {
+  public options = {
     position: ['top', 'right'],
     timeOut: 0,
     lastOnBottom: true,
     clickToClose: true
   };
-
-  error: boolean = false;
-
-  loginForm: FormGroup;
-  username: any;
-  password: any;
+  public model: any = {};
+  public error: boolean = false;
 
   // TypeScript private modifiers
-  constructor(private auth: Auth, private router: Router, private _notification: NotificationsService,
-              private fb: FormBuilder) {
-    this.loginForm = fb.group({
-      'username': ['', Validators.required],
-      'password': ['', Validators.required]
-    });
-
-    this.username = this.loginForm.controls['username'];
-    this.password = this.loginForm.controls['password'];
+  constructor(private auth: AuthenticationService, private router: Router,
+              private _notification: NotificationsService) {
   }
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     console.log('hello `Login` component');
 
-    if (localStorage.getItem('token') == 'test') {
-      console.log(localStorage.getItem('token'))
+    if (localStorage.getItem('_tensor_user')) {
+      console.log(localStorage.getItem('_tensor_user'));
       this.router.navigate(['/dashboard']);
     }
   }
 
-  onSubmit(form: any): void {
-    this.auth.login(form.username, form.password)
-      .then(data => {
-        localStorage.setItem('token', 'test');
-        console.log('success');
-        this.router.navigate(['/dashboard']);
-      }).catch(error => {
-      this._notification.error('Sign In failed', 'Please check your username & password');
-    });
+  public login(form: any): void {
+    this.auth.login(this.model.username, this.model.password)
+      .subscribe((result) => {
+        if (result === true) {
+          // login successful
+          this.router.navigate(['/dashboard']);
+        } else {
+          // login failed
+          this._notification.error('Sign In failed', 'Please check your username & password');
+        }
+      }, (err) => {
+        this._notification.error('Sign In failed', 'Please check your username & password');
+      });
   }
 }

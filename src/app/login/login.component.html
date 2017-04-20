@@ -1,21 +1,23 @@
 <div class="container-fluid">
-    <div class="col-md-12">
+    <div class="col-12">
         <div class="row">
-            <div class="login-page col-md-offset-5 col-sm-offset-3">
+            <div class="login-page">
                 <div class="card card-block">
-                    <img src="assets/img/SB-admin.png" width="150px"/>
-                    <h1>Tensor</h1>
-                    <form (submit)="onSubmit(loginForm.value)" [formGroup]="loginForm">
-                        <div class="form-group">
-                            <input type="text" [formControl]="username" name="username"
-                                   class="form-control input-lg" placeholder="Email" id="username">
+                    <div class="text-center">
+                    <img class="img-fluid login-logo" src="/assets/img/logo.png" width="210px" />
+                    </div>
+                    <form (ngSubmit)="f.form.valid && login()" #f="ngForm" novalidate>
+                        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !username.valid }">
+                            <input type="text" name="username" [(ngModel)]="model.username" #username="ngModel" class="form-control input-lg" placeholder="Email"
+                                required>
+                            <div *ngIf="f.submitted && !username.valid" class="help-block">Username is required</div>
                         </div>
-                        <div class="form-group">
-                            <input type="password" [formControl]="password"
-                                   class="form-control input-lg" placeholder="Password" name="password">
+                        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !password.valid }">
+                            <input type="password" name="password" [(ngModel)]="model.password" #password="ngModel" class="form-control input-lg" placeholder="Password"
+                                required>
+                            <div *ngIf="f.submitted && !password.valid" class="help-block">Password is required</div>
                         </div>
-                        <button type="submit" class="btn btn-primary btn-block btn-lg"
-                                [disabled]="!loginForm.valid">
+                        <button type="submit" class="btn btn-primary btn-block btn-lg" [disabled]="!f.form.valid">
                             Sign in
                         </button>
                     </form>
