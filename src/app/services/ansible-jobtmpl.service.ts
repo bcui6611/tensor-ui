@@ -14,9 +14,9 @@ export class AnsibleJobTmplService {
     this.headers = new Headers({
       'Content-Type': 'application/json',
       'Accept': 'application/json',
-      'Authorization': 'Bear ' + this.getToken()
+      'Authorization': 'Bearer ' + this.getToken()
     });
-    this.jobTmplUrl = this.config.getConfig('host') + '/v1/ansible_job_templates/';
+    this.jobTmplUrl = this.config.getConfig('host') + '/v1/ansible_job_templates';
   }
 
   getAll(): Observable<AnsibleJobTmpl[]> {

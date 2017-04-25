@@ -14,9 +14,9 @@ export class AnsibleJobService {
     this.headers = new Headers({
       'Content-Type': 'application/json',
       'Accept': 'application/json',
-      'Authorization': 'Bear ' + this.getToken()
+      'Authorization': 'Bearer ' + this.getToken()
     });
-    this.ansibleJobUrl = this.config.getConfig('host') + '/v1/ansible_jobs/';
+    this.ansibleJobUrl = this.config.getConfig('host') + '/v1/ansible_jobs';
   }
 
   getAll(): Observable<AnsibleJob[]> {

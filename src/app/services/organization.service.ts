@@ -15,16 +15,16 @@ export class OrganizationService {
     this.headers = new Headers({
       'Content-Type': 'application/json',
       'Accept': 'application/json',
-      'Authorization': 'Bear ' + this.getToken()
+      'Authorization': 'Bearer ' + this.getToken()
     });
-    this.organizationsUrl = this.config.getConfig('host') + '/v1/organizations/';
+    this.organizationsUrl = this.config.getConfig('host') + '/v1/organizations';
   }
 
   // Get Organization details
   public getAll(): Observable<Organization[]> {
     return this._http
       .get(this.organizationsUrl, new RequestOptions({headers: this.headers}))
-      .map((response) => response.json().results as Organization[]);
+      .map((response) => response.json().data as Organization[]);
   }
 
   // Create an new organization

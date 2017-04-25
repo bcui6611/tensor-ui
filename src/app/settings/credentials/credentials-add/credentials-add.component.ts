@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { CredentialService } from '../../../services/credential.service';
 import { OrganizationService } from '../../../services/organization.service';
@@ -6,95 +6,64 @@ import { Organization } from '../../../models/organization';
 import { Credential } from '../../../models/credential';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/map';
+import { BreadcrumbService } from 'ng2-breadcrumb/bundles/components/breadcrumbService';
+import { ActivatedRoute } from '@angular/router';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'credentials-add',
   templateUrl: './credentials-add.component.html',
   providers: [CredentialService, OrganizationService]
 })
-export class CredentialsAddComponent implements OnInit {
+export class CredentialsAddComponent implements OnInit, OnChanges {
+  public model: Credential;
 
-  public credentials = new Credential();
   public validForm = false;
 
-  public model: any;
   public organizations: Organization[];
   public organizationList: string[] = [];
-  public selectedType = 'default';
-  public hasTypeError = false;
   public hasOrganizationError = false;
 
-  constructor(private organizationService: OrganizationService) {
-  }
+  public credentialForm: FormGroup;
 
-  public onNotify(message: Credential): void {
-    this.credentials.password = message.password;
-    this.credentials.ssh_key_data = message.ssh_key_data;
+  constructor(private organizationService: OrganizationService,
+              private breadcrumbService: BreadcrumbService,
+              private credentialService: CredentialService,
+              private route: ActivatedRoute,
+              private fb: FormBuilder) {
+    breadcrumbService.addFriendlyNameForRoute('/settings/credentials/add', 'Create');
+    let name = this.route.params.subscribe((p) => {
+      if (p['name']) {
+        breadcrumbService.addFriendlyNameForRoute('/settings/credentials/' + this.route.snapshot.url.join(''), p['name']);
+
+        this.credentialService.getByName(p['name']).subscribe((res) => {
+            this.model = res;
+            this.ngOnChanges();
+          },
+          (err) => {
+            console.log(err);
+          });
+      }
+    });
+
+    this.organizationService.getAll()
+      .subscribe((res) => {
+          this.organizationList = [];
+          this.organizations = res;
+          for (let organization of this.organizations) {
+            this.organizationList.push(organization.name);
+          }
+        },
+        (err) => {
+          console.log(err);
+        });
+
+    // create reactive form
+    this.createForm();
   }
 
   public ngOnInit(): void {
     console.log('hello `CredentialsAdd` component');
-    this.getOrganizations();
-  }
-
-  public formatter = (x: { name: string }) => x.name;
-
-  /**
-   * ---- Valid form states ---
-   * Name + Machine
-   * Name + Network + Network Username
-   * Name + Source control
-   * Name + AWS + Access key + Secret key
-   * Name + Rackspace + Username + API key
-   * Name + VMware vCenter + vCenter Host + Username + password
-   * Name + Red Hat Stellite + Satellite 6 host + Username + password
-   * Name + Red Hat CloudForms + CloudForms host + username + password
-   */
-  public validateForm() {
-    console.log(this.credentials.type);
-    if (this.validateName(this.credentials.name) && this.validateType(this.selectedType)) {
-      if (this.validateOrganization()) {
-        this.validForm = true;
-      } else {
-        this.validForm = false;
-      }
-    } else {
-      this.validForm = false;
-    }
-  }
-
-  public onTypeChange(credentialType) {
-    this.selectedType = credentialType;
-    if (credentialType === 'default') {
-      this.hasTypeError = true;
-    } else {
-      this.hasTypeError = false;
-    }
-    this.validateForm();
-  }
-
-  /**
-   * Check for valid names. Names are valid only if it is not empty, not null
-   * and does not contain spaces
-   */
-  public validateName(name) {
-    if (this.checkSpaces(name)) {
-      return false;
-    } else {
-      return true;
-    }
-  }
-
-  /**
-   * Check for valid Types. Default is invalid type and other
-   * types are valid.
-   */
-  public validateType(type: string): boolean {
-    if (type === 'default') {
-      return false;
-    } else {
-      return true;
-    }
   }
 
   public search = (text$: Observable<string>) =>
@@ -110,39 +79,12 @@ export class CredentialsAddComponent implements OnInit {
         }
       })
 
-  public getOrganizations(): void {
-    this.organizationService.getAll()
-      .subscribe((res) => {
-          this.organizationList = [];
-          this.organizations = res;
-          for (let organization of this.organizations) {
-            this.organizationList.push(organization.name);
-          }
-        },
-        (err) => {
-          console.log(err);
-        });
-  }
-
-  public addCredentials(): void {
-    if (this.model) {
-      this.credentials.id = this.model.id;
-    }
-  }
-
-  /**
-   * Check for empty or strings with spaces.
-   */
-  public checkSpaces(text: string): boolean {
-    return /\s/g.test(text) || text === '';
-  }
-
   /**
    * Check for valid organization selections
    */
   public validateOrganization() {
-    if ((this.model && this.model.name && this.organizationList.includes(this.model.name)) ||
-      this.model === '' || this.organizationList.includes(this.model)) {
+    if ((this.model && this.model.name && this.organizationList.includes(this.model.orgization)) ||
+      this.model || this.organizationList.includes(this.model.orgization)) {
       console.log('true');
       this.hasOrganizationError = false;
       return true;
@@ -152,4 +94,29 @@ export class CredentialsAddComponent implements OnInit {
       return false;
     }
   }
+
+  public ngOnChanges(): void {
+    this.credentialForm.reset({
+      name: this.model.name,
+      description: this.model.description,
+      kind: this.model.kind,
+      username: this.model.username,
+      password: this.model.password,
+      ssh_key_data: this.model.ssh_key_data,
+      ssh_key_unlock: this.model.ssh_key_unlock,
+    });
+  }
+
+  private createForm() {
+    this.credentialForm = this.fb.group({
+      name: ['', Validators.required],
+      description: [''],
+      kind: ['', Validators.required],
+      username: ['', Validators.required],
+      password: ['', Validators.required],
+      ssh_key_data: ['', Validators.required],
+      ssh_key_unlock: ['', Validators.required],
+    });
+  }
+
 }

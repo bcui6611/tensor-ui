@@ -10,7 +10,6 @@ import { BreadcrumbService, Ng2BreadcrumbModule } from 'ng2-breadcrumb/ng2-bread
   imports: [
     TopNavModule,
     RouterModule,
-    Ng2BreadcrumbModule
   ],
   declarations: [
     SettingsComponent
@@ -19,7 +18,6 @@ import { BreadcrumbService, Ng2BreadcrumbModule } from 'ng2-breadcrumb/ng2-bread
     TopNavModule
   ],
   providers: [
-    BreadcrumbService
   ]
 })
 export class SettingsModule {
