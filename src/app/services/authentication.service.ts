@@ -8,7 +8,7 @@ export class AuthenticationService {
   private token: string;
 
   constructor(private http: Http, private config: AppConfig) {
-    let currentUser = JSON.parse(localStorage.getItem('_tensor_user'));
+    const currentUser = JSON.parse(localStorage.getItem('_tensor_user'));
     this.token = currentUser && currentUser.token;
   }
 
@@ -18,7 +18,7 @@ export class AuthenticationService {
       .map((response: Response) => {
         if (response.status === 200) {
           // login successful if there's a jwt token in the response
-          let token = response.json() && response.json().token;
+          const token = response.json() && response.json().token;
           if (token) {
             // set token property
             this.token = token;

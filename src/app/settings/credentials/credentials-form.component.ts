@@ -88,7 +88,7 @@ export class CredentialsFormComponent implements OnInit, OnChanges {
               private fb: FormBuilder,
               private modalService: NgbModal) {
     breadcrumbService.addFriendlyNameForRoute('/settings/credentials/add', 'Create');
-    let name = this.route.params.subscribe((p) => {
+    const name = this.route.params.subscribe((p) => {
       if (p['name']) {
         breadcrumbService.addFriendlyNameForRoute('/settings/credentials/' + this.route.snapshot.url.join(''), p['name']);
 
@@ -105,7 +105,7 @@ export class CredentialsFormComponent implements OnInit, OnChanges {
     this.organizationService.getAll()
       .subscribe((res) => {
           this.organizations = res;
-          for (let organization of this.organizations) {
+          for (const organization of this.organizations) {
             this.organizationList.push(organization.name);
           }
         },
@@ -204,11 +204,11 @@ export class CredentialsFormComponent implements OnInit, OnChanges {
   private prepareSaveCredential(): Credential {
     const formModel = this.credentialForm.value;
 
-    const saveCredential: Credential = <Credential> {
+    const saveCredential: Credential = {
       id: formModel.id as string,
       name: formModel.name as string,
       description: formModel.description as string,
-    };
+    } as Credential;
 
     if (formModel.organization instanceof Object) {
       saveCredential.organization = formModel.organization.id as string;

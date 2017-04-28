@@ -19,7 +19,7 @@ export class UsersComponent implements OnInit {
   public ngOnInit(): void {
     console.log('hello `User` component');
     this.routerSub = this._route.params.subscribe((params) => {
-      let id = +params['id']; // (+) converts string 'id' to a number
+      const id = +params['id']; // (+) converts string 'id' to a number
       // this.service.getHero(id).then(hero => this.hero = hero);
     });
     this.path = this._route.data.subscribe((data) => {

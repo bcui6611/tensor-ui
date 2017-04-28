@@ -42,7 +42,7 @@ export class OrganizationsComponent implements OnInit {
     console.log('hello `Organizations` component');
 
     this.routerSub = this.route.params.subscribe((params) => {
-      let id = +params['id']; // (+) converts string 'id' to a number
+      const id = +params['id']; // (+) converts string 'id' to a number
       // this.service.getHero(id).then(hero => this.hero = hero);
     });
     this.path = this.route.data.subscribe((data) => {
@@ -53,7 +53,7 @@ export class OrganizationsComponent implements OnInit {
   }
 
   public get configColumns(): any {
-    let sortColumns: any[] = [];
+    const sortColumns: any[] = [];
 
     this.columns.forEach((column: any) => {
       if (column.sort) {
@@ -65,8 +65,8 @@ export class OrganizationsComponent implements OnInit {
   }
 
   public changePage(data: any[] = this.data): any[] {
-    let start = (this.page - 1) * this.itemsPerPage;
-    let end = this.itemsPerPage > -1 ? (start + this.itemsPerPage) : data.length;
+    const start = (this.page - 1) * this.itemsPerPage;
+    const end = this.itemsPerPage > -1 ? (start + this.itemsPerPage) : data.length;
     return data.slice(start, end);
   }
 
@@ -81,7 +81,7 @@ export class OrganizationsComponent implements OnInit {
       Object.assign(this.config.filtering, this.config.filtering);
     }
 
-    let filteredData = this.changeFilter(this.data, this.config);
+    const filteredData = this.changeFilter(this.data, this.config);
     this.rows = this.page && this.config.paging ? this.changePage(filteredData) : filteredData;
     this.length = filteredData.length;
 
@@ -92,7 +92,7 @@ export class OrganizationsComponent implements OnInit {
       return data;
     }
 
-    let filter: string = this.config.filtering.filterString.replace(/[.?*+^$[\]\\(){}|-]/g, '\\$&');
+    const filter: string = this.config.filtering.filterString.replace(/[.?*+^$[\]\\(){}|-]/g, '\\$&');
     return data.filter((item: any) =>
       new RegExp(filter, 'gi').test(item[config.filtering.columnName]));
   }

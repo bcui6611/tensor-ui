@@ -30,8 +30,8 @@ export class TeamUsersComponent implements OnInit {
   }
 
   public changePage(data: any[] = this.data): any[] {
-    let start = (this.page - 1) * this.itemsPerPage;
-    let end = this.itemsPerPage > -1 ? (start + this.itemsPerPage) : data.length;
+    const start = (this.page - 1) * this.itemsPerPage;
+    const end = this.itemsPerPage > -1 ? (start + this.itemsPerPage) : data.length;
     return data.slice(start, end);
   }
 
@@ -51,8 +51,8 @@ export class TeamUsersComponent implements OnInit {
       Object.assign(this.config.sorting, this.config.sorting);
     }
 
-    let filteredData = this.changeFilter(this.data, this.config);
-    let sortedData = this.changeSort(filteredData, this.config);
+    const filteredData = this.changeFilter(this.data, this.config);
+    const sortedData = this.changeSort(filteredData, this.config);
     this.rows = this.page && this.config.paging ? this.changePage(sortedData) : sortedData;
     this.length = sortedData.length;
 
@@ -63,9 +63,9 @@ export class TeamUsersComponent implements OnInit {
       return data;
     }
 
-    let regx = new RegExp(this.config.filtering.filterString
+    const regx = new RegExp(this.config.filtering.filterString
       .replace(/[.?*+^$[\]\\(){}|-]/g, '\\$&'), 'i');
-    let filteredData: any[] = data.filter((item: any) =>
+    const filteredData: any[] = data.filter((item: any) =>
       item[config.filtering.columnName].match(regx));
 
     return filteredData;
@@ -76,11 +76,11 @@ export class TeamUsersComponent implements OnInit {
       return data;
     }
 
-    let columns = this.config.sorting.columns || [];
+    const columns = this.config.sorting.columns || [];
     let columnName: string = void 0;
     let sort: string = void 0;
 
-    for (let c of columns) {
+    for (const c of columns) {
       if (c.sort !== '' && c.sort !== false) {
         columnName = c.name;
         sort = c.sort;

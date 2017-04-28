@@ -15,7 +15,7 @@ export class NgTableComponent {
   @Input()
   public set columns(values: any[]) {
     values.forEach((value: any) => {
-      let column = this._columns.find((col: any) => col.name === value.name);
+      const column = this._columns.find((col: any) => col.name === value.name);
       if (column) {
         Object.assign(column, value);
       }
@@ -30,7 +30,7 @@ export class NgTableComponent {
   }
 
   public get configColumns(): any {
-    let sortColumns: any[] = [];
+    const sortColumns: any[] = [];
 
     this.columns.forEach((column: any) => {
       if (column.sort) {

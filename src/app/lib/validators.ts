@@ -9,7 +9,7 @@ export class TensorValidators {
       if (Validators.required(control)) {
         return null;
       }
-      let v: string = control.value;
+      const v: string = control.value;
 
       if (control.value instanceof Object) { // special case for organization typehead
         return organizations.indexOf(control.value.name) > -1 ? null : {validateOrganization: {valid: false}};
