@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Credential } from '../../models/credential';
-import { CredentialService } from '../../services/credential.service';
+import { Credential } from '../models/credential';
+import { CredentialService } from '../services/credential.service';
 import { BreadcrumbService } from 'ng2-breadcrumb/bundles/components/breadcrumbService';
+import { EventBusService } from '../services/event-bus.service';
 
 @Component({
   selector: 'credentials-cmp',
@@ -30,13 +31,10 @@ export class CredentialsComponent {
     filtering: {filterString: '', columnName: 'name'}
   };
 
-  private routerSub: Subscription;
-  private path: Subscription;
   private data: Credential[];
 
-  constructor(private _route: ActivatedRoute,
-              private breadcrumbService: BreadcrumbService, private credentialsService: CredentialService,
-              private router: Router) {
+  constructor(private breadcrumbService: BreadcrumbService, private credentialsService: CredentialService,
+              private router: Router, private bus: EventBusService) {
     breadcrumbService.addFriendlyNameForRoute('/settings', 'Settings');
     breadcrumbService.addFriendlyNameForRoute('/settings/credentials', 'Credentials');
 
@@ -50,7 +48,7 @@ export class CredentialsComponent {
       });
 
     // reload data on route changes
-    this.router.events.subscribe((ev) => {
+    bus.listen('organization_modify').subscribe((e) => {
       this.credentialsService.getAll().subscribe((res) => {
           this.length = res.length;
           this.data = res;

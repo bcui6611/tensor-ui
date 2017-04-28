@@ -1,17 +1,18 @@
 import { Component, OnChanges, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { CredentialService } from '../../services/credential.service';
-import { OrganizationService } from '../../services/organization.service';
-import { Organization } from '../../models/organization';
-import { Credential } from '../../models/credential';
+import { CredentialService } from '../services/credential.service';
+import { OrganizationService } from '../services/organization.service';
+import { Organization } from '../models/organization';
+import { Credential } from '../models/credential';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/map';
 import { BreadcrumbService } from 'ng2-breadcrumb/bundles/components/breadcrumbService';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { OrganizationSelectComponent } from '../../shared/organizations-select.component';
-import { TensorValidators } from '../../lib/validators';
+import { OrganizationSelectComponent } from '../shared/organizations-select.component';
+import { TensorValidators } from '../lib/validators';
+import { EventBusService } from '../services/event-bus.service';
 
 @Component({
   selector: 'credentials-add',
@@ -19,6 +20,7 @@ import { TensorValidators } from '../../lib/validators';
   providers: [CredentialService, OrganizationService],
 })
 export class CredentialsFormComponent implements OnInit, OnChanges {
+
   public model: Credential;
 
   public organizations: Organization[];
@@ -86,7 +88,8 @@ export class CredentialsFormComponent implements OnInit, OnChanges {
               private route: ActivatedRoute,
               private router: Router,
               private fb: FormBuilder,
-              private modalService: NgbModal) {
+              private modalService: NgbModal,
+              private bus:EventBusService) {
     breadcrumbService.addFriendlyNameForRoute('/settings/credentials/add', 'Create');
     const name = this.route.params.subscribe((p) => {
       if (p['name']) {
@@ -199,6 +202,8 @@ export class CredentialsFormComponent implements OnInit, OnChanges {
         console.error('Error', ex);
       });
     }
+
+    this.bus.dispatch(new Event('organization_modify'));
   }
 
   private prepareSaveCredential(): Credential {
@@ -217,7 +222,7 @@ export class CredentialsFormComponent implements OnInit, OnChanges {
     saveCredential.kind = formModel.kind as string;
 
     switch (saveCredential.kind) {
-      case 'win': {
+      case 'windows': {
         saveCredential.username = formModel.username as string;
         saveCredential.password = formModel.password as string;
         saveCredential.vault_password = formModel.vault_password as string;

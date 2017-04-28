@@ -4,7 +4,7 @@ import { UserAddComponent } from './usersAdd/user-add.component';
 
 @NgModule({
     imports: [],
-    declarations: [UsersComponent, UserAddComponent],
+    declarations: [ UserAddComponent],
     exports: [],
 })
 export class UsersModule {}
