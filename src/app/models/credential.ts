@@ -8,6 +8,7 @@ export class Credential {
   public description: string;
   public host: string;
   public username: string;
+  public email: string;
   public password: string;
   public security_token: string;
   public project: string;
@@ -22,9 +23,15 @@ export class Credential {
   public tenant: string;
   public secret: string;
   public client: string;
+  public token: string;
   public authorize: boolean;
   public authorize_password: string;
-  public orgization: string;
+  public organization: string;
+
+  public ask_password_on_launch: boolean;
+  public ask_vault_password_on_launch: boolean;
+  public ask_become_password_on_launch: boolean;
+  public ask_ssh_key_unlock_on_launch: boolean;
 
   public created: Date;
   public modified: Date;

@@ -30,7 +30,7 @@ import { TeamsTableComponent } from './settings/teams/teamsTable/teams-table.com
 import { TeamUsersComponent } from './settings/teams/teamsUsers/team-users.component';
 import { TeamPermissionsComponent } from './settings/teams/teamPermissions/team-permissions.component';
 import { CredentialsComponent } from './settings/credentials/credentials.component';
-import { CredentialsAddComponent } from './settings/credentials/credentials-add/credentials-add.component';
+import { CredentialsFormComponent } from './settings/credentials/credentials-form.component';
 import { ProjectsAddComponent } from './projects/projects-add/projects-add.component';
 import { ProjectsHomeComponent } from './projects/projects-home/projects-home.component';
 import { ProjectsTableComponent } from './projects/projects-table/projects-table.component';
@@ -52,13 +52,10 @@ import { DashboardModule } from './dashboard/dashboard.module';
 import { InventoriesModule } from './inventories/inventories.module';
 import { JobTemplatesModule } from './job-templates/job-templates.module';
 
-import { MachineCredentialsComponent } from './settings/credentials/credentials-add/machine-credentials/machine-credentials.component';
-import { NetworkComponent } from './settings/credentials/credentials-add/network/network.component';
-import { SourceControlComponent } from './settings/credentials/credentials-add/source-control/source-control.component';
-import { AwsComponent } from './settings/credentials/credentials-add/aws/aws.component';
 import { BreadcrumbService } from 'ng2-breadcrumb/bundles/components/breadcrumbService';
 import { Ng2BreadcrumbModule } from 'ng2-breadcrumb/bundles/app.module';
 import { AuthenticationService } from './services';
+import { OrganizationSelectComponent } from './shared/organizations-select.component';
 
 @NgModule({
   imports: [
@@ -72,11 +69,7 @@ import { AuthenticationService } from './services';
     TopNavModule,
     HttpModule,
     NgbModule.forRoot(),
-    SweetAlert2Module.forRoot({
-      buttonsStyling: false,
-      confirmButtonClass: 'btn btn-lg btn-primary',
-      cancelButtonClass: 'btn btn-lg'
-    }),
+    SweetAlert2Module,
     JobsModule,
     DashboardModule,
     InventoriesModule,
@@ -101,7 +94,7 @@ import { AuthenticationService } from './services';
     TeamUsersComponent,
     TeamPermissionsComponent,
     CredentialsComponent,
-    CredentialsAddComponent,
+    CredentialsFormComponent,
     ProjectsAddComponent,
     ProjectsHomeComponent,
     ProjectsTableComponent,
@@ -114,12 +107,10 @@ import { AuthenticationService } from './services';
     JobsHomeComponent,
     JobsTableComponent,
     JobSummaryComponent,
-    MachineCredentialsComponent,
     InputPasswordComponent,
-    NetworkComponent,
-    SourceControlComponent,
-    AwsComponent
+    OrganizationSelectComponent
   ],
+  entryComponents: [OrganizationSelectComponent],
   providers: [
     appRoutingProviders,
     AppConfig,

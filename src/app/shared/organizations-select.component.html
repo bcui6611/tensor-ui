@@ -1,0 +1,66 @@
+<div class="modal-header">
+  <label class="modal-title text-uppercase font-weight-bold">SELECT ORGANIZATION</label>
+  <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+    <i class="fa fa-times-circle"></i>
+  </button>
+</div>
+<div class="modal-body">
+  <div class="row">
+    <div class="col-12">
+      <div class="input-group input-group-search">
+        <input placeholder="Search" [ngTableFiltering]="config.filtering" (tableChanged)="onChangeTable(config)"
+               type="text" class="form-control"/>
+        <div class="input-group-addon"><i class="fa fa-search"></i></div>
+      </div>
+    </div>
+  </div>
+  <br>
+  <!-- Table -->
+  <div class="row">
+    <div class="col-12">
+      <table class="table custom-table" role="grid">
+        <thead>
+        <tr role="row">
+          <th *ngFor="let tableh of columns" [ngTableSorting]="config" [column]="tableh"
+              (sortChanged)="onChangeTable($event)"
+              class="col">
+            {{tableh.title}}
+            <i *ngIf="config" class="sort fa" [ngClass]="{'fa-sort-desc': tableh.sort === 'desc', 'fa-sort-asc': tableh.sort === 'asc',
+            'fa-sort': tableh.sort === ''}">
+            </i>
+          </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let row of rows">
+          <td *ngFor="let column of columns" class="col">
+            <div *ngIf="column.actions" role="group" aria-label="actions">
+
+            </div>
+            <span *ngIf="column.text">
+               <div class="custom-controls-stacked">
+                <label class="custom-control custom-radio">
+                  <input name="organization" [value]="getData(row, 'id')" (change)="selected($event)" type="radio"
+                         class="custom-control-input">
+                  <span class="custom-control-indicator"></span>
+                  <span class="custom-control-description">{{getData(row, column.name)}}</span>
+                </label>
+              </div>
+              </span>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <ngb-pagination [collectionSize]="length" [(page)]="page" [maxSize]="5" [rotate]="true"
+                      (pageChange)="onChangeTable(config, $event)" [boundaryLinks]="true"></ngb-pagination>
+    </div>
+  </div>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-secondary text-uppercase" (click)="activeModal.dismiss()">Cancel</button>
+  <button type="button" class="btn btn-success text-uppercase" (click)="close()">Save</button>
+</div>

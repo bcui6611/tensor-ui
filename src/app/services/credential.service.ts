@@ -29,14 +29,14 @@ export class CredentialService {
 
   public create(credentials: Credential): Observable<Credential> {
     return this._http
-      .post(this.credentialUrl, Credential,
+      .post(this.credentialUrl, credentials,
         new RequestOptions({headers: this.headers}))
       .map((response) => response.json() as Credential);
   }
 
   public get(id: string): Observable<Credential> {
     return this._http
-      .get(this.credentialUrl + id, new RequestOptions({headers: this.headers}))
+      .get(this.credentialUrl + '/' + id, new RequestOptions({headers: this.headers}))
       .map((response) => response.json().data as Credential);
   }
 
@@ -48,14 +48,14 @@ export class CredentialService {
 
   public update(credential: Credential): Observable<Credential> {
     return this._http
-      .put(this.credentialUrl + credential.id, credential,
+      .put(this.credentialUrl + '/' + credential.id, credential,
         new RequestOptions({headers: this.headers}))
       .map((response) => response.json().data as Credential);
   }
 
   public delete(id: string) {
     return this._http
-      .delete(this.credentialUrl + id, new RequestOptions({headers: this.headers}));
+      .delete(this.credentialUrl + '/' + id, new RequestOptions({headers: this.headers}));
   }
 
   public getToken(): string {

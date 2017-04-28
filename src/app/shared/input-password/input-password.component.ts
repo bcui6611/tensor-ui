@@ -1,25 +1,27 @@
-import { Component, EventEmitter, forwardRef, Input, Output } from '@angular/core';
+import { Component, EventEmitter, forwardRef, Input, Output, Provider, ViewEncapsulation } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+
+const INPUT_PASSWORD_CONTROL_VALUE_ACCESSOR: any = {
+  provide: NG_VALUE_ACCESSOR,
+  useExisting: forwardRef(() => InputPasswordComponent),
+  multi: true
+};
 
 @Component({
   selector: 'input-password',
   templateUrl: './input-password.component.html',
-  providers: [
-    {
-      provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => InputPasswordComponent),
-      multi: true
-    },
-  ]
+  providers: [INPUT_PASSWORD_CONTROL_VALUE_ACCESSOR],
+  encapsulation: ViewEncapsulation.None,
 })
-export class InputPasswordComponent implements ControlValueAccessor{
+export class InputPasswordComponent implements ControlValueAccessor {
   // public passwordText: string;
   public showMessage = 'Show';
   public inputType = 'password';
 
-  @Input('value') _value: string;
-
   @Output() public password: EventEmitter<string> = new EventEmitter<string>();
+  @Input() public disabled: boolean;
+
+  private _value: string;
 
   public registerOnChange(fn) {
     this.onChange = fn;
@@ -33,16 +35,16 @@ export class InputPasswordComponent implements ControlValueAccessor{
     return this._value;
   }
 
-  public writeValue(value) {
-    if (value) {
-      this.value = value;
-    }
-  }
-
-  public set value(val) {
+  @Input('value') public set value(val) {
     this._value = val;
     this.onChange(val);
     this.onTouched();
+  }
+
+  public writeValue(value) {
+    if (value) {
+      this._value = value;
+    }
   }
 
   public toggleShowType() {
@@ -55,12 +57,11 @@ export class InputPasswordComponent implements ControlValueAccessor{
     }
   }
 
-  // Send string of the password field to container of this component
-  public onTextChange(): void {
+  private onChange: any = () => {
     this.password.emit(this._value);
   }
 
-  private onChange: any = () => { };
-  private onTouched: any = () => { };
-
+  private onTouched: any = () => {
+    console.log('on touched');
+  }
 }

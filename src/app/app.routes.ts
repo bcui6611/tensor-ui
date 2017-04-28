@@ -20,7 +20,7 @@ import { JobsHomeComponent } from './jobs/jobs-home/jobs-home.component';
 import { JobSummaryComponent } from './jobs/job-summary/job-summary.component';
 
 import { InventoriesComponent } from './inventories/inventories.component';
-import { CredentialsAddComponent } from './settings/credentials/credentials-add/credentials-add.component';
+import { CredentialsFormComponent } from './settings/credentials/credentials-form.component';
 
 export const rootRouterConfig: Routes = [
   { path: '', component: LoginComponent },
@@ -57,8 +57,8 @@ export const rootRouterConfig: Routes = [
     { path: 'settings/credentials',
       component: CredentialsComponent,
       children: [
-        { path: 'add', component: CredentialsAddComponent },
-        { path: ':name', component: CredentialsAddComponent },
+        { path: 'add', component: CredentialsFormComponent },
+        { path: ':name', component: CredentialsFormComponent },
       ],
       canActivate: [AuthGuard]
     },

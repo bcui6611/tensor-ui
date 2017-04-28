@@ -1,65 +1,36 @@
-import { Component } from '@angular/core';
-import { Subscription } from 'rxjs';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Credential } from '../../models/credential';
-import { CredentialService } from '../../services/credential.service';
-import { BreadcrumbService } from 'ng2-breadcrumb/bundles/components/breadcrumbService';
+import { Component, Input, OnInit, Output } from '@angular/core';
+import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { OrganizationService } from '../services/organization.service';
+import { Organization } from '../models/organization';
 
 @Component({
-  selector: 'credentials-cmp',
-  templateUrl: './credentials.component.html',
-  providers: [CredentialService]
+  selector: 'organization-select',
+  template: require('./organizations-select.component.html'),
+  providers: [OrganizationService]
 })
-export class CredentialsComponent {
-  public isAdd: boolean;
+export class OrganizationSelectComponent implements OnInit {
+
   public rows: any[] = [];
   public columns: any[] = [
-    {title: 'Name', name: 'name', sort: 'asc', link: true},
-    {title: 'Description', name: 'description', sort: '', text: true},
-    {title: 'Type', name: 'kind', sort: false, text: true},
-    {title: 'Owners', name: 'owners', sort: false, link: true},
-    {title: 'Actions', name: 'actions', sort: false, actions: true}
+    {title: 'Name', name: 'name', sort: '', text: true}
   ];
   public page: number = 1;
   public itemsPerPage: number = 10;
   public maxSize: number = 5;
   public numPages: number = 1;
   public length: number = 0;
+
   public config: any = {
+    paging: true,
     sorting: {columns: this.columns},
-    filtering: {filterString: '', columnName: 'name'}
+    filtering: {filterString: '', columnName: 'name'},
+    className: ['table-striped', 'table-bordered']
   };
 
-  private routerSub: Subscription;
-  private path: Subscription;
-  private data: Credential[];
+  private data: Organization[];
+  private model: Organization;
 
-  constructor(private _route: ActivatedRoute,
-              private breadcrumbService: BreadcrumbService, private credentialsService: CredentialService,
-              private router: Router) {
-    breadcrumbService.addFriendlyNameForRoute('/settings', 'Settings');
-    breadcrumbService.addFriendlyNameForRoute('/settings/credentials', 'Credentials');
-
-    this.credentialsService.getAll().subscribe((res) => {
-        this.length = res.length;
-        this.data = res;
-        this.onChangeTable(this.config);
-      },
-      (err) => {
-        console.log(err);
-      });
-
-    // reload data on route changes
-    this.router.events.subscribe((ev) => {
-      this.credentialsService.getAll().subscribe((res) => {
-          this.length = res.length;
-          this.data = res;
-          this.onChangeTable(this.config);
-        },
-        (err) => {
-          console.log(err);
-        });
-    });
+  constructor(public activeModal: NgbActiveModal, public organizationService: OrganizationService) {
   }
 
   public get configColumns(): any {
@@ -74,7 +45,12 @@ export class CredentialsComponent {
     return {columns: sortColumns};
   }
 
+  public setPage() {
+    this.onChangeTable(this.config);
+  }
+
   public changePage(data: any[] = this.data): any[] {
+
     let start = (this.page - 1) * this.itemsPerPage;
     let end = this.itemsPerPage > -1 ? (start + this.itemsPerPage) : data.length;
     return data.slice(start, end);
@@ -98,7 +74,7 @@ export class CredentialsComponent {
 
     let filteredData = this.changeFilter(this.data, this.config);
     let sortedData = this.changeSort(filteredData, this.config);
-    this.rows = this.page ? this.changePage(sortedData) : sortedData;
+    this.rows = this.page && this.config.paging ? this.changePage(sortedData) : sortedData;
     this.length = sortedData.length;
 
   }
@@ -148,20 +124,23 @@ export class CredentialsComponent {
     return propertyName.split('.').reduce((prev: any, curr: string) => prev[curr], row);
   }
 
-  public getUrl(row: any): string {
-    return '/settings/credentials/' + ('name'.split('.').reduce((prev: any, curr: string) => prev[curr], row));
+  public selected($event): void {
+    this.model = this.data.find((x) => x.id === $event.target.value);
   }
 
-  public onDelete($data: Credential): void {
-    this.credentialsService.delete($data.id).subscribe((dres) => {
-      this.credentialsService.getAll().subscribe((res) => {
-          this.length = res.length;
-          this.data = res;
-          this.onChangeTable(this.config);
-        },
-        (err) => {
-          console.log(err);
-        });
-    });
+  public close(): void {
+    this.activeModal.close(this.model);
+  }
+
+  public ngOnInit(): void {
+    console.log('hello `OrganizationSelect` component');
+    this.organizationService.getAll().subscribe((res: Organization[]) => {
+        this.data = res;
+        this.length = this.data.length;
+        this.onChangeTable(this.config);
+      },
+      (err) => {
+        console.log(err);
+      });
   }
 }
