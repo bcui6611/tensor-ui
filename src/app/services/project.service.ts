@@ -14,7 +14,7 @@ export class ProjectService {
     this.headers = new Headers({
       'Content-Type': 'application/json',
       'Accept': 'application/json',
-      'Authorization': 'Bear ' + this.getToken()
+      'Authorization': 'Bearer ' + this.getToken()
     });
     this.projectUrl = this.config.getConfig('host') + '/v1/projects/';
   }

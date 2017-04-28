@@ -1,1 +1,5 @@
-<router-outlet></router-outlet>
+<top-nav *ngIf="isActive()" class="navbar navbar-toggleable-md navbar-light fixed-top navbar-tensor"></top-nav>
+<breadcrumb *ngIf="isActive()" class="breadcrumb-tensor"></breadcrumb>
+<div class="container-fluid">
+  <router-outlet></router-outlet>
+</div>

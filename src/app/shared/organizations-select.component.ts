@@ -1,22 +1,18 @@
-import { Component, OnInit } from '@angular/core';
-
-import { CredentialService } from '../../../services/credential.service';
-import { Credential } from '../../../models/credential';
+import { Component, Input, OnInit, Output } from '@angular/core';
+import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { OrganizationService } from '../services/organization.service';
+import { Organization } from '../models/organization';
 
 @Component({
-  selector: 'credentials-table',
-  templateUrl: './credentials-table.component.html',
-  providers: [CredentialService]
+  selector: 'organization-select',
+  template: require('./organizations-select.component.html'),
+  providers: [OrganizationService]
 })
-export class CredentialsTableComponent implements OnInit {
-  public credentials: Credential[];
+export class OrganizationSelectComponent implements OnInit {
+
   public rows: any[] = [];
   public columns: any[] = [
-    {title: 'Name', name: 'name', sort: 'asc', link: true},
-    {title: 'Description', name: 'description', sort: '', text: true},
-    {title: 'Type', name: 'type', sort: '', text: true},
-    {title: 'Owners', name: 'type', sort: '', link: true},
-    {title: 'Actions', name: 'actions', sort: false, actions: true}
+    {title: 'Name', name: 'name', sort: '', text: true}
   ];
   public page: number = 1;
   public itemsPerPage: number = 10;
@@ -27,22 +23,14 @@ export class CredentialsTableComponent implements OnInit {
   public config: any = {
     paging: true,
     sorting: {columns: this.columns},
-    filtering: {filterString: '', columnName: 'username'}
+    filtering: {filterString: '', columnName: 'name'},
+    className: ['table-striped', 'table-bordered']
   };
 
-  private data: any[];
+  private data: Organization[];
+  private model: Organization;
 
-  constructor(private credentialsService: CredentialService, ) {
-    this.credentialsService.getAll()
-      .subscribe((res) => {
-          this.credentials = res;
-          this.length = res.length;
-          this.data = this.credentials;
-          this.onChangeTable(this.config);
-        },
-        (err) => {
-          console.log(err);
-        });
+  constructor(public activeModal: NgbActiveModal, public organizationService: OrganizationService) {
   }
 
   public get configColumns(): any {
@@ -57,7 +45,12 @@ export class CredentialsTableComponent implements OnInit {
     return {columns: sortColumns};
   }
 
+  public setPage() {
+    this.onChangeTable(this.config);
+  }
+
   public changePage(data: any[] = this.data): any[] {
+
     let start = (this.page - 1) * this.itemsPerPage;
     let end = this.itemsPerPage > -1 ? (start + this.itemsPerPage) : data.length;
     return data.slice(start, end);
@@ -131,20 +124,23 @@ export class CredentialsTableComponent implements OnInit {
     return propertyName.split('.').reduce((prev: any, curr: string) => prev[curr], row);
   }
 
-  // Username click
-  public usernameClick(): void {
-    alert('sfsdfs');
+  public selected($event): void {
+    this.model = this.data.find((x) => x.id === $event.target.value);
   }
 
-  public userDeleteClick(): void {
-    alert('sfsdfs');
-  }
-
-  public userEditClick(): void {
-    alert('sfsdfs');
+  public close(): void {
+    this.activeModal.close(this.model);
   }
 
   public ngOnInit(): void {
-    alert('sfsdfs');
+    console.log('hello `OrganizationSelect` component');
+    this.organizationService.getAll().subscribe((res: Organization[]) => {
+        this.data = res;
+        this.length = this.data.length;
+        this.onChangeTable(this.config);
+      },
+      (err) => {
+        console.log(err);
+      });
   }
 }

@@ -1,28 +1,21 @@
-import { Component, ViewEncapsulation } from '@angular/core';
-import { Router } from '@angular/router';
-import { BreadcrumbService } from 'ng2-breadcrumb/ng2-breadcrumb';
+import { Component } from '@angular/core';
+import { BreadcrumbService } from 'ng2-breadcrumb/bundles/components/breadcrumbService';
 
 @Component({
-    selector: 'settings-cmp',
-    templateUrl: 'settings.component.html',
-    encapsulation: ViewEncapsulation.None
+  selector: 'settings-cmp',
+  templateUrl: 'settings.component.html',
 })
 
 export class SettingsComponent {
 
-    constructor(private breadcrumbService: BreadcrumbService, private router: Router) {
-        console.log('hello form `settings` component');
+  constructor(private breadcrumbService: BreadcrumbService) {
+    console.log('hello form `settings` component');
+    breadcrumbService.addFriendlyNameForRoute('/settings', 'Settings');
+    breadcrumbService.addFriendlyNameForRoute('/settings/users', 'Users');
+    breadcrumbService.addFriendlyNameForRoute('/settings/users/add', 'Create User');
 
-        breadcrumbService.addFriendlyNameForRoute('/settings', 'Settings');
-        breadcrumbService.addFriendlyNameForRoute('/settings/users', 'Users');
-        breadcrumbService.addFriendlyNameForRoute('/settings/users/add', 'Create User');
-
-        breadcrumbService.addFriendlyNameForRoute('/settings/organizations', 'Organizations');
-        breadcrumbService.addFriendlyNameForRoute('/settings/organizations/add',
-            'Create Organization');
-        breadcrumbService.addFriendlyNameForRoute('/settings/credentials', 'Credentials');
-        breadcrumbService.addFriendlyNameForRoute('/settings/credentials/add',
-            'Create Credentials');
-        breadcrumbService.addFriendlyNameForRoute('/settings/teams', 'Teams');
-    }
+    breadcrumbService.addFriendlyNameForRoute('/settings/organizations', 'Organizations');
+    breadcrumbService.addFriendlyNameForRoute('/settings/organizations/add', 'Create');
+    breadcrumbService.addFriendlyNameForRoute('/settings/teams', 'Teams');
+  }
 }

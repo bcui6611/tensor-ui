@@ -16,11 +16,9 @@ import { LoginComponent } from './login/login.component';
 import { InventoriesHomeComponent } from './inventories/inventoriesHome/inventories-home.component';
 import { UsersComponent } from './settings/users/users.component';
 
-import { DashboardHomeModule } from './dashboard/components/dashboardHome/dashboard-home.module';
 import { InventoriesTableModule } from './inventories/inventoriesTable/inventories-table.module';
 import { SettingsModule } from './settings/settings.module';
 import { JobsModule } from './jobs/jobs.module';
-import { SettingsHomeModule } from './settings/settingsHome/settings-home.module';
 import { UserAddComponent } from './settings/users/usersAdd/user-add.component';
 import { InventoriesTableComponent } from './settings/users/usersTable/users-table.component';
 import { OrganizationsComponent } from './settings/organizations/organizations.component';
@@ -32,8 +30,7 @@ import { TeamsTableComponent } from './settings/teams/teamsTable/teams-table.com
 import { TeamUsersComponent } from './settings/teams/teamsUsers/team-users.component';
 import { TeamPermissionsComponent } from './settings/teams/teamPermissions/team-permissions.component';
 import { CredentialsComponent } from './settings/credentials/credentials.component';
-import { CredentialsTableComponent } from './settings/credentials/credentials-table/credentials-table.component';
-import { CredentialsAddComponent } from './settings/credentials/credentials-add/credentials-add.component';
+import { CredentialsFormComponent } from './settings/credentials/credentials-form.component';
 import { ProjectsAddComponent } from './projects/projects-add/projects-add.component';
 import { ProjectsHomeComponent } from './projects/projects-home/projects-home.component';
 import { ProjectsTableComponent } from './projects/projects-table/projects-table.component';
@@ -55,10 +52,10 @@ import { DashboardModule } from './dashboard/dashboard.module';
 import { InventoriesModule } from './inventories/inventories.module';
 import { JobTemplatesModule } from './job-templates/job-templates.module';
 
-import { MachineCredentialsComponent } from './settings/credentials/credentials-add/machine-credentials/machine-credentials.component';
-import { NetworkComponent } from './settings/credentials/credentials-add/network/network.component';
-import { SourceControlComponent } from './settings/credentials/credentials-add/source-control/source-control.component';
-import { AwsComponent } from './settings/credentials/credentials-add/aws/aws.component';
+import { BreadcrumbService } from 'ng2-breadcrumb/bundles/components/breadcrumbService';
+import { Ng2BreadcrumbModule } from 'ng2-breadcrumb/bundles/app.module';
+import { AuthenticationService } from './services';
+import { OrganizationSelectComponent } from './shared/organizations-select.component';
 
 @NgModule({
   imports: [
@@ -71,15 +68,14 @@ import { AwsComponent } from './settings/credentials/credentials-add/aws/aws.com
     ProjectsModule,
     TopNavModule,
     HttpModule,
-    DashboardHomeModule,
     NgbModule.forRoot(),
-    SettingsHomeModule,
     SweetAlert2Module,
     JobsModule,
     DashboardModule,
     InventoriesModule,
     JobTemplatesModule,
-    RouterModule.forRoot(rootRouterConfig)
+    RouterModule.forRoot(rootRouterConfig),
+    Ng2BreadcrumbModule.forRoot()
   ],
 
   declarations: [
@@ -98,8 +94,7 @@ import { AwsComponent } from './settings/credentials/credentials-add/aws/aws.com
     TeamUsersComponent,
     TeamPermissionsComponent,
     CredentialsComponent,
-    CredentialsTableComponent,
-    CredentialsAddComponent,
+    CredentialsFormComponent,
     ProjectsAddComponent,
     ProjectsHomeComponent,
     ProjectsTableComponent,
@@ -112,12 +107,10 @@ import { AwsComponent } from './settings/credentials/credentials-add/aws/aws.com
     JobsHomeComponent,
     JobsTableComponent,
     JobSummaryComponent,
-    MachineCredentialsComponent,
     InputPasswordComponent,
-    NetworkComponent,
-    SourceControlComponent,
-    AwsComponent
+    OrganizationSelectComponent
   ],
+  entryComponents: [OrganizationSelectComponent],
   providers: [
     appRoutingProviders,
     AppConfig,
@@ -126,7 +119,9 @@ import { AwsComponent } from './settings/credentials/credentials-add/aws/aws.com
       useFactory: (config: AppConfig) => () => config.load(),
       deps: [AppConfig],
       multi: true
-    }
+    },
+    BreadcrumbService,
+    AuthenticationService
   ],
   bootstrap: [AppComponent]
 })

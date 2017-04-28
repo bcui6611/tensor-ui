@@ -38,8 +38,14 @@ export class AuthenticationService {
       });
   }
 
+  public isLoggedIn() {
+    if (localStorage.getItem('_tensor_user')) {
+      return true;
+    }
+    return false;
+  }
+
   public logout(): void {
-    // clear token remove user from local storage to log user out
     this.token = null;
     localStorage.removeItem('_tensor_user');
   }

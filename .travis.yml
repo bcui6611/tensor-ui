@@ -13,8 +13,6 @@ node_js:
   - "node"
 matrix:
   fast_finish: true
-  allow_failures:
-  - node_js: "4"
 before_install:
   - npm i npm@^4 -g
 install:
