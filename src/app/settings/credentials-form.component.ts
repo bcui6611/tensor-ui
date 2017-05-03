@@ -13,6 +13,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { OrganizationSelectComponent } from '../shared/organizations-select.component';
 import { TensorValidators } from '../lib/validators';
 import { EventBusService } from '../services/event-bus.service';
+import { NotificationsService } from 'angular2-notifications/dist';
 
 @Component({
   selector: 'credentials-add',
@@ -89,11 +90,15 @@ export class CredentialsFormComponent implements OnInit, OnChanges {
               private router: Router,
               private fb: FormBuilder,
               private modalService: NgbModal,
-              private bus:EventBusService) {
-    breadcrumbService.addFriendlyNameForRoute('/settings/credentials/add', 'Create');
+              private bus: EventBusService,
+              private _notification: NotificationsService) {
+  }
+
+  public ngOnInit(): void {
+    this.breadcrumbService.addFriendlyNameForRoute('/settings/credentials/add', 'Create');
     const name = this.route.params.subscribe((p) => {
       if (p['name']) {
-        breadcrumbService.addFriendlyNameForRoute('/settings/credentials/' + this.route.snapshot.url.join(''), p['name']);
+        this.breadcrumbService.addFriendlyNameForRoute('/settings/credentials/' + this.route.snapshot.url.join(''), p['name']);
 
         this.credentialService.getByName(p['name']).subscribe((res) => {
             this.model = res;
@@ -107,7 +112,7 @@ export class CredentialsFormComponent implements OnInit, OnChanges {
 
     this.organizationService.getAll()
       .subscribe((res) => {
-          this.organizations = res;
+          this.organizations = res.data;
           for (const organization of this.organizations) {
             this.organizationList.push(organization.name);
           }
@@ -118,10 +123,6 @@ export class CredentialsFormComponent implements OnInit, OnChanges {
 
     // create reactive form
     this.createForm();
-  }
-
-  public ngOnInit(): void {
-    console.log('hello `CredentialsAdd` component');
   }
 
   public search = (text$: Observable<string>) =>
@@ -192,18 +193,20 @@ export class CredentialsFormComponent implements OnInit, OnChanges {
       this.credentialService.update(this.model)
         .toPromise().then((data: Credential) => {
         this.router.navigate(['/settings/credentials/' + this.model.name]);
+        this._notification.success('Success', 'Credential updated');
       }).catch((ex) => {
-        console.error('Error', ex);
+        this._notification.error('Error', 'Unable to update ' + this.model.name);
       });
     } else { // create a new credential
       this.credentialService.create(this.model).toPromise().then((data: Credential) => {
         this.router.navigate(['/settings/credentials/' + this.model.name]);
+        this._notification.success('Success', this.model.name + ' created');
       }).catch((ex) => {
-        console.error('Error', ex);
+        this._notification.error('Error', 'Unable to create');
       });
     }
 
-    this.bus.dispatch(new Event('organization_modify'));
+    this.bus.dispatch(new Event('credential_modify'));
   }
 
   private prepareSaveCredential(): Credential {
@@ -286,6 +289,7 @@ export class CredentialsFormComponent implements OnInit, OnChanges {
 
   private createForm() {
     this.credentialForm = this.fb.group({
+      id: [''],
       name: ['', Validators.required],
       description: [''],
       kind: ['', Validators.required],
@@ -318,10 +322,6 @@ export class CredentialsFormComponent implements OnInit, OnChanges {
       ask_become_password_on_launch: [false],
       ask_ssh_key_unlock_on_launch: [false]
     });
-
-    if (!this.credentialForm) {
-      return;
-    }
 
     this.credentialForm.valueChanges
       .subscribe((data) => this.onValueChanged(data));
@@ -366,10 +366,6 @@ export class CredentialsFormComponent implements OnInit, OnChanges {
   }
 
   private onValueChanged(data?: any) {
-    if (!this.credentialForm) {
-      return;
-    }
-
     const form = this.credentialForm;
     for (const field in this.formErrors) {
       if (this.formErrors.hasOwnProperty(field)) {

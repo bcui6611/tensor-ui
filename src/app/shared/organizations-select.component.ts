@@ -134,9 +134,9 @@ export class OrganizationSelectComponent implements OnInit {
 
   public ngOnInit(): void {
     console.log('hello `OrganizationSelect` component');
-    this.organizationService.getAll().subscribe((res: Organization[]) => {
-        this.data = res;
-        this.length = this.data.length;
+    this.organizationService.getAll().subscribe((res) => {
+        this.data = res.data;
+        this.length = res.count;
         this.onChangeTable(this.config);
       },
       (err) => {

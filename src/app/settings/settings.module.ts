@@ -14,6 +14,11 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { InputPasswordComponent } from '../shared/input-password/input-password.component';
 import { ChunkPipe } from 'angular-pipes';
 import { SharedModule } from '../shared/shared.module';
+import { SimpleNotificationsModule } from 'angular2-notifications';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { BrowserModule } from '@angular/platform-browser';
+import { TagInputModule } from 'ng2-tag-input';
+import { OrganizationSelectComponent } from '../shared/organizations-select.component';
 
 @NgModule({
   imports: [
@@ -26,6 +31,10 @@ import { SharedModule } from '../shared/shared.module';
     FormsModule,
     ReactiveFormsModule,
     SharedModule,
+    BrowserModule,
+    BrowserAnimationsModule,
+    SimpleNotificationsModule.forRoot(),
+    TagInputModule,
   ],
   declarations: [
     SettingsComponent,
@@ -34,13 +43,15 @@ import { SharedModule } from '../shared/shared.module';
     OrganizationsComponent,
     OrganizationsFormComponent,
     InputPasswordComponent,
-    ChunkPipe
+    ChunkPipe,
   ],
   exports: [
     TopNavModule,
   ],
-  providers: [
+  entryComponents: [
+    OrganizationSelectComponent
   ],
+  providers: [],
 })
 export class SettingsModule {
 }

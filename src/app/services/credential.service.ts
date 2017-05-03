@@ -6,6 +6,8 @@ import 'rxjs/add/operator/map';
 import { AppConfig } from '../app.config';
 
 import { Credential } from '../models/credential';
+import { CredentialResponse } from '../models/CredentialResponse';
+import { URLSearchParams } from '@angular/http';
 
 @Injectable()
 export class CredentialService {
@@ -21,17 +23,23 @@ export class CredentialService {
     this.credentialUrl = this.config.getConfig('host') + '/v1/credentials';
   }
 
-  public getAll(): Observable<Credential[]> {
+  public getAll(p?: URLSearchParams): Observable<CredentialResponse> {
     return this._http
-      .get(this.credentialUrl, new RequestOptions({headers: this.headers}))
-      .map((response) => response.json().data as Credential[]);
+      .get(this.credentialUrl, new RequestOptions({headers: this.headers, search: p}))
+      .map((response) => response.json());
   }
 
   public create(credentials: Credential): Observable<Credential> {
     return this._http
       .post(this.credentialUrl, credentials,
         new RequestOptions({headers: this.headers}))
-      .map((response) => response.json() as Credential);
+      .map((res) => {
+        if (res.status < 200 || res.status >= 300) {
+          throw new Error('Request has failed');
+        } else {
+          return res.json() as Credential;
+        }
+      });
   }
 
   public get(id: string): Observable<Credential> {
@@ -50,7 +58,13 @@ export class CredentialService {
     return this._http
       .put(this.credentialUrl + '/' + credential.id, credential,
         new RequestOptions({headers: this.headers}))
-      .map((response) => response.json().data as Credential);
+      .map((res) => {
+        if (res.status < 200 || res.status >= 300) {
+          throw new Error('Request has failed');
+        } else {
+          return res.json() as Credential;
+        }
+      });
   }
 
   public delete(id: string) {

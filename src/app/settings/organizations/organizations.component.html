@@ -9,92 +9,96 @@
       <div class="card card-block">
         <div class="row">
           <div class="col-11 text-left">
-            <p class="text-uppercase">Users <span class="badge badge-pill badge-default"> 14</span></p>
-          </div>
-          <div class="col-1 text-right">
-
-            <a class="btn btn-success text-uppercase font-weight-bold pull-md-right" routerLink="/settings/organizations/add" routerLinkActive="active" aria-pressed="true">
-              <i class="fa fa-plus"></i> Add
-            </a>
+            <p class="text-uppercase">Organizations <span class="badge badge-pill badge-default"> {{ length }} </span>
+            </p>
           </div>
         </div>
         <div class="row">
-          <div class="col">
+          <div class="col-6">
             <div class="input-group input-group-search">
-              <div class="input-group-addon">
-                <select class="custom-select search-selector">
-                  <option selected value="name">Name</option>
-                  <option value="organization">Orgnaization</option>
-                </select>
-              </div>
-              <input placeholder="Search"
-                     [ngTableFiltering]="config.filtering"
-                     (tableChanged)="onChangeTable(config)" type="text" class="form-control"/>
-              <div class="input-group-addon"><i class="fa fa-search"></i></div>
+              <tag-input placeholder="Search" class="form-control" [(ngModel)]='tags' theme='bootstrap'
+                         (onAdd)="onChangeTable()"
+                         (onRemove)="onChangeTable()" modelAsStrings="true"></tag-input>
+              <span class="input-group-btn">
+                            <a class="btn btn-secondary"><i class="fa fa-search"></i></a>
+              </span>
             </div>
+          </div>
+          <div class="col-1">
+            <a class="btn btn-primary text-uppercase" href="javascript:;" role="button" [class.active]="toggleKey" (click)="toggleKeys()">Key</a>
+          </div>
+          <div class="col-5 text-right">
+            <button type="button" class="btn btn-success text-uppercase"
+                    routerLink="/settings/organizations/add" routerLinkActive="active" aria-pressed="true">+ Add
+            </button>
+          </div>
+        </div>
+        <div class="row mt-3 ml-1" *ngIf="toggleKey">
+          <div class="col highlight">
+            <div><strong>EXAMPLES: </strong> <pre>id:&gt;10</pre> <pre>created:&gt;="2017-01-01T00:00:00Z"</pre> <pre>created:&lt;2017-01-01</pre> <pre>name:foobar</pre></div>
+            <div><strong>FIELDS: </strong> id, type, created, modified, name, description</div>
           </div>
         </div>
         <br>
-        <div *ngFor="let row of rows | chunk:4" class="row">
-
-          <div *ngFor="let item of row" class="card col org-card mb-2">
-            <div class="row">
-              <div class="col-8">
-                <h6 class="card-title font-weight-bold text-left">{{getData(item, 'name')}}</h6>
-              </div>
-              <div class="col-4">
-                <div class="action-button-group text-right" role="group" aria-label="actions">
-                  <a class="btn btn-outline-primary" href="javascript:;" (click)="userEditClick()"><i
+        <div *ngFor="let row of rows | chunk:3" class="row mt-4 mb-4">
+          <div *ngFor="let item of row" class="card col-4 org-card">
+            <div class="row mb-3">
+                <div class="col-8 font-weight-bold text-uppercase text-left">{{getData(item, 'name')}}</div>
+                <div class="col-4 action-button-group text-right" role="group" aria-label="actions">
+                  <a class="btn btn-outline-primary" [routerLink]="['/settings/organizations/' + getData(item, 'name')]"
+                     routerLinkActive="active"><i
                     class="fa fa-pencil"></i></a> &nbsp;
-                 <button class="btn btn-outline-danger" [swal]="{ titleText:'Delete?', text: 'This cannot be undone.', type: 'warning', showCancelButton: true}" (confirm)="userDeleteClick(row)"><i class="fa fa-trash"></i></button>
+                  <button class="btn btn-outline-danger"
+                          [swal]="{ titleText:'Delete?', text: 'This cannot be undone.', type: 'warning', showCancelButton: true}"
+                          (confirm)="onDelete(item)"><i class="fa fa-trash"></i></button>
                 </div>
-              </div>
             </div>
             <p class="description">{{getData(item, 'description')}}</p>
             <div class="row">
               <div class="col-6">
-                <ul class="list-group list-group-flush">
+                <ul class="list-group list-group-org">
                   <li class="list-group-item">
-                    <span class="badge badge-pill badge-default"> 2</span>
-                    <a href="javascript:;" class="card-link">Users</a></li>
+                    <span
+                      class="badge badge-default badge-org">{{getData(item, 'meta.related_field_counts.users')}}</span>
+                    <a href="javascript:;" class="card-link text-uppercase"> Users</a></li>
                   <li class="list-group-item">
-                    <span class="badge badge-pill badge-default"> 3</span>
-                    <a href="javascript:;" class="card-link">Inventories</a>
+                    <span class="badge badge-default badge-org">{{getData(item, 'meta.related_field_counts.inventories')}}</span>
+                    <a href="javascript:;" class="card-link text-uppercase"> Inventories</a>
                   </li>
-                  <li class="list-group-item"><span class="badge badge-pill badge-default"> 2</span>
-                    <a href="javascript:;" class="card-link">Job Templates</a></li>
+                  <li class="list-group-item"><span class="badge badge-default badge-org">{{getData(item, 'meta.related_field_counts.job_templates')}}</span>
+                    <a href="javascript:;" class="card-link text-uppercase"> Job Templates</a></li>
                 </ul>
               </div>
               <div class="col-6">
-                <ul class="list-group list-group-flush">
+                <ul class="list-group list-group-org">
                   <li class="list-group-item">
-                    <span class="badge badge-pill badge-default"> 1</span>
-                    <a href="javascript:;" class="card-link">Teams</a></li>
+                    <span
+                      class="badge badge-default badge-org">{{getData(item, 'meta.related_field_counts.teams')}}</span>
+                    <a href="javascript:;" class="card-link text-uppercase"> Teams</a></li>
                   <li class="list-group-item">
-                    <span class="badge badge-pill badge-default"> 5</span>
-                    <a href="javascript:;" class="card-link">Projects</a></li>
+                    <span
+                      class="badge badge-default badge-org">{{getData(item, 'meta.related_field_counts.projects')}}</span>
+                    <a href="javascript:;" class="card-link text-uppercase"> Projects</a></li>
                   <li class="list-group-item">
-                    <span class="badge badge-pill badge-default"> 3</span>
-                    <a href="javascript:;" class="card-link">Admins</a></li>
+                    <span
+                      class="badge badge-default badge-org">{{getData(item, 'meta.related_field_counts.admins')}}</span>
+                    <a href="javascript:;" class="card-link text-uppercase"> Admins</a></li>
                 </ul>
               </div>
             </div>
           </div>
         </div>
-
-        <!-- <pagination *ngIf="config.paging"
-                    class="pagination-sm"
-                    [(ngModel)]="page"
-                    [totalItems]="length"
-                    [itemsPerPage]="itemsPerPage"
-                    [maxSize]="maxSize"
-                    [boundaryLinks]="true"
-                    [rotate]="false"
-                    (pageChanged)="onChangeTable(config, $event)"
-                    (numPages)="numPages = $event">
-        </pagination> -->
-
+        <div class=row>
+          <div class="col-11">
+            <ngb-pagination [collectionSize]="length" [(page)]="page" [(pageSize)]="itemsPerPage"
+                            (pageChange)="onChangeTable()"></ngb-pagination>
+          </div>
+          <div class="col-1 text-right text-uppercase">
+            <span>Page: {{page}}</span>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </div>
+<simple-notifications></simple-notifications>

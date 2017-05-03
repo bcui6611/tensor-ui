@@ -1,5 +1,5 @@
 export class Organization {
-  public id: number;
+  public id: string;
   public name: string;
   public description: string;
 
@@ -8,6 +8,6 @@ export class Organization {
 
   public type: string;
   public url: string;
-  public links: Object;
-  public meta: Object;
+  public links: object;
+  public meta: object;
 }

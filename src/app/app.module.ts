@@ -22,13 +22,14 @@ import { BreadcrumbService } from 'ng2-breadcrumb/bundles/components/breadcrumbS
 import { Ng2BreadcrumbModule } from 'ng2-breadcrumb/bundles/app.module';
 import { AuthenticationService } from './services';
 import { EventBusService } from './services/event-bus.service';
+import { SimpleNotificationsComponent } from 'angular2-notifications/dist';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   imports: [
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
-    SimpleNotificationsModule,
     SettingsModule,
     TopNavModule,
     HttpModule,
@@ -37,6 +38,8 @@ import { EventBusService } from './services/event-bus.service';
     DashboardModule,
     RouterModule.forRoot(rootRouterConfig),
     Ng2BreadcrumbModule.forRoot(),
+    BrowserAnimationsModule,
+    SimpleNotificationsModule.forRoot(),
   ],
 
   declarations: [
