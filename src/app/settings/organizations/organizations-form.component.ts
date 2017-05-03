@@ -1,19 +1,20 @@
-import { Component, OnChanges, OnInit } from '@angular/core';
+import { Component, OnChanges, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Organization } from '../../models/organization';
+import { Organization } from '../../models/organization.model';
 import { BreadcrumbService } from 'ng2-breadcrumb/bundles/components/breadcrumbService';
 import { OrganizationService } from '../../services/organization.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { EventBusService } from '../../services/event-bus.service';
 import { NotificationsService } from 'angular2-notifications/dist';
+import { TensorGlobals } from '../../lib/globals';
 
 @Component({
   selector: 'organizations-form',
   templateUrl: './organizations-form.component.html',
   providers: [OrganizationService, NotificationsService],
 })
-export class OrganizationsFormComponent implements OnInit, OnChanges {
+export class OrganizationsFormComponent implements OnInit, OnChanges, OnDestroy {
 
   public model: Organization;
 
@@ -28,6 +29,8 @@ export class OrganizationsFormComponent implements OnInit, OnChanges {
       required: 'Please enter a value.',
     },
   };
+  private sub: any;
+  private id: string;
 
   constructor(private organizationService: OrganizationService,
               private breadcrumbService: BreadcrumbService,
@@ -39,19 +42,16 @@ export class OrganizationsFormComponent implements OnInit, OnChanges {
   }
 
   public ngOnInit(): void {
-    this.breadcrumbService.addFriendlyNameForRoute('/settings/organizations/add', 'Create');
-    const name = this.route.params.subscribe((p) => {
-      if (p['name']) {
-        this.breadcrumbService.addFriendlyNameForRoute('/settings/organizations/' + this.route.snapshot.url.join(''), p['name']);
-
-        this.organizationService.getByName(p['name']).subscribe((res) => {
-            this.model = res;
-            this.ngOnChanges();
-          },
-          (err) => {
-            console.log(err);
-          });
-      }
+    this.sub = this.route.params.subscribe((p) => {
+      this.id = p['id'];
+      this.organizationService.get(this.id).subscribe((res) => {
+          this.model = res;
+          this.breadcrumbService.addFriendlyNameForRouteRegex('^/settings/organizations/[a-f\\d]{24}$', this.model.name);
+          this.ngOnChanges();
+        },
+        (err) => {
+          console.log(err);
+        });
     });
 
     this.createForm();
@@ -90,6 +90,10 @@ export class OrganizationsFormComponent implements OnInit, OnChanges {
     }
 
     this.bus.dispatch(new Event('organization_modify'));
+  }
+
+  public ngOnDestroy() {
+    this.sub.unsubscribe();
   }
 
   private prepareSave(): Organization {

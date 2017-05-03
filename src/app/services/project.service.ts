@@ -1,9 +1,11 @@
-import { Injectable } from "@angular/core";
-import { Http, Headers, RequestOptions } from "@angular/http";
-import { Observable } from "rxjs/Observable";
-import "rxjs/add/operator/map";
-import { AppConfig } from "../app.config";
-import { Project } from "../models/project";
+import { Injectable } from '@angular/core';
+import { Http, Headers, RequestOptions } from '@angular/http';
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/map';
+import { AppConfig } from '../app.config';
+import { Project } from '../models/project.model';
+import { ProjectResponse } from '../models/project-response.model';
+import { URLSearchParams } from '@angular/http';
 
 @Injectable()
 export class ProjectService {
@@ -16,40 +18,53 @@ export class ProjectService {
       'Accept': 'application/json',
       'Authorization': 'Bearer ' + this.getToken()
     });
-    this.projectUrl = this.config.getConfig('host') + '/v1/projects/';
+    this.projectUrl = this.config.getConfig('host') + '/v1/projects';
   }
 
-  getAll(): Observable<Project[]> {
+  public getAll(p?: URLSearchParams): Observable<ProjectResponse> {
     return this._http
-      .get(this.projectUrl, new RequestOptions({headers: this.headers}))
-      .map(response => response.json().results as Project[]);
+      .get(this.projectUrl, new RequestOptions({headers: this.headers, search: p}))
+      .map((response) => response.json());
   }
 
-  create(project: Project): Observable<Project> {
+  public create(project: Project): Observable<Project> {
     return this._http
-      .post(this.projectUrl, Project,
+      .post(this.projectUrl, project,
         new RequestOptions({headers: this.headers}))
-      .map(response => response.json() as Project);
+      .map((res) => {
+        if (res.status < 200 || res.status >= 300) {
+          throw new Error('Request has failed');
+        } else {
+          return res.json();
+        }
+      });
   }
 
-  get(id: string): Observable<Project> {
+  public get(id: string): Observable<Project> {
     return this._http
-      .get(this.projectUrl + id, new RequestOptions({headers: this.headers}))
-      .map(response => response.json().result as Project)
+      .get(this.projectUrl + '/' + id, new RequestOptions({headers: this.headers}))
+      .map((response) => response.json().data);
   }
 
-  update(project: Project): Observable<Project> {
+  public update(project: Project): Observable<Project> {
     return this._http
-      .put(this.projectUrl + project.id, project, new RequestOptions({headers: this.headers}))
-      .map(response => response.json().result as Project);
+      .put(this.projectUrl + project.id, project,
+        new RequestOptions({headers: this.headers}))
+      .map((res) => {
+        if (res.status < 200 || res.status >= 300) {
+          throw new Error('Request has failed');
+        } else {
+          return res.json();
+        }
+      });
   }
 
-  delete(id: string) {
+  public delete(id: string) {
     return this._http
-      .delete(this.projectUrl + id, new RequestOptions({headers: this.headers}))
+      .delete(this.projectUrl + id, new RequestOptions({headers: this.headers}));
   }
 
-  getToken(): string {
+  public getToken(): string {
     return JSON.parse(localStorage.getItem('_tensor_user')).token;
   }
 

@@ -1,23 +1,21 @@
-import { Component, OnInit } from '@angular/core';
-import { Credential } from '../models/credential.model';
-import { CredentialService } from '../services/credential.service';
-import { EventBusService } from '../services/event-bus.service';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { BreadcrumbService } from 'ng2-breadcrumb/bundles/components/breadcrumbService';
 import { URLSearchParams } from '@angular/http';
-import { NotificationsService } from 'angular2-notifications/dist';
+import { OrganizationService } from '../../services/organization.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'credentials-cmp',
-  templateUrl: './credentials.component.html',
-  providers: [CredentialService]
+  templateUrl: './organization-projects.component.html',
+  providers: [OrganizationService]
 })
-export class CredentialsComponent implements OnInit {
+export class OrganizationProjectsComponent implements OnInit,  OnDestroy {
   public isAdd: boolean;
   public rows: any[] = [];
   public columns: any[] = [
     {title: 'Name', name: 'name', sort: 'asc', link: true},
-    {title: 'Description', name: 'description', sort: '', text: true},
-    {title: 'Type', name: 'kind', sort: false, text: true},
-    {title: 'Owners', name: 'owners', sort: false, link: true},
+    {title: 'Type', name: 'kind', sort: '', text: true},
+    {title: 'Last Updated', name: 'owners', sort: false, text: true},
     {title: 'Actions', name: 'actions', sort: false, actions: true}
   ];
   public config: any = {
@@ -30,17 +28,27 @@ export class CredentialsComponent implements OnInit {
   public tags: string[] = [];
   public toggleKey: boolean = false;
 
-  constructor(private credentialsService: CredentialService,
-              private bus: EventBusService,
-              private _notification: NotificationsService) {
+  private sub: any;
+  private id: string;
+
+  constructor(private breadcrumbService: BreadcrumbService,
+              private route: ActivatedRoute,
+              private organizationService: OrganizationService) {
   }
 
   public ngOnInit(): void {
-    this.onChangeTable();
-    // reload data on route changes
-    this.bus.listen('credential_modify').subscribe((e) => {
-      this.onChangeTable();
+    this.sub = this.route.params.subscribe((p) => {
+      this.id = p['id'];
+      this.organizationService.get(this.id).subscribe((res) => {
+          this.breadcrumbService.addFriendlyNameForRouteRegex('^/settings/organizations/[a-f\\d]{24}$', res.name);
+          this.breadcrumbService.addFriendlyNameForRouteRegex('^/settings/organizations/[a-f\\d]{24}/projects', 'Projects');
+        },
+        (err) => {
+          console.log(err);
+        });
     });
+
+    this.onChangeTable();
   }
 
   public onChangeTable(): void {
@@ -69,7 +77,7 @@ export class CredentialsComponent implements OnInit {
       }
     }
 
-    this.credentialsService.getAll(params).subscribe((res) => {
+    this.organizationService.getProjects(this.id, params).subscribe((res) => {
         this.length = res.count;
         this.rows = res.data;
       },
@@ -82,19 +90,11 @@ export class CredentialsComponent implements OnInit {
     return path.split('.').reduce((prev: any, curr: string) => prev && prev[curr], row);
   }
 
-  public onDelete(data: Credential): void {
-    this.credentialsService.delete(data.id).subscribe((dres) => {
-      this.credentialsService.getAll().subscribe((res) => {
-        this.length = res.count;
-        this.rows = res.data;
-        this._notification.success('Success', data.name + ' deleted');
-      }, (err) => {
-        this._notification.error('Error', 'Unable to delete');
-      });
-    });
-  }
-
   public toggleKeys(): void {
     this.toggleKey = !this.toggleKey;
+  }
+
+  public ngOnDestroy() {
+    this.sub.unsubscribe();
   }
 }

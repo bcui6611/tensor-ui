@@ -8,6 +8,7 @@ import { AuthGuard } from './guards';
 import { CredentialsComponent } from './settings/credentials.component';
 import { CredentialsFormComponent } from './settings/credentials-form.component';
 import { OrganizationsFormComponent } from './settings/organizations/organizations-form.component';
+import { OrganizationProjectsComponent } from './settings/organizations/organization-projects.component';
 
 export const rootRouterConfig: Routes = [
   {path: '', component: LoginComponent},
@@ -26,7 +27,8 @@ export const rootRouterConfig: Routes = [
     component: OrganizationsComponent,
     children: [
       {path: 'add', component: OrganizationsFormComponent},
-      {path: ':name', component: OrganizationsFormComponent},
+      {path: ':id', component: OrganizationsFormComponent},
+      {path: ':id/projects', component: OrganizationProjectsComponent},
     ],
     canActivate: [AuthGuard]
   },
@@ -35,7 +37,7 @@ export const rootRouterConfig: Routes = [
     component: CredentialsComponent,
     children: [
       {path: 'add', component: CredentialsFormComponent},
-      {path: ':name', component: CredentialsFormComponent},
+      {path: ':id', component: CredentialsFormComponent},
     ],
     canActivate: [AuthGuard]
   },

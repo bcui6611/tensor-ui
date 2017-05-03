@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { OrganizationService } from '../../services/organization.service';
 import { BreadcrumbService } from 'ng2-breadcrumb/bundles/components/breadcrumbService';
-import { Organization } from '../../models/organization';
+import { Organization } from '../../models/organization.model';
 import { EventBusService } from '../../services/event-bus.service';
 import { URLSearchParams } from '@angular/http';
 import { NotificationsService } from 'angular2-notifications/dist';
@@ -28,11 +28,7 @@ export class OrganizationsComponent implements OnInit {
   }
 
   public ngOnInit(): void {
-    this.breadcrumbService.addFriendlyNameForRoute('/settings', 'Settings');
-    this.breadcrumbService.addFriendlyNameForRoute('/settings/organizations', 'Organizations');
-
     this.onChangeTable();
-
     // reload data on route changes
     this.bus.listen('organization_modify').subscribe((e) => {
       this.onChangeTable();

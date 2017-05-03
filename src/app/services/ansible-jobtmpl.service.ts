@@ -3,7 +3,7 @@ import { Http, Headers, RequestOptions } from "@angular/http";
 import { Observable } from "rxjs/Observable";
 import "rxjs/add/operator/map";
 import { AppConfig } from "../app.config";
-import { AnsibleJobTmpl } from "../models/ansible-jobtmpl";
+import { AnsibleJobTmpl } from "../models/ansible-jobtmpl.model";
 
 @Injectable()
 export class AnsibleJobTmplService {

@@ -1,13 +1,12 @@
 import { Injectable } from '@angular/core';
-import { Headers, Http, RequestOptions } from '@angular/http';
+import { Headers, Http, RequestOptions, URLSearchParams } from '@angular/http';
 
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import { AppConfig } from '../app.config';
 
-import { Credential } from '../models/credential';
-import { CredentialResponse } from '../models/CredentialResponse';
-import { URLSearchParams } from '@angular/http';
+import { Credential } from '../models/credential.model';
+import { CredentialResponse } from '../models/credential-response.model';
 
 @Injectable()
 export class CredentialService {
@@ -37,7 +36,7 @@ export class CredentialService {
         if (res.status < 200 || res.status >= 300) {
           throw new Error('Request has failed');
         } else {
-          return res.json() as Credential;
+          return res.json();
         }
       });
   }
@@ -45,7 +44,7 @@ export class CredentialService {
   public get(id: string): Observable<Credential> {
     return this._http
       .get(this.credentialUrl + '/' + id, new RequestOptions({headers: this.headers}))
-      .map((response) => response.json().data as Credential);
+      .map((response) => response.json());
   }
 
   public getByName(name: string): Observable<Credential> {

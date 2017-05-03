@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Headers, Http, RequestOptions } from '@angular/http';
-import { Organization } from '../models/organization';
+import { Organization } from '../models/organization.model';
 import 'rxjs/add/operator/toPromise';
 import { AppConfig } from '../app.config';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import { URLSearchParams } from '@angular/http';
-import { OrganizationResponse } from '../models/OrganizationResponse';
+import { OrganizationResponse } from '../models/organization-response.model';
 
 @Injectable()
 export class OrganizationService {
@@ -46,7 +46,14 @@ export class OrganizationService {
   public get(id: string): Observable<Organization> {
     return this._http
       .get(this.organizationsUrl + '/' + id, new RequestOptions({headers: this.headers}))
-      .map((response) => response.json().result as Organization);
+      .map((response) => response.json());
+  }
+
+  // Get details for the given organization ID
+  public getProjects(id: string, p?: URLSearchParams): Observable<OrganizationResponse> {
+    return this._http
+      .get(this.organizationsUrl + '/' + id + '/projects', new RequestOptions({headers: this.headers, search: p}))
+      .map((response) => response.json());
   }
 
   public getByName(name: string): Observable<Organization> {

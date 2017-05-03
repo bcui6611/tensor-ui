@@ -2,8 +2,8 @@ import { Component, OnChanges, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { CredentialService } from '../services/credential.service';
 import { OrganizationService } from '../services/organization.service';
-import { Organization } from '../models/organization';
-import { Credential } from '../models/credential';
+import { Organization } from '../models/organization.model';
+import { Credential } from '../models/credential.model';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/map';
 import { BreadcrumbService } from 'ng2-breadcrumb/bundles/components/breadcrumbService';
@@ -14,6 +14,7 @@ import { OrganizationSelectComponent } from '../shared/organizations-select.comp
 import { TensorValidators } from '../lib/validators';
 import { EventBusService } from '../services/event-bus.service';
 import { NotificationsService } from 'angular2-notifications/dist';
+import { TensorGlobals } from '../lib/globals';
 
 @Component({
   selector: 'credentials-add',
@@ -82,6 +83,8 @@ export class CredentialsFormComponent implements OnInit, OnChanges {
     },
 
   };
+  private sub: any;
+  private id: string;
 
   constructor(private organizationService: OrganizationService,
               private breadcrumbService: BreadcrumbService,
@@ -95,19 +98,16 @@ export class CredentialsFormComponent implements OnInit, OnChanges {
   }
 
   public ngOnInit(): void {
-    this.breadcrumbService.addFriendlyNameForRoute('/settings/credentials/add', 'Create');
-    const name = this.route.params.subscribe((p) => {
-      if (p['name']) {
-        this.breadcrumbService.addFriendlyNameForRoute('/settings/credentials/' + this.route.snapshot.url.join(''), p['name']);
-
-        this.credentialService.getByName(p['name']).subscribe((res) => {
-            this.model = res;
-            this.ngOnChanges();
-          },
-          (err) => {
-            console.log(err);
-          });
-      }
+    this.sub = this.route.params.subscribe((p) => {
+      this.id = p['id'];
+      this.credentialService.get(this.id).subscribe((res) => {
+          this.model = res;
+          this.breadcrumbService.addFriendlyNameForRouteRegex('^/settings/credentials/[a-f\\d]{24}$', this.model.name);
+          this.ngOnChanges();
+        },
+        (err) => {
+          console.log(err);
+        });
     });
 
     this.organizationService.getAll()

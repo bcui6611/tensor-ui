@@ -19,6 +19,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
 import { TagInputModule } from 'ng2-tag-input';
 import { OrganizationSelectComponent } from '../shared/organizations-select.component';
+import { OrganizationProjectsComponent } from './organizations/organization-projects.component';
 
 @NgModule({
   imports: [
@@ -44,6 +45,7 @@ import { OrganizationSelectComponent } from '../shared/organizations-select.comp
     OrganizationsFormComponent,
     InputPasswordComponent,
     ChunkPipe,
+    OrganizationProjectsComponent
   ],
   exports: [
     TopNavModule,

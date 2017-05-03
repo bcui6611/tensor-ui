@@ -45,7 +45,7 @@
             <div class="row mb-3">
                 <div class="col-8 font-weight-bold text-uppercase text-left">{{getData(item, 'name')}}</div>
                 <div class="col-4 action-button-group text-right" role="group" aria-label="actions">
-                  <a class="btn btn-outline-primary" [routerLink]="['/settings/organizations/' + getData(item, 'name')]"
+                  <a class="btn btn-outline-primary" [routerLink]="['/settings/organizations/' + getData(item, 'id')]"
                      routerLinkActive="active"><i
                     class="fa fa-pencil"></i></a> &nbsp;
                   <button class="btn btn-outline-danger"
@@ -78,7 +78,8 @@
                   <li class="list-group-item">
                     <span
                       class="badge badge-default badge-org">{{getData(item, 'meta.related_field_counts.projects')}}</span>
-                    <a href="javascript:;" class="card-link text-uppercase"> Projects</a></li>
+                    <a href="javascript:;" [routerLink]="['/settings/organizations/' + getData(item, 'id')] + '/projects'"
+                       routerLinkActive="active" class="card-link text-uppercase"> Projects</a></li>
                   <li class="list-group-item">
                     <span
                       class="badge badge-default badge-org">{{getData(item, 'meta.related_field_counts.admins')}}</span>

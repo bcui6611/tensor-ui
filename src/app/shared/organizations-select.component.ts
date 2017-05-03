@@ -1,7 +1,7 @@
 import { Component, Input, OnInit, Output } from '@angular/core';
 import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { OrganizationService } from '../services/organization.service';
-import { Organization } from '../models/organization';
+import { Organization } from '../models/organization.model';
 
 @Component({
   selector: 'organization-select',

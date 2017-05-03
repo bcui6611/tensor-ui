@@ -3,7 +3,7 @@ import { Http, Headers, RequestOptions } from "@angular/http";
 import { Observable } from "rxjs/Observable";
 import "rxjs/add/operator/map";
 import { AppConfig } from "../app.config";
-import { AnsibleJob } from "../models/ansible-job";
+import { AnsibleJob } from "../models/ansible-job.model";
 
 @Injectable()
 export class AnsibleJobService {
