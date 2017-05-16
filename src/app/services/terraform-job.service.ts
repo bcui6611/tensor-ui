@@ -3,7 +3,7 @@ import { Http, Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import { AppConfig } from '../app.config';
-import { TerraformJob } from '../models/terraform-job';
+import { TerraformJob } from '../models/terraform-job.model';
 
 @Injectable()
 export class TerraformJobService {

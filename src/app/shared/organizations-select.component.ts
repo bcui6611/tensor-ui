@@ -1,7 +1,7 @@
 import { Component, Input, OnInit, Output } from '@angular/core';
 import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { OrganizationService } from '../services/organization.service';
-import { Organization } from '../models/organization';
+import { Organization } from '../models/organization.model';
 
 @Component({
   selector: 'organization-select',
@@ -34,7 +34,7 @@ export class OrganizationSelectComponent implements OnInit {
   }
 
   public get configColumns(): any {
-    let sortColumns: any[] = [];
+    const sortColumns: any[] = [];
 
     this.columns.forEach((column: any) => {
       if (column.sort) {
@@ -51,8 +51,8 @@ export class OrganizationSelectComponent implements OnInit {
 
   public changePage(data: any[] = this.data): any[] {
 
-    let start = (this.page - 1) * this.itemsPerPage;
-    let end = this.itemsPerPage > -1 ? (start + this.itemsPerPage) : data.length;
+    const start = (this.page - 1) * this.itemsPerPage;
+    const end = this.itemsPerPage > -1 ? (start + this.itemsPerPage) : data.length;
     return data.slice(start, end);
   }
 
@@ -72,8 +72,8 @@ export class OrganizationSelectComponent implements OnInit {
       Object.assign(this.config.sorting, this.config.sorting);
     }
 
-    let filteredData = this.changeFilter(this.data, this.config);
-    let sortedData = this.changeSort(filteredData, this.config);
+    const filteredData = this.changeFilter(this.data, this.config);
+    const sortedData = this.changeSort(filteredData, this.config);
     this.rows = this.page && this.config.paging ? this.changePage(sortedData) : sortedData;
     this.length = sortedData.length;
 
@@ -94,11 +94,11 @@ export class OrganizationSelectComponent implements OnInit {
       return data;
     }
 
-    let columns = this.config.sorting.columns || [];
+    const columns = this.config.sorting.columns || [];
     let columnName: string = void 0;
     let sort: string = void 0;
 
-    for (let c of columns) {
+    for (const c of columns) {
       if (c.sort !== '' && c.sort !== false) {
         columnName = c.name;
         sort = c.sort;
@@ -134,9 +134,9 @@ export class OrganizationSelectComponent implements OnInit {
 
   public ngOnInit(): void {
     console.log('hello `OrganizationSelect` component');
-    this.organizationService.getAll().subscribe((res: Organization[]) => {
-        this.data = res;
-        this.length = this.data.length;
+    this.organizationService.getAll().subscribe((res) => {
+        this.data = res.data;
+        this.length = res.count;
         this.onChangeTable(this.config);
       },
       (err) => {

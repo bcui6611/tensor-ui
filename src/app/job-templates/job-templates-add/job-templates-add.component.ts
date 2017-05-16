@@ -23,7 +23,7 @@ export class JobTemplatesAddComponent implements OnInit {
       .debounceTime(200)
       .distinctUntilChanged()
       .map((term) => term.length < 2 ? []
-        : states.filter((v) => new RegExp(term, 'gi').test(v)).splice(0, 10));
+        : states.filter((v) => new RegExp(term, 'gi').test(v)).splice(0, 10))
 
   public ngOnInit(): void {
     console.log('hello from `job template add` component');

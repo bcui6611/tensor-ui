@@ -37,6 +37,6 @@ export class Credential {
   public modified: Date;
 
   public type: string;
-  public links: Object;
-  public meta: Object;
+  public links: object;
+  public meta: object;
 }

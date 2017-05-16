@@ -1,0 +1,81 @@
+<div class="card card-block">
+  <div class="row">
+    <div class="col-11 text-left">
+      <p class="text-uppercase">Projects <span class="badge badge-pill badge-default"> {{ length }}</span></p>
+    </div>
+    <div class="col-1 text-right">
+      <a type="btn" class="close" routerLink="/settings/organizations" aria-label="Close">
+        <i class="fa fa-times-circle"></i>
+      </a>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-6">
+      <div class="input-group input-group-search">
+        <tag-input placeholder="Search" class="form-control" [(ngModel)]='tags' theme='bootstrap'
+                   (onAdd)="onChangeTable()"
+                   (onRemove)="onChangeTable()" modelAsStrings="true"></tag-input>
+        <span class="input-group-btn">
+                            <a class="btn btn-secondary"><i class="fa fa-search"></i></a>
+              </span>
+      </div>
+    </div>
+    <div class="col-1">
+      <a class="btn btn-primary text-uppercase" href="javascript:;" role="button" [class.active]="toggleKey"
+         (click)="toggleKeys()">Key</a>
+    </div>
+  </div>
+  <div class="row mt-3 ml-1" *ngIf="toggleKey">
+    <div class="col highlight">
+      <div><strong>EXAMPLES: </strong>
+        <pre>id:&gt;10</pre>
+        <pre>created:&gt;="2017-01-01T00:00:00Z"</pre>
+        <pre>created:&lt;2017-01-01</pre>
+        <pre>name:foobar</pre>
+      </div>
+      <div><strong>FIELDS: </strong> id, type, created, modified, name, description</div>
+    </div>
+  </div>
+  <br>
+  <div class="row">
+    <div class="col">
+      <table class="table custom-table" role="grid">
+        <thead>
+        <tr role="row">
+          <th *ngFor="let column of columns" [ngTableSorting]="config" [column]="column"
+              (sortChanged)="onChangeTable($event)" [class.actions]="column.actions"
+              class="col text-nowrap">
+            {{column.title}}
+            <i *ngIf="config" class="sort fa" [ngClass]="{'fa-sort-desc': column.sort === 'desc', 'fa-sort-asc': column.sort === 'asc',
+            'fa-sort': column.sort === ''}">
+            </i>
+          </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let row of rows">
+          <td *ngFor="let column of columns"
+              class="col text-nowrap">
+
+            <span *ngIf="column.text">{{getData(row, column.name)}}</span>
+            <a class="card-link" [routerLink]="['/settings/credentials/' + getData(row, 'name')]" *ngIf="column.link"
+               routerLinkActive="active">{{getData(row,
+              column.name)}}</a>
+            <div *ngIf="column.actions" class="action-button-group" role="group" aria-label="actions">
+              <a class="btn btn-outline-primary" href="javascript:;"><i class="fa fa-cloud-download"></i></a>
+              <a class="btn btn-outline-primary" [routerLink]="['/projects/' + getData(row, 'name') + '/schedule']"
+                 routerLinkActive="active"><i
+                class="fa fa-calendar"></i></a>
+              <a class="btn btn-outline-primary" [routerLink]="['/projects/' + getData(row, 'name')]"
+                 routerLinkActive="active"><i
+                class="fa fa-pencil"></i></a> &nbsp;
+            </div>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+      <ngb-pagination [collectionSize]="length" [(page)]="page" [maxSize]="5" [rotate]="true"
+                      (pageChange)="onChangeTable(config, $event)"></ngb-pagination>
+    </div>
+  </div>
+</div>

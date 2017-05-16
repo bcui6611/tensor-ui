@@ -8,10 +8,11 @@ import { AuthenticationService } from './services';
   styleUrls: ['../assets/styles/main.scss'],
   templateUrl: './app.component.html',
   encapsulation: ViewEncapsulation.None,
+  providers: [BreadcrumbService]
 })
 export class AppComponent {
   constructor(private router: Router,
-              private authService: AuthenticationService) {
+              private authService: AuthenticationService, private breadcrumbService: BreadcrumbService) {
     console.log('hello form `app` component');
   }
 

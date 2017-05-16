@@ -1,17 +1,20 @@
 import { Component, OnChanges, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { CredentialService } from '../../services/credential.service';
-import { OrganizationService } from '../../services/organization.service';
-import { Organization } from '../../models/organization';
-import { Credential } from '../../models/credential';
+import { CredentialService } from '../services/credential.service';
+import { OrganizationService } from '../services/organization.service';
+import { Organization } from '../models/organization.model';
+import { Credential } from '../models/credential.model';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/map';
 import { BreadcrumbService } from 'ng2-breadcrumb/bundles/components/breadcrumbService';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { OrganizationSelectComponent } from '../../shared/organizations-select.component';
-import { TensorValidators } from '../../lib/validators';
+import { OrganizationSelectComponent } from '../shared/organizations-select.component';
+import { TensorValidators } from '../lib/validators';
+import { EventBusService } from '../services/event-bus.service';
+import { NotificationsService } from 'angular2-notifications/dist';
+import { TensorGlobals } from '../lib/globals';
 
 @Component({
   selector: 'credentials-add',
@@ -19,6 +22,7 @@ import { TensorValidators } from '../../lib/validators';
   providers: [CredentialService, OrganizationService],
 })
 export class CredentialsFormComponent implements OnInit, OnChanges {
+
   public model: Credential;
 
   public organizations: Organization[];
@@ -79,6 +83,8 @@ export class CredentialsFormComponent implements OnInit, OnChanges {
     },
 
   };
+  private sub: any;
+  private id: string;
 
   constructor(private organizationService: OrganizationService,
               private breadcrumbService: BreadcrumbService,
@@ -86,14 +92,18 @@ export class CredentialsFormComponent implements OnInit, OnChanges {
               private route: ActivatedRoute,
               private router: Router,
               private fb: FormBuilder,
-              private modalService: NgbModal) {
-    breadcrumbService.addFriendlyNameForRoute('/settings/credentials/add', 'Create');
-    let name = this.route.params.subscribe((p) => {
-      if (p['name']) {
-        breadcrumbService.addFriendlyNameForRoute('/settings/credentials/' + this.route.snapshot.url.join(''), p['name']);
+              private modalService: NgbModal,
+              private bus: EventBusService,
+              private _notification: NotificationsService) {
+  }
 
-        this.credentialService.getByName(p['name']).subscribe((res) => {
+  public ngOnInit(): void {
+    this.sub = this.route.params.subscribe((p) => {
+      this.id = p['id'];
+      if (this.id) {
+        this.credentialService.get(this.id).subscribe((res) => {
             this.model = res;
+            this.breadcrumbService.addFriendlyNameForRouteRegex('^/settings/credentials/[a-f\\d]{24}$', this.model.name);
             this.ngOnChanges();
           },
           (err) => {
@@ -104,8 +114,8 @@ export class CredentialsFormComponent implements OnInit, OnChanges {
 
     this.organizationService.getAll()
       .subscribe((res) => {
-          this.organizations = res;
-          for (let organization of this.organizations) {
+          this.organizations = res.data;
+          for (const organization of this.organizations) {
             this.organizationList.push(organization.name);
           }
         },
@@ -115,10 +125,6 @@ export class CredentialsFormComponent implements OnInit, OnChanges {
 
     // create reactive form
     this.createForm();
-  }
-
-  public ngOnInit(): void {
-    console.log('hello `CredentialsAdd` component');
   }
 
   public search = (text$: Observable<string>) =>
@@ -188,27 +194,31 @@ export class CredentialsFormComponent implements OnInit, OnChanges {
     if (this.model.id) { // update a credential
       this.credentialService.update(this.model)
         .toPromise().then((data: Credential) => {
-        this.router.navigate(['/settings/credentials/' + this.model.name]);
+        this.router.navigate(['/settings/credentials/' + this.model.id]);
+        this._notification.success('Success', 'Credential updated');
       }).catch((ex) => {
-        console.error('Error', ex);
+        this._notification.error('Error', 'Unable to update ' + this.model.name);
       });
     } else { // create a new credential
       this.credentialService.create(this.model).toPromise().then((data: Credential) => {
-        this.router.navigate(['/settings/credentials/' + this.model.name]);
+        this.router.navigate(['/settings/credentials/' + this.model.id]);
+        this._notification.success('Success', this.model.name + ' created');
       }).catch((ex) => {
-        console.error('Error', ex);
+        this._notification.error('Error', 'Unable to create');
       });
     }
+
+    this.bus.dispatch(new Event('credential_modify'));
   }
 
   private prepareSaveCredential(): Credential {
     const formModel = this.credentialForm.value;
 
-    const saveCredential: Credential = <Credential> {
+    const saveCredential: Credential = {
       id: formModel.id as string,
       name: formModel.name as string,
       description: formModel.description as string,
-    };
+    } as Credential;
 
     if (formModel.organization instanceof Object) {
       saveCredential.organization = formModel.organization.id as string;
@@ -217,7 +227,7 @@ export class CredentialsFormComponent implements OnInit, OnChanges {
     saveCredential.kind = formModel.kind as string;
 
     switch (saveCredential.kind) {
-      case 'win': {
+      case 'windows': {
         saveCredential.username = formModel.username as string;
         saveCredential.password = formModel.password as string;
         saveCredential.vault_password = formModel.vault_password as string;
@@ -281,6 +291,7 @@ export class CredentialsFormComponent implements OnInit, OnChanges {
 
   private createForm() {
     this.credentialForm = this.fb.group({
+      id: [''],
       name: ['', Validators.required],
       description: [''],
       kind: ['', Validators.required],
@@ -313,10 +324,6 @@ export class CredentialsFormComponent implements OnInit, OnChanges {
       ask_become_password_on_launch: [false],
       ask_ssh_key_unlock_on_launch: [false]
     });
-
-    if (!this.credentialForm) {
-      return;
-    }
 
     this.credentialForm.valueChanges
       .subscribe((data) => this.onValueChanged(data));
@@ -361,10 +368,6 @@ export class CredentialsFormComponent implements OnInit, OnChanges {
   }
 
   private onValueChanged(data?: any) {
-    if (!this.credentialForm) {
-      return;
-    }
-
     const form = this.credentialForm;
     for (const field in this.formErrors) {
       if (this.formErrors.hasOwnProperty(field)) {

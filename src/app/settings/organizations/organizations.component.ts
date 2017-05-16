@@ -1,116 +1,84 @@
 import { Component, OnInit } from '@angular/core';
-import { OrganizationData } from './table-data';
-import { Subscription } from 'rxjs';
-import { ActivatedRoute, Router } from '@angular/router';
+import { OrganizationService } from '../../services/organization.service';
+import { BreadcrumbService } from 'ng2-breadcrumb/bundles/components/breadcrumbService';
+import { Organization } from '../../models/organization.model';
+import { EventBusService } from '../../services/event-bus.service';
+import { URLSearchParams } from '@angular/http';
+import { NotificationsService } from 'angular2-notifications/dist';
 
 @Component({
   selector: 'organizations',
   templateUrl: 'organizations.component.html',
+  providers: [OrganizationService]
 })
 
 export class OrganizationsComponent implements OnInit {
-  public rows: any[] = [];
-  public columns: any[] = [
-    {title: 'Name', name: 'name', sort: 'asc', link: true},
-    {title: 'Description', name: 'description', sort: '', link: true},
-    {title: 'Actions', name: 'actions', sort: false, actions: true}
-  ];
-  public page: number = 1;
-  public itemsPerPage: number = 10;
-  public maxSize: number = 5;
-  public numPages: number = 1;
-  public length: number = 0;
-
-  public config: any = {
-    paging: true,
-    sorting: {columns: this.columns},
-    filtering: {filterString: '', columnName: 'name'}
-  };
-
   public isAdd: boolean;
+  public rows: Organization[] = [];
 
-  private data: any[] = OrganizationData;
-  private routerSub: Subscription;
-  private path: Subscription;
+  public page: number = 1;
+  public itemsPerPage: number = 6;
+  public length: number = 0;
+  public tags: string[] = [];
+  public toggleKey: boolean = false;
 
-  constructor(private route: ActivatedRoute,
-              private router: Router) {
-    this.length = this.data.length;
+  constructor(private breadcrumbService: BreadcrumbService, private organizationService: OrganizationService,
+              private bus: EventBusService,
+              private _notification: NotificationsService) {
   }
 
-  public ngOnInit() {
-    console.log('hello `Organizations` component');
-
-    this.routerSub = this.route.params.subscribe((params) => {
-      let id = +params['id']; // (+) converts string 'id' to a number
-      // this.service.getHero(id).then(hero => this.hero = hero);
+  public ngOnInit(): void {
+    this.onChangeTable();
+    // reload data on route changes
+    this.bus.listen('organization_modify').subscribe((e) => {
+      this.onChangeTable();
     });
-    this.path = this.route.data.subscribe((data) => {
-      this.isAdd = data['addOrganization'];
-    });
-
-    this.onChangeTable(this.config);
   }
 
-  public get configColumns(): any {
-    let sortColumns: any[] = [];
+  public onChangeTable() {
+    const params = new URLSearchParams();
+    params.set('page_size', this.itemsPerPage.toString());
 
-    this.columns.forEach((column: any) => {
-      if (column.sort) {
-        sortColumns.push(column);
-      }
-    });
-
-    return {columns: sortColumns};
-  }
-
-  public changePage(data: any[] = this.data): any[] {
-    let start = (this.page - 1) * this.itemsPerPage;
-    let end = this.itemsPerPage > -1 ? (start + this.itemsPerPage) : data.length;
-    return data.slice(start, end);
-  }
-
-  public onChangeTable(column: any): void {
-    this.columns.forEach((col: any) => {
-      if (col.name !== column.name && col.sort !== false) {
-        col.sort = '';
-      }
-    });
-
-    if (this.config.filtering) {
-      Object.assign(this.config.filtering, this.config.filtering);
+    if (this.page) {
+      params.set('page', this.page.toString());
     }
 
-    let filteredData = this.changeFilter(this.data, this.config);
-    this.rows = this.page && this.config.paging ? this.changePage(filteredData) : filteredData;
-    this.length = filteredData.length;
-
-  }
-
-  public changeFilter(data: any, config: any): any {
-    if (!config.filtering) {
-      return data;
+    for (const tag of this.tags) {
+      const item = tag.split(':');
+      if (item.length > 1) {
+        params.set(item[0] + '__icontains', item[1]);
+      } else {
+        params.set('name__icontains', tag);
+      }
     }
 
-    let filter: string = this.config.filtering.filterString.replace(/[.?*+^$[\]\\(){}|-]/g, '\\$&');
-    return data.filter((item: any) =>
-      new RegExp(filter, 'gi').test(item[config.filtering.columnName]));
+    this.organizationService.getAll(params).subscribe((res) => {
+        this.length = res.count;
+        this.rows = res.data;
+      },
+      (err) => {
+        console.log(err);
+      });
   }
 
-  public getData(row: any, propertyName: string): string {
-    return propertyName.split('.').reduce((prev: any, curr: string) => prev[curr], row);
+  public getData(row: any, path: string): string {
+    return path.split('.').reduce((prev: any, curr: string) => prev && prev[curr], row);
   }
 
-  // Username click
-  public usernameClick(): void {
-    alert('sfsdfs');
+  public onDelete(data: Organization): void {
+    this.organizationService.delete(data.id).subscribe((dres) => {
+      this.organizationService.getAll().subscribe((res) => {
+        this.length = res.count;
+        this.rows = res.data;
+        this.onChangeTable();
+      });
+      this._notification.success('Success', data.name + ' deleted');
+    }, (err) => {
+      this._notification.error('Error', 'Unable to delete');
+    });
   }
 
-  public userDeleteClick(): void {
-    alert('delete');
-  }
-
-  public userEditClick(): void {
-    alert('sfsdfs');
+  public toggleKeys(): void {
+    this.toggleKey = !this.toggleKey;
   }
 }

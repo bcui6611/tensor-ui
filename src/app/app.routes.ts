@@ -3,93 +3,56 @@ import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './login/login.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { SettingsComponent } from './settings/settings.component';
-import { InventoriesTableComponent } from './inventories/inventoriesTable/inventories-table.component';
-import { UsersComponent } from './settings/users/users.component';
 import { OrganizationsComponent } from './settings/organizations/organizations.component';
 import { AuthGuard } from './guards';
-import { TeamsComponent } from './settings/teams/teams.component';
-import { CredentialsComponent } from './settings/credentials/credentials.component';
-import { ProjectsComponent } from './projects/projects.component';
-import { ProjectsHomeComponent } from './projects/projects-home/projects-home.component';
-
-import { JobTemplatesComponent } from './job-templates/job-templates.component';
-import { JobTemplateHomeComponent } from './job-templates/job-templates-home/job-template-home.component';
-
-import { JobsComponent } from './jobs/jobs.component';
-import { JobsHomeComponent } from './jobs/jobs-home/jobs-home.component';
-import { JobSummaryComponent } from './jobs/job-summary/job-summary.component';
-
-import { InventoriesComponent } from './inventories/inventories.component';
-import { CredentialsFormComponent } from './settings/credentials/credentials-form.component';
+import { CredentialsComponent } from './settings/credentials.component';
+import { CredentialsFormComponent } from './settings/credentials-form.component';
+import { OrganizationsFormComponent } from './settings/organizations/organizations-form.component';
+import { OrganizationProjectsComponent } from './settings/organizations/organization-projects.component';
+import { OrganizationInventoriesComponent } from './settings/organizations/organization-inventories.component';
+import { OrganizationTemplatesComponent } from './settings/organizations/organization-templates.component';
+import { OrganizationTerraformTmplComponent } from './settings/organizations/organization-terraformtmpl.component';
+import { OrganizationTeamsComponent } from './settings/organizations/organization-teams.component';
 
 export const rootRouterConfig: Routes = [
-  { path: '', component: LoginComponent },
-    {
-        path: 'dashboard',
-        component: DashboardComponent,
-        canActivate: [AuthGuard]
-    },
-    {
-        path: 'inventories',
-        component: InventoriesComponent,
-        children: [
-            { path: '', component: InventoriesTableComponent }
-            // {path: 'inventory/:id', component: InventoriesEditComponent}
-        ],
-        canActivate: [AuthGuard]
-    },
-    {
-        path: 'settings',
-        component: SettingsComponent,
-        children: [
-            { path: 'users', component: UsersComponent },
-            { path: 'users/add', component: UsersComponent, data: { addUser: true } },
-            { path: 'teams', component: TeamsComponent },
-            { path: 'teams/add', component: TeamsComponent, data: { addTeam: true } },
-            { path: 'organizations', component: OrganizationsComponent },
-            {
-                path: 'organizations/add', component: OrganizationsComponent,
-                data: { addOrganization: true }
-            },
-        ],
-        canActivate: [AuthGuard]
-    },
-    { path: 'settings/credentials',
-      component: CredentialsComponent,
-      children: [
-        { path: 'add', component: CredentialsFormComponent },
-        { path: ':name', component: CredentialsFormComponent },
-      ],
-      canActivate: [AuthGuard]
-    },
-    {
-        path: 'projects',
-        component: ProjectsComponent,
-        children: [
-            { path: '', component: ProjectsHomeComponent },
-            { path: 'add', component: ProjectsHomeComponent, data: { addProject: true } }
-        ]
-    },
-    {
-        path: 'job_templates',
-        component: JobTemplatesComponent,
-        children: [
-            { path: '', component: JobTemplateHomeComponent },
-            { path: 'add', component: JobTemplateHomeComponent, data: { addTemplate: true } }
-        ]
-    },
-    {
-        path: 'jobs',
-        component: JobsComponent,
-        children: [
-            { path: '', component: JobsHomeComponent },
-            { path: 'summary', component: JobSummaryComponent },
-        ]
-    },
+  {path: '', component: LoginComponent},
+  {
+    path: 'dashboard',
+    component: DashboardComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'settings',
+    component: SettingsComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'settings/organizations',
+    component: OrganizationsComponent,
+    children: [
+      {path: 'add', component: OrganizationsFormComponent},
+      {path: ':id', component: OrganizationsFormComponent},
+      {path: ':id/projects', component: OrganizationProjectsComponent},
+      {path: ':id/inventories', component: OrganizationInventoriesComponent},
+      {path: ':id/ansible_job_templates', component: OrganizationTemplatesComponent},
+      {path: ':id/terraform_job_templates', component: OrganizationTerraformTmplComponent},
+      {path: ':id/teams', component: OrganizationTeamsComponent},
+    ],
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'settings/credentials',
+    component: CredentialsComponent,
+    children: [
+      {path: 'add', component: CredentialsFormComponent},
+      {path: ':id', component: CredentialsFormComponent},
+    ],
+    canActivate: [AuthGuard]
+  },
 ];
 
 export const appRoutingProviders: any[] = [
-    AuthGuard
+  AuthGuard
 ];
 
 export const routing = RouterModule.forRoot(rootRouterConfig);

@@ -5,6 +5,9 @@ body {
   background-color: #FCFCFC;
   font-size: 0.9rem;
 }
+a {
+  color: #347ebd;
+}
 
 .container-fluid {
   margin-top: 6.5rem;
@@ -16,8 +19,8 @@ body {
   border-bottom: 0.01rem #dadada solid;
 
   .navbar-brand.active {
-      background-color: #FAFAFA;
-    }
+    background-color: #FAFAFA;
+  }
   .navbar-brand {
     margin: 0;
     padding: 0 1.3rem 0.3rem 1.3rem;
@@ -60,6 +63,21 @@ body {
     background-color: #ffffff;
     border-bottom: 0.01rem #dadada solid;
     padding: .5rem 1rem;
+  }
+
+  li {
+    a {
+      text-transform: uppercase;
+    }
+
+    a:not([href]):not([tabindex]) {
+      color: #347ebd;
+    }
+
+    span {
+      text-transform: uppercase;
+    }
+
   }
 }
 
@@ -457,7 +475,7 @@ body {
   }
 
   td {
-    padding: 0 0.75rem;
+    padding: 0.2rem 0.8rem;
     border-top: none;
   }
 
@@ -511,11 +529,8 @@ a.setting-item {
 .org-card {
   margin-left: 1rem;
   margin-right: 1rem;
-  padding: 1rem 1rem 0 1rem;
-
-  @media (min-width: 768px) {
-    width: 23%;
-  }
+  padding: 1.5rem 1rem 1rem 1rem;
+  max-width: 30%;
 
   .list-group-item {
     border: none;
@@ -525,11 +540,17 @@ a.setting-item {
     overflow: hidden;
     text-overflow: ellipsis;
   }
+
+  .badge-org {
+    padding-right: .9em;
+    padding-left: .9em;
+    border-radius: 5rem;
+    margin-right: 10px;
+  }
 }
 
 /* button */
 .action-button-group {
-  padding-top: 5px;
   padding-right: 15px;
   display: flex;
   justify-content: flex-end;
@@ -539,13 +560,13 @@ a.setting-item {
     border-radius: 3rem;
     border: none;
     margin-left: 0.9rem;
+    color:#8c9098;
   }
 
   .btn:hover {
     color: #FFFFFF;
   }
 }
-
 
 /* custom form elements */
 
@@ -572,4 +593,30 @@ a.setting-item {
 
 select.form-control:not([size]):not([multiple]) {
   height: calc(1.8rem + 2px)
+}
+
+.highlight {
+  padding: 1rem;
+  background-color: #f7f7f9;
+
+  pre {
+    display: inline;
+    color: firebrick;
+    background-color: #FFFFFF;
+    padding: 0.3rem;
+    border-radius: 0.5rem;
+    border: #cfcfcf solid 0.001rem;
+  }
+  div {
+    margin-bottom: 1rem;
+  }
+}
+
+
+/* custom-list group */
+
+.list-group.list-group-org {
+  .list-group-item {
+    padding: 0.5rem 0;
+  }
 }

@@ -10,12 +10,6 @@ import { NotificationsService } from 'angular2-notifications';
 })
 
 export class LoginComponent implements OnInit {
-  public options = {
-    position: ['top', 'right'],
-    timeOut: 0,
-    lastOnBottom: true,
-    clickToClose: true
-  };
   public model: any = {};
   public error: boolean = false;
 

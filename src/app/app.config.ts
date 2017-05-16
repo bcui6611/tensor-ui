@@ -5,8 +5,8 @@ import { Observable } from 'rxjs/Rx';
 @Injectable()
 export class AppConfig {
 
-  private config: Object = null;
-  private env: Object = null;
+  private config: object = null;
+  private env: object = null;
 
   constructor(private http: Http) {
 
@@ -45,19 +45,17 @@ export class AppConfig {
         switch (envResponse['env']) {
           case 'production': {
             request = this.http.get('./config.' + envResponse['env'] + '.json');
-          }
             break;
-
+          }
           case 'development': {
             request = this.http.get('./config.' + envResponse['env'] + '.json');
-          }
             break;
-
+          }
           default: {
             console.error('Environment file is not set or invalid');
             resolve(true);
-          }
             break;
+          }
         }
 
         if (request) {
