@@ -20,6 +20,10 @@ import { BrowserModule } from '@angular/platform-browser';
 import { TagInputModule } from 'ng2-tag-input';
 import { OrganizationSelectComponent } from '../shared/organizations-select.component';
 import { OrganizationProjectsComponent } from './organizations/organization-projects.component';
+import { OrganizationInventoriesComponent } from './organizations/organization-inventories.component';
+import { OrganizationTemplatesComponent } from './organizations/organization-templates.component'
+import { OrganizationTerraformTmplComponent } from './organizations/organization-terraformtmpl.component'
+import { OrganizationTeamsComponent } from './organizations/organization-teams.component';
 
 @NgModule({
   imports: [
@@ -45,7 +49,11 @@ import { OrganizationProjectsComponent } from './organizations/organization-proj
     OrganizationsFormComponent,
     InputPasswordComponent,
     ChunkPipe,
-    OrganizationProjectsComponent
+    OrganizationProjectsComponent,
+    OrganizationInventoriesComponent,
+    OrganizationTemplatesComponent,
+    OrganizationTerraformTmplComponent,
+    OrganizationTeamsComponent,
   ],
   exports: [
     TopNavModule,

@@ -44,14 +44,16 @@ export class OrganizationsFormComponent implements OnInit, OnChanges, OnDestroy 
   public ngOnInit(): void {
     this.sub = this.route.params.subscribe((p) => {
       this.id = p['id'];
-      this.organizationService.get(this.id).subscribe((res) => {
-          this.model = res;
-          this.breadcrumbService.addFriendlyNameForRouteRegex('^/settings/organizations/[a-f\\d]{24}$', this.model.name);
-          this.ngOnChanges();
-        },
-        (err) => {
-          console.log(err);
-        });
+      if (this.id) {
+        this.organizationService.get(this.id).subscribe((res) => {
+            this.model = res;
+            this.breadcrumbService.addFriendlyNameForRouteRegex('^/settings/organizations/[a-f\\d]{24}$', this.model.name);
+            this.ngOnChanges();
+          },
+          (err) => {
+            console.log(err);
+          });
+      }
     });
 
     this.createForm();
@@ -74,7 +76,7 @@ export class OrganizationsFormComponent implements OnInit, OnChanges, OnDestroy 
     if (this.model.id) { // update a organization
       this.organizationService.update(this.model)
         .toPromise().then((data: Organization) => {
-        this.router.navigate(['/settings/organizations/' + this.model.name]);
+        this.router.navigate(['/settings/organizations/' + this.model.id]);
         this._notification.success('Success', 'Organization updated');
       }).catch((ex) => {
         this._notification.error('Error', 'Unable to update ' + this.model.name);
@@ -82,7 +84,7 @@ export class OrganizationsFormComponent implements OnInit, OnChanges, OnDestroy 
     } else { // create a new organization
       this.organizationService.create(this.model)
         .toPromise().then((data: Organization) => {
-        this.router.navigate(['/settings/organizations/' + this.model.name]);
+        this.router.navigate(['/settings/organizations/' + this.model.id]);
         this._notification.success('Success', this.model.name + ' created');
       }).catch((ex) => {
         this._notification.error('Error', 'Unable to create');

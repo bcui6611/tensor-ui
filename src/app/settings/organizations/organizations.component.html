@@ -63,10 +63,15 @@
                     <a href="javascript:;" class="card-link text-uppercase"> Users</a></li>
                   <li class="list-group-item">
                     <span class="badge badge-default badge-org">{{getData(item, 'meta.related_field_counts.inventories')}}</span>
-                    <a href="javascript:;" class="card-link text-uppercase"> Inventories</a>
+                    <a href="javascript:;" [routerLink]="['/settings/organizations/' + getData(item, 'id')] + '/inventories'"
+                       routerLinkActive="active" class="card-link text-uppercase"> Inventories</a>
                   </li>
                   <li class="list-group-item"><span class="badge badge-default badge-org">{{getData(item, 'meta.related_field_counts.job_templates')}}</span>
-                    <a href="javascript:;" class="card-link text-uppercase"> Job Templates</a></li>
+                    <a href="javascript:;" [routerLink]="['/settings/organizations/' + getData(item, 'id')] + '/ansible_job_templates'"
+                     routerLinkActive="active" class="card-link text-uppercase">Ansible Job Templates</a></li>
+                  <li class="list-group-item"><span class="badge badge-default badge-org">{{getData(item, 'meta.related_field_counts.job_templates')}}</span>
+                    <a href="javascript:;" [routerLink]="['/settings/organizations/' + getData(item, 'id')] + '/terraform_job_templates'"
+                     routerLinkActive="active" class="card-link text-uppercase">Terraform Job Templates</a></li>
                 </ul>
               </div>
               <div class="col-6">
@@ -74,7 +79,8 @@
                   <li class="list-group-item">
                     <span
                       class="badge badge-default badge-org">{{getData(item, 'meta.related_field_counts.teams')}}</span>
-                    <a href="javascript:;" class="card-link text-uppercase"> Teams</a></li>
+                    <a href="javascript:;" [routerLink]="['/settings/organizations/' + getData(item, 'id')] + '/teams'"
+                       routerLinkActive="active" class="card-link text-uppercase"> Teams</a></li>
                   <li class="list-group-item">
                     <span
                       class="badge badge-default badge-org">{{getData(item, 'meta.related_field_counts.projects')}}</span>

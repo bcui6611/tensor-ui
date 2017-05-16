@@ -9,6 +9,10 @@ import { CredentialsComponent } from './settings/credentials.component';
 import { CredentialsFormComponent } from './settings/credentials-form.component';
 import { OrganizationsFormComponent } from './settings/organizations/organizations-form.component';
 import { OrganizationProjectsComponent } from './settings/organizations/organization-projects.component';
+import { OrganizationInventoriesComponent } from './settings/organizations/organization-inventories.component';
+import { OrganizationTemplatesComponent } from './settings/organizations/organization-templates.component';
+import { OrganizationTerraformTmplComponent } from './settings/organizations/organization-terraformtmpl.component';
+import { OrganizationTeamsComponent } from './settings/organizations/organization-teams.component';
 
 export const rootRouterConfig: Routes = [
   {path: '', component: LoginComponent},
@@ -29,6 +33,10 @@ export const rootRouterConfig: Routes = [
       {path: 'add', component: OrganizationsFormComponent},
       {path: ':id', component: OrganizationsFormComponent},
       {path: ':id/projects', component: OrganizationProjectsComponent},
+      {path: ':id/inventories', component: OrganizationInventoriesComponent},
+      {path: ':id/ansible_job_templates', component: OrganizationTemplatesComponent},
+      {path: ':id/terraform_job_templates', component: OrganizationTerraformTmplComponent},
+      {path: ':id/teams', component: OrganizationTeamsComponent},
     ],
     canActivate: [AuthGuard]
   },

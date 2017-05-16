@@ -100,14 +100,16 @@ export class CredentialsFormComponent implements OnInit, OnChanges {
   public ngOnInit(): void {
     this.sub = this.route.params.subscribe((p) => {
       this.id = p['id'];
-      this.credentialService.get(this.id).subscribe((res) => {
-          this.model = res;
-          this.breadcrumbService.addFriendlyNameForRouteRegex('^/settings/credentials/[a-f\\d]{24}$', this.model.name);
-          this.ngOnChanges();
-        },
-        (err) => {
-          console.log(err);
-        });
+      if (this.id) {
+        this.credentialService.get(this.id).subscribe((res) => {
+            this.model = res;
+            this.breadcrumbService.addFriendlyNameForRouteRegex('^/settings/credentials/[a-f\\d]{24}$', this.model.name);
+            this.ngOnChanges();
+          },
+          (err) => {
+            console.log(err);
+          });
+      }
     });
 
     this.organizationService.getAll()
@@ -192,14 +194,14 @@ export class CredentialsFormComponent implements OnInit, OnChanges {
     if (this.model.id) { // update a credential
       this.credentialService.update(this.model)
         .toPromise().then((data: Credential) => {
-        this.router.navigate(['/settings/credentials/' + this.model.name]);
+        this.router.navigate(['/settings/credentials/' + this.model.id]);
         this._notification.success('Success', 'Credential updated');
       }).catch((ex) => {
         this._notification.error('Error', 'Unable to update ' + this.model.name);
       });
     } else { // create a new credential
       this.credentialService.create(this.model).toPromise().then((data: Credential) => {
-        this.router.navigate(['/settings/credentials/' + this.model.name]);
+        this.router.navigate(['/settings/credentials/' + this.model.id]);
         this._notification.success('Success', this.model.name + ' created');
       }).catch((ex) => {
         this._notification.error('Error', 'Unable to create');

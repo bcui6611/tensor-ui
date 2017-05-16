@@ -1,22 +1,23 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { BreadcrumbService } from 'ng2-breadcrumb/bundles/components/breadcrumbService';
 import { URLSearchParams } from '@angular/http';
+import { AnsibleJobTmplService } from '../../services/ansible-jobtmpl.service';
 import { OrganizationService } from '../../services/organization.service';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'credentials-cmp',
-  templateUrl: './organization-projects.component.html',
-  providers: [OrganizationService]
+  templateUrl: './organization-templates.component.html',
+  providers: [AnsibleJobTmplService]
 })
-export class OrganizationProjectsComponent implements OnInit,  OnDestroy {
+export class OrganizationTemplatesComponent implements OnInit,  OnDestroy {
   public isAdd: boolean;
   public rows: any[] = [];
   public columns: any[] = [
     {title: 'Name', name: 'name', sort: 'asc', link: true},
-    {title: 'Type', name: 'scm_type', sort: '', text: true},
-    {title: 'Kind', name: 'kind', sort: '', text: true},
-    {title: 'Last Updated', name: 'owners', sort: false, text: true},
+    {title: 'Description', name: 'description', sort: '', text: true},
+    {title: 'Activity', name: 'activity', sort: false, text: true},
+    {title: 'Labels', name: 'labels', sort: false, text: true},
     {title: 'Actions', name: 'actions', sort: false, actions: true}
   ];
   public config: any = {
@@ -34,6 +35,7 @@ export class OrganizationProjectsComponent implements OnInit,  OnDestroy {
 
   constructor(private breadcrumbService: BreadcrumbService,
               private route: ActivatedRoute,
+              private ansibleService: AnsibleJobTmplService,
               private organizationService: OrganizationService) {
   }
 
@@ -43,7 +45,8 @@ export class OrganizationProjectsComponent implements OnInit,  OnDestroy {
       if (this.id) {
         this.organizationService.get(this.id).subscribe((res) => {
             this.breadcrumbService.addFriendlyNameForRouteRegex('^/settings/organizations/[a-f\\d]{24}$', res.name);
-            this.breadcrumbService.addFriendlyNameForRouteRegex('^/settings/organizations/[a-f\\d]{24}/projects', 'Projects');
+            this.breadcrumbService.addFriendlyNameForRouteRegex('^/settings/organizations/[a-f\\d]{24}/ansible_job_templates', 'Ansible Job Templates');
+            this.breadcrumbService.addFriendlyNameForRouteRegex('^/settings/organizations/[a-f\\d]{24}/terraform_job_templates', 'Terraform Job Templates');
           },
           (err) => {
             console.log(err);
@@ -56,6 +59,8 @@ export class OrganizationProjectsComponent implements OnInit,  OnDestroy {
 
   public onChangeTable(): void {
     const params = new URLSearchParams();
+    params.set("organization", this.id)
+
     params.set('page_size', this.itemsPerPage.toString());
 
     if (this.page) {
@@ -80,7 +85,7 @@ export class OrganizationProjectsComponent implements OnInit,  OnDestroy {
       }
     }
 
-    this.organizationService.getProjects(this.id, params).subscribe((res) => {
+    this.ansibleService.getAll(params).subscribe((res) => {
         this.length = res.count;
         this.rows = res.data;
       },

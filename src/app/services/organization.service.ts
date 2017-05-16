@@ -56,6 +56,20 @@ export class OrganizationService {
       .map((response) => response.json());
   }
 
+  // Get details for the given organization ID
+  public getTeams(id: string, p?: URLSearchParams): Observable<OrganizationResponse> {
+    return this._http
+      .get(this.organizationsUrl + '/' + id + '/teams', new RequestOptions({headers: this.headers, search: p}))
+      .map((response) => response.json());
+  }
+
+  // Get details for the given organization ID
+  public getInventories(id: string, p?: URLSearchParams): Observable<OrganizationResponse> {
+    return this._http
+      .get(this.organizationsUrl + '/' + id + '/inventories', new RequestOptions({headers: this.headers, search: p}))
+      .map((response) => response.json());
+  }
+
   public getByName(name: string): Observable<Organization> {
     return this._http
       .get(this.organizationsUrl + '?name__eq=' + name, new RequestOptions({headers: this.headers}))

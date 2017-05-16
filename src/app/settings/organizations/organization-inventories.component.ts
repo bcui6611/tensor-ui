@@ -6,17 +6,15 @@ import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'credentials-cmp',
-  templateUrl: './organization-projects.component.html',
+  templateUrl: './organization-inventories.component.html',
   providers: [OrganizationService]
 })
-export class OrganizationProjectsComponent implements OnInit,  OnDestroy {
+export class OrganizationInventoriesComponent implements OnInit,  OnDestroy {
   public isAdd: boolean;
   public rows: any[] = [];
   public columns: any[] = [
     {title: 'Name', name: 'name', sort: 'asc', link: true},
-    {title: 'Type', name: 'scm_type', sort: '', text: true},
-    {title: 'Kind', name: 'kind', sort: '', text: true},
-    {title: 'Last Updated', name: 'owners', sort: false, text: true},
+    {title: 'Organization', name: 'meta.organization.name', sort: '', text: true},
     {title: 'Actions', name: 'actions', sort: false, actions: true}
   ];
   public config: any = {
@@ -43,7 +41,7 @@ export class OrganizationProjectsComponent implements OnInit,  OnDestroy {
       if (this.id) {
         this.organizationService.get(this.id).subscribe((res) => {
             this.breadcrumbService.addFriendlyNameForRouteRegex('^/settings/organizations/[a-f\\d]{24}$', res.name);
-            this.breadcrumbService.addFriendlyNameForRouteRegex('^/settings/organizations/[a-f\\d]{24}/projects', 'Projects');
+            this.breadcrumbService.addFriendlyNameForRouteRegex('^/settings/organizations/[a-f\\d]{24}/inventories', 'Inventories');
           },
           (err) => {
             console.log(err);
@@ -80,7 +78,7 @@ export class OrganizationProjectsComponent implements OnInit,  OnDestroy {
       }
     }
 
-    this.organizationService.getProjects(this.id, params).subscribe((res) => {
+    this.organizationService.getInventories(this.id, params).subscribe((res) => {
         this.length = res.count;
         this.rows = res.data;
       },

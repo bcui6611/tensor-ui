@@ -4,6 +4,7 @@ import { Observable } from "rxjs/Observable";
 import "rxjs/add/operator/map";
 import { AppConfig } from "../app.config";
 import { TerraformJobTmpl } from "../models/terraform-jobtmpl.model";
+import { TerrafromJobTmplResponse } from '../models/terraform-jobtmpl-response.model';
 
 @Injectable()
 export class TerraformJobTmplService {
@@ -19,10 +20,10 @@ export class TerraformJobTmplService {
     this.jobTmplUrl = this.config.getConfig('host') + '/v1/terraform_job_templates';
   }
 
-  getAll(): Observable<TerraformJobTmpl[]> {
+  getAll(p?: URLSearchParams): Observable<TerrafromJobTmplResponse> {
     return this._http
-      .get(this.jobTmplUrl, new RequestOptions({headers: this.headers}))
-      .map(response => response.json().results as TerraformJobTmpl[]);
+      .get(this.jobTmplUrl, new RequestOptions({headers: this.headers, search: p}))
+      .map(response => response.json());
   }
 
   create(tmpl: TerraformJobTmpl): Observable<TerraformJobTmpl> {

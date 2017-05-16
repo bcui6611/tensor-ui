@@ -20,7 +20,7 @@ export class AnsibleJobTmpl {
   public forks: number;
   public limit: number;
   public verbosity: number;
-  public extra_vars: Object;
+  public extra_vars: object;
   public job_tags: string;
   public skip_tags: string;
   public force_handlers: boolean;
@@ -65,6 +65,6 @@ export class AnsibleJobTmpl {
   public modified: Date;
 
   public type: string;
-  public links: Object;
-  public meta: Object;
+  public links: object;
+  public meta: object;
 }
