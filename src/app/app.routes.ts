@@ -13,6 +13,8 @@ import { OrganizationInventoriesComponent } from './settings/organizations/organ
 import { OrganizationTemplatesComponent } from './settings/organizations/organization-templates.component';
 import { OrganizationTerraformTmplComponent } from './settings/organizations/organization-terraformtmpl.component';
 import { OrganizationTeamsComponent } from './settings/organizations/organization-teams.component';
+import { ProjectsComponent } from './projects/projects.component';
+import { ProjectsFormComponent } from './projects/projects-form.component';
 
 export const rootRouterConfig: Routes = [
   {path: '', component: LoginComponent},
@@ -46,6 +48,15 @@ export const rootRouterConfig: Routes = [
     children: [
       {path: 'add', component: CredentialsFormComponent},
       {path: ':id', component: CredentialsFormComponent},
+    ],
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'projects',
+    component: ProjectsComponent,
+    children: [
+      {path: 'add', component: ProjectsFormComponent},
+      {path: ':id', component: ProjectsFormComponent},
     ],
     canActivate: [AuthGuard]
   },

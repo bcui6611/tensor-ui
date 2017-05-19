@@ -45,8 +45,10 @@ export class OrganizationTemplatesComponent implements OnInit,  OnDestroy {
       if (this.id) {
         this.organizationService.get(this.id).subscribe((res) => {
             this.breadcrumbService.addFriendlyNameForRouteRegex('^/settings/organizations/[a-f\\d]{24}$', res.name);
-            this.breadcrumbService.addFriendlyNameForRouteRegex('^/settings/organizations/[a-f\\d]{24}/ansible_job_templates', 'Ansible Job Templates');
-            this.breadcrumbService.addFriendlyNameForRouteRegex('^/settings/organizations/[a-f\\d]{24}/terraform_job_templates', 'Terraform Job Templates');
+            this.breadcrumbService.
+            addFriendlyNameForRouteRegex('^/settings/organizations/[a-f\\d]{24}/ansible_job_templates', 'Ansible Job Templates');
+            this.breadcrumbService.
+            addFriendlyNameForRouteRegex('^/settings/organizations/[a-f\\d]{24}/terraform_job_templates', 'Terraform Job Templates');
           },
           (err) => {
             console.log(err);
@@ -59,7 +61,7 @@ export class OrganizationTemplatesComponent implements OnInit,  OnDestroy {
 
   public onChangeTable(): void {
     const params = new URLSearchParams();
-    params.set("organization", this.id)
+    params.set('organization', this.id);
 
     params.set('page_size', this.itemsPerPage.toString());
 

@@ -58,15 +58,15 @@
               class="col text-nowrap">
 
             <span *ngIf="column.text">{{getData(row, column.name)}}</span>
-            <a class="card-link" [routerLink]="['/settings/credentials/' + getData(row, 'name')]" *ngIf="column.link"
+            <a class="card-link" [routerLink]="['/projects/' + getData(row, 'id')]" *ngIf="column.link"
                routerLinkActive="active">{{getData(row,
               column.name)}}</a>
             <div *ngIf="column.actions" class="action-button-group" role="group" aria-label="actions">
               <a class="btn btn-outline-primary" href="javascript:;"><i class="fa fa-cloud-download"></i></a>
-              <a class="btn btn-outline-primary" [routerLink]="['/projects/' + getData(row, 'name') + '/schedule']"
+              <a class="btn btn-outline-primary" [routerLink]="['/projects/' + getData(row, 'id') + '/schedule']"
                  routerLinkActive="active"><i
                 class="fa fa-calendar"></i></a>
-              <a class="btn btn-outline-primary" [routerLink]="['/projects/' + getData(row, 'name')]"
+              <a class="btn btn-outline-primary" [routerLink]="['/projects/' + getData(row, 'id')]"
                  routerLinkActive="active"><i
                 class="fa fa-pencil"></i></a> &nbsp;
             </div>

@@ -13,11 +13,20 @@
     <li class="nav-item">
       <a class="nav-link" [routerLink]="['/inventories']" routerLinkActive="active">Inventories</a>
     </li>
-    <li class="nav-item">
-      <a class="nav-link" [routerLink]="['/job_templates']" routerLinkActive="active">Job Templates</a>
+    <li class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle" (click)="navbar.dropdown=!navbar.dropdown" id="navbarJobTemplatesLink" [attr.aria-expanded]="jtdropdown" aria-controlls="job_templates">Job Templates</a>
+      <div id = "job_templates" [ngbCollapse]="!navbar.dropdown" class="dropdown-menu">
+        <a class="dropdown-item" [routerLink]="['/ansible_job_templates']" routerLinkActive="active">Ansible Job Templates</a>
+        <a class="dropdown-item" [routerLink]="['/terraform_job_templates']" routerLinkActive="active">Terraform Job Templates</a>
+      </div>
     </li>
-    <li class="nav-item">
-      <a class="nav-link" [routerLink]="['/jobs']" routerLinkActive="active">Jobs</a>
+
+    <li class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle" (click)="navbar.jobDropdown=!navbar.jobDropdown" [attr.aria-expanded]="jdropdown" aria-controlls="jobs">Jobs</a>
+      <div id = "jobs" [ngbCollapse]="!navbar.jobDropdown" class="dropdown-menu">
+        <a class="dropdown-item" [routerLink]="['/ansible_jobs']" routerLinkActive="active">Ansible Jobs</a>
+        <a class="dropdown-item" [routerLink]="['/terraform_jobs']" routerLinkActive="active">Terraform Jobs</a>
+      </div>
     </li>
   </ul>
   <ul class="nav navbar-nav  mr-sm-2 my-2 my-lg-0">

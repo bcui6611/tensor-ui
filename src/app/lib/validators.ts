@@ -2,19 +2,15 @@ import { AbstractControl, ValidatorFn, Validators } from '@angular/forms';
 export class TensorValidators {
 
   /**
-   * Check for valid organization selections
+   * Check for valid name of an object list
    */
-  public static validateOrganization(organizations: string[]): ValidatorFn {
+  public static validateObjectName(objects: any[]): ValidatorFn {
     return (control: AbstractControl): { [key: string]: any } => {
       if (Validators.required(control)) {
         return null;
       }
-      const v: string = control.value;
 
-      if (control.value instanceof Object) { // special case for organization typehead
-        return organizations.indexOf(control.value.name) > -1 ? null : {validateOrganization: {valid: false}};
-      }
-      return organizations.indexOf(control.value) > -1 ? null : {validateOrganization: {valid: false}};
+      return objects.findIndex((x) => x.name === control.value.name) > -1 ? null : {validateOrganization: {valid: false}};
     };
   }
 }

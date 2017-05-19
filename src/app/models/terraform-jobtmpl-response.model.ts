@@ -1,5 +1,5 @@
 import { TerraformJobTmpl } from './terraform-jobtmpl.model';
-export class TerrafromJobTmplResponse {
+export class TerraformJobTmplResponse {
   public count: number;
   public data: TerraformJobTmpl[];
 }

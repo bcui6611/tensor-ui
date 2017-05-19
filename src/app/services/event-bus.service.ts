@@ -8,7 +8,7 @@ export class EventBusService {
     this.bus.next(data);
   }
 
-  //its up to you how to implement it:
+  // its up to you how to implement it:
   public listen(type: string): Observable<Event> {
     return this.bus.filter((event) => event.type === type);
   }

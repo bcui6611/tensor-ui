@@ -43,12 +43,12 @@ export class ProjectService {
   public get(id: string): Observable<Project> {
     return this._http
       .get(this.projectUrl + '/' + id, new RequestOptions({headers: this.headers}))
-      .map((response) => response.json().data);
+      .map((response) => response.json());
   }
 
   public update(project: Project): Observable<Project> {
     return this._http
-      .put(this.projectUrl + project.id, project,
+      .put(this.projectUrl + '/' + project.id, project,
         new RequestOptions({headers: this.headers}))
       .map((res) => {
         if (res.status < 200 || res.status >= 300) {
@@ -61,7 +61,7 @@ export class ProjectService {
 
   public delete(id: string) {
     return this._http
-      .delete(this.projectUrl + id, new RequestOptions({headers: this.headers}));
+      .delete(this.projectUrl + '/' + id, new RequestOptions({headers: this.headers}));
   }
 
   public getToken(): string {

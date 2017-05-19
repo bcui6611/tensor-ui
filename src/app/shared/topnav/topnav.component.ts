@@ -9,6 +9,13 @@ import { AuthenticationService } from '../../services';
 })
 export class TopNavComponent {
 
+  public jtdropdown;
+  public jdropdown;
+
+  public navbar = {
+    dropdown: false,
+    jobDropdown: false
+  };
   // TypeScript private modifiers
   constructor(private auth: AuthenticationService, private router: Router) {
   }
