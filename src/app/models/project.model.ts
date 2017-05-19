@@ -3,7 +3,7 @@ export class Project {
 
   public name: string;
   public scm_type: string;
-  public organization_id: string;
+  public organization: string;
   public description: string;
   public local_path: string;
   public scm_url: string;
@@ -11,7 +11,7 @@ export class Project {
   public scm_branch: string;
   public scm_clean: boolean;
   public scm_delete_on_update: boolean;
-  public credentail_id: string;
+  public credential: string;
   public scm_delete_on_next_update: boolean;
   public scm_update_on_launch: boolean;
   public scm_update_cache_timeout: number;
@@ -29,6 +29,6 @@ export class Project {
   public modified: Date;
 
   public type: string;
-  public links: Object;
-  public meta: Object;
+  public links: object;
+  public meta: any;
 }

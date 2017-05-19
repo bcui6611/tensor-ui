@@ -32,8 +32,8 @@ export class OrganizationTeamsComponent implements OnInit, OnDestroy {
   private id: string;
 
   constructor(private breadcrumbService: BreadcrumbService,
-    private route: ActivatedRoute,
-    private organizationService: OrganizationService) {
+              private route: ActivatedRoute,
+              private organizationService: OrganizationService) {
   }
 
   public ngOnInit(): void {

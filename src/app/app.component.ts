@@ -1,5 +1,4 @@
 import { Component, ViewEncapsulation } from '@angular/core';
-import { BreadcrumbService } from 'ng2-breadcrumb/ng2-breadcrumb';
 import { Router } from '@angular/router';
 import { AuthenticationService } from './services';
 
@@ -8,11 +7,10 @@ import { AuthenticationService } from './services';
   styleUrls: ['../assets/styles/main.scss'],
   templateUrl: './app.component.html',
   encapsulation: ViewEncapsulation.None,
-  providers: [BreadcrumbService]
+  providers: []
 })
 export class AppComponent {
-  constructor(private router: Router,
-              private authService: AuthenticationService, private breadcrumbService: BreadcrumbService) {
+  constructor(private authService: AuthenticationService) {
     console.log('hello form `app` component');
   }
 

@@ -1,16 +1,21 @@
-import { Component, OnInit } from '@angular/core';
-import { TableData } from './table-data';
+import { Component, Input, OnInit } from '@angular/core';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { CredentialService } from '../services/credential.service';
+import { Credential } from '../models/credential.model';
+import { URLSearchParams } from '@angular/http';
 
 @Component({
-  selector: 'projects-table',
-  templateUrl: './projects-table.component.html'
+  selector: 'credential-select',
+  template: require('./credential-select.component.html'),
+  providers: [CredentialService]
 })
-export class ProjectsTableComponent implements OnInit {
+export class CredentialSelectComponent implements OnInit {
+
+  @Input() public kind: string;
+
   public rows: any[] = [];
   public columns: any[] = [
-    {title: 'Name', name: 'username', sort: 'asc', link: true},
-    {title: 'Organization', name: 'firstname', sort: '', link: true},
-    {title: 'Actions', name: 'actions', sort: false, actions: true}
+    {title: 'Name', name: 'name', sort: '', text: true}
   ];
   public page: number = 1;
   public itemsPerPage: number = 10;
@@ -21,13 +26,14 @@ export class ProjectsTableComponent implements OnInit {
   public config: any = {
     paging: true,
     sorting: {columns: this.columns},
-    filtering: {filterString: '', columnName: 'username'},
+    filtering: {filterString: '', columnName: 'name'},
     className: ['table-striped', 'table-bordered']
   };
-  private data: any[] = TableData;
 
-  public constructor() {
-    this.length = this.data.length;
+  private data: Credential[];
+  private model: Credential;
+
+  constructor(public activeModal: NgbActiveModal, public credentialService: CredentialService) {
   }
 
   public get configColumns(): any {
@@ -121,22 +127,26 @@ export class ProjectsTableComponent implements OnInit {
     return propertyName.split('.').reduce((prev: any, curr: string) => prev[curr], row);
   }
 
-  // Username click
-  public usernameClick(): void {
-    alert('usernameClick');
+  public selected($event): void {
+    this.model = this.data.find((x) => x.id === $event.target.value);
   }
 
-  public userDeleteClick(row): void {
-    alert('usernameClick');
-  }
-
-  public userEditClick(row): void {
-    alert('User Edit Click at ->' + row.username);
+  public close(): void {
+    this.activeModal.close(this.model);
   }
 
   public ngOnInit(): void {
-    console.log('hello `ProjectsTable` component');
+    console.log('hello `CredentialSelect` component');
+    const params = new URLSearchParams();
+    params.set('kind', this.kind);
 
-    this.onChangeTable(this.config);
+    this.credentialService.getAll(params).subscribe((res) => {
+        this.data = res.data;
+        this.length = res.count;
+        this.onChangeTable(this.config);
+      },
+      (err) => {
+        console.log(err);
+      });
   }
 }

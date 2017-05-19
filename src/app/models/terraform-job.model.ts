@@ -15,7 +15,7 @@ export class TerraformJob {
   public result_traceback: string;
   public job_explanation: string;
   public job_type: string;
-  public vars: Object;
+  public vars: object;
   public parallelism: number;
   public update_on_launch: boolean;
   public target: string;
@@ -41,6 +41,6 @@ export class TerraformJob {
   public modified: Date;
 
   public type: string;
-  public links: Object;
-  public meta: Object;
+  public links: object;
+  public meta: object;
 }

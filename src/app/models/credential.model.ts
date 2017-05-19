@@ -38,5 +38,5 @@ export class Credential {
 
   public type: string;
   public links: object;
-  public meta: object;
+  public meta: any;
 }

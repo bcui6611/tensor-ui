@@ -1,0 +1,181 @@
+<div class="card card-block">
+  <div class="row">
+    <div class="col-11 text-left">
+      <p class="text-uppercase font-weight-bold">New Project</p>
+    </div>
+    <div class="col-1 text-right">
+      <a type="btn" class="close" routerLink="/projects" aria-label="Close">
+        <i class="fa fa-times-circle"></i>
+      </a>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <ngb-tabset type="pills">
+        <ngb-tab title="Details">
+          <ng-template ngbTabContent>
+            <div class="row">
+              <div class="col">
+                <br>
+                <form [formGroup]="projectForm" (ngSubmit)="onSubmit()" novalidate>
+                  <div class="row">
+                    <div class="col-4">
+                      <div class="form-group" [class.has-danger]="formErrors.name">
+                        <label for="name" class="u-label"><span class="text-danger">*</span> Name</label>
+                        <input type="text" class="form-control" id="name" formControlName="name"
+                               aria-describedby="Name">
+                        <div *ngIf="formErrors.name" class="form-control-feedback">{{ formErrors.name }}</div>
+                      </div>
+                    </div>
+                    <div class="col-4">
+                      <div class="form-group">
+                        <label for="descriptions" class="u-label">Description</label>
+                        <input type="text" class="form-control" id="descriptions"
+                               aria-describedby="description" formControlName="description">
+                      </div>
+                    </div>
+                    <div class="col-4">
+                      <div class="form-group" [class.has-danger]="formErrors.organization">
+                        <label for="organization" class="u-label"><span class="text-danger">*</span>
+                          Organization</label>
+                        <div class="input-group">
+                          <span class="input-group-btn">
+                            <a class="btn btn-secondary" (click)="organizationOpen()"><i class="fa fa-search"></i></a>
+                          </span>
+                          <input type="text" class="form-control" [ngbTypeahead]="search" id="organization"
+                                 formControlName="organization"
+                                 [inputFormatter]="formatter" [resultFormatter]="formatter">
+                        </div>
+                        <div *ngIf="formErrors.organization" class="form-control-feedback">{{ formErrors.organization}}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-4">
+                      <div class="form-group" [class.has-danger]="formErrors.scm_type">
+                        <label for="scm_type" class="u-label"><span class="text-danger">*</span> Type</label>
+                        <div class="input-group">
+                          <select class="form-control" id="scm_type" formControlName="scm_type">
+                            <option value="">Choose a type</option>
+                            <option value="git">Git</option>
+                            <option value="mercurial">Mercurial</option>
+                            <option value="subversion">Subversion</option>
+                          </select>
+                        </div>
+                        <div *ngIf="formErrors.scm_type" class="form-control-feedback">{{ formErrors.scm_type }}</div>
+                      </div>
+                    </div>
+                    <div class="col-4">
+                      <div class="form-group" [class.has-danger]="formErrors.kind">
+                        <label for="scm_type" class="u-label"><span class="text-danger">*</span> Kind</label>
+                        <div class="input-group">
+                          <select class="form-control" id="kind" formControlName="kind">
+                            <option value="">Choose a type</option>
+                            <option value="ansible">Ansible</option>
+                            <option value="terraform">Terraform</option>
+                          </select>
+                        </div>
+                        <div *ngIf="formErrors.kind" class="form-control-feedback">{{ formErrors.kind }}</div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div *ngIf="getValue('scm_type') !== ''">
+                    <div class="row">
+                      <div class="col-11 text-left">
+                        <p class="text-uppercase font-weight-bold">SOURCE DETAILS</p>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-4" [class.has-danger]="formErrors.scm_url">
+                        <div class="form-group">
+                          <label for="scm_url" class="u-label"><span class="text-danger">*</span> SCM URL</label>
+                          <input type="text" class="form-control" id="scm_url" formControlName="scm_url"
+                                 aria-describedby="SCM URL">
+                        </div>
+                      </div>
+                      <div class="col-4" [ngSwitch]="getValue('scm_type')">
+                        <div class="form-group" *ngSwitchCase="'subversion'">
+                          <label for="scm_branch" class="u-label">Revision #</label>
+                          <input type="text" class="form-control" id="scm_branch" formControlName="scm_branch"
+                                 aria-describedby="SMC Branch">
+                        </div>
+                        <div class="form-group" *ngSwitchDefault>
+                          <label for="scm_branch" class="u-label">SCM Branch</label>
+                          <input type="text" class="form-control" id="scm_branch" formControlName="scm_branch"
+                                 aria-describedby="SMC Branch">
+                        </div>
+                      </div>
+                      <div class="col-4">
+                        <div class="form-group" [class.has-danger]="formErrors.credential">
+                          <label for="credential" class="u-label">SCM Credential</label>
+                          <div class="input-group">
+                          <span class="input-group-btn">
+                            <a class="btn btn-secondary" (click)="credentialOpen()"><i class="fa fa-search"></i></a>
+                          </span>
+                            <input type="text" class="form-control" [ngbTypeahead]="credentialSearch" id="credential"
+                                   formControlName="credential"
+                                   [inputFormatter]="formatter" [resultFormatter]="formatter">
+                          </div>
+                          <div *ngIf="formErrors.credential" class="form-control-feedback">{{ formErrors.credential}}
+                          </div>
+                        </div>
+                      </div>
+
+                    </div>
+                    <div class="row">
+                      <div class="col-11 text-left">
+                        <p class="text-uppercase">scm update options</p>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col">
+                        <label class="custom-control custom-checkbox">
+                          <input type="checkbox" formControlName="scm_clean" class="custom-control-input">
+                          <span class="custom-control-indicator"></span>
+                          <span class="custom-control-description">Clean</span>
+                        </label>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col">
+                        <label class="custom-control custom-checkbox">
+                          <input type="checkbox" formControlName="scm_delete_on_update" class="custom-control-input">
+                          <span class="custom-control-indicator"></span>
+                          <span class="custom-control-description">Delete on Update</span>
+                        </label>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col">
+                        <label class="custom-control custom-checkbox">
+                          <input type="checkbox" formControlName="scm_update_on_launch" class="custom-control-input">
+                          <span class="custom-control-indicator"></span>
+                          <span class="custom-control-description">Update on Launch</span>
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col text-right">
+                      <a class="btn btn-warning" routerLink="/projects" aria-label="Close">
+                        Cancel
+                      </a>
+                      <button type="submit" class="btn btn-success" [disabled]="!projectForm.valid">Save</button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </ng-template>
+        </ngb-tab>
+        <ngb-tab title="Permissions" [disabled]="true">
+        </ngb-tab>
+        <ngb-tab title="Notifications" [disabled]="true">
+        </ngb-tab>
+      </ngb-tabset>
+    </div>
+  </div>
+</div>
+<simple-notifications></simple-notifications>

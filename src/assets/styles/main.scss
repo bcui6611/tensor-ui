@@ -5,6 +5,7 @@ body {
   background-color: #FCFCFC;
   font-size: 0.9rem;
 }
+
 a {
   color: #347ebd;
 }
@@ -53,11 +54,11 @@ a {
 }
 
 .breadcrumb-tensor {
-  top: 3.6rem;
+  top: 3.59rem;
   position: fixed;
   right: 0;
   left: 0;
-  z-index: 1030;
+  z-index: 1010;
 
   .breadcrumb {
     background-color: #ffffff;
@@ -560,7 +561,7 @@ a.setting-item {
     border-radius: 3rem;
     border: none;
     margin-left: 0.9rem;
-    color:#8c9098;
+    color: #8c9098;
   }
 
   .btn:hover {
@@ -611,7 +612,6 @@ select.form-control:not([size]):not([multiple]) {
     margin-bottom: 1rem;
   }
 }
-
 
 /* custom-list group */
 

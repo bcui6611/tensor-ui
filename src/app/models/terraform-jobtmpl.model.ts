@@ -16,7 +16,7 @@ export class TerraformJobTmpl {
   public result_get_stdout: string;
   public result_traceback: string;
   public job_explanation: string;
-  public vars: Object;
+  public vars: object;
   public parallelism: number;
   public update_on_launch: boolean;
   public target: string;
@@ -51,6 +51,6 @@ export class TerraformJobTmpl {
   public modified: Date;
 
   public type: string;
-  public links: Object;
-  public meta: Object;
+  public links: object;
+  public meta: object;
 }

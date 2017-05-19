@@ -14,19 +14,17 @@ import { OrganizationSelectComponent } from '../shared/organizations-select.comp
 import { TensorValidators } from '../lib/validators';
 import { EventBusService } from '../services/event-bus.service';
 import { NotificationsService } from 'angular2-notifications/dist';
-import { TensorGlobals } from '../lib/globals';
 
 @Component({
   selector: 'credentials-add',
   templateUrl: './credentials-form.component.html',
-  providers: [CredentialService, OrganizationService],
+  providers: [CredentialService, OrganizationService]
 })
 export class CredentialsFormComponent implements OnInit, OnChanges {
 
   public model: Credential;
 
   public organizations: Organization[];
-  public organizationList: string[] = [];
 
   public credentialForm: FormGroup;
 
@@ -48,28 +46,28 @@ export class CredentialsFormComponent implements OnInit, OnChanges {
 
   private validationMessages = {
     name: {
-      required: 'Please enter a value.',
+      required: 'Please enter a value.'
     },
     organization: {
-      validateOrganization: 'Please enter or select a valid value.',
+      validateOrganization: 'Please enter or select a valid value.'
     },
     kind: {
-      required: 'Please enter a value.',
+      required: 'Please enter a value.'
     },
 
     username: {
-      required: 'Please enter a value.',
+      required: 'Please enter a value.'
     },
 
     // aws
     client: {
-      required: 'Please enter a value.',
+      required: 'Please enter a value.'
     },
     secret: {
-      required: 'Please enter a value.',
+      required: 'Please enter a value.'
     },
     token: {
-      required: 'Please enter a value.',
+      required: 'Please enter a value.'
     },
 
     ssh_key_data: {
@@ -79,8 +77,8 @@ export class CredentialsFormComponent implements OnInit, OnChanges {
     // gce
     email: {
       required: 'Please enter a value.',
-      email: 'Please enter a valid email.',
-    },
+      email: 'Please enter a valid email.'
+    }
 
   };
   private sub: any;
@@ -115,9 +113,7 @@ export class CredentialsFormComponent implements OnInit, OnChanges {
     this.organizationService.getAll()
       .subscribe((res) => {
           this.organizations = res.data;
-          for (const organization of this.organizations) {
-            this.organizationList.push(organization.name);
-          }
+          this.credentialForm.get('organization').setValidators([TensorValidators.validateObjectName(this.organizations)]);
         },
         (err) => {
           console.log(err);
@@ -151,6 +147,7 @@ export class CredentialsFormComponent implements OnInit, OnChanges {
       username: this.model.username,
       password: this.model.password,
       project: this.model.project,
+      organization: this.model.meta.organization,
 
       // linux
       become_method: this.model.become_method,
@@ -171,7 +168,7 @@ export class CredentialsFormComponent implements OnInit, OnChanges {
       ask_password_on_launch: this.model.ask_password_on_launch,
       ask_vault_password_on_launch: this.model.ask_vault_password_on_launch,
       ask_become_password_on_launch: this.model.ask_become_password_on_launch,
-      ask_ssh_key_unlock_on_launch: this.model.ask_ssh_key_unlock_on_launch,
+      ask_ssh_key_unlock_on_launch: this.model.ask_ssh_key_unlock_on_launch
     });
   }
 
@@ -182,7 +179,7 @@ export class CredentialsFormComponent implements OnInit, OnChanges {
   public organizationOpen(): void {
     this.modalService.open(OrganizationSelectComponent).result.then((result) => {
       this.credentialForm.patchValue({
-        organization: result,
+        organization: result
       });
     }, (err) => {
       console.debug(err);
@@ -217,7 +214,7 @@ export class CredentialsFormComponent implements OnInit, OnChanges {
     const saveCredential: Credential = {
       id: formModel.id as string,
       name: formModel.name as string,
-      description: formModel.description as string,
+      description: formModel.description as string
     } as Credential;
 
     if (formModel.organization instanceof Object) {
@@ -271,12 +268,14 @@ export class CredentialsFormComponent implements OnInit, OnChanges {
         break;
       }
       case 'aws': {
+        saveCredential.cloud = true;
         saveCredential.client = formModel.client as string;
         saveCredential.secret = formModel.secret as string;
         saveCredential.token = formModel.token as string;
         break;
       }
       case 'gce': {
+        saveCredential.cloud = true;
         saveCredential.email = formModel.email as string;
         saveCredential.project = formModel.project as string;
         saveCredential.ssh_key_data = formModel.ssh_key_data as string;
@@ -298,7 +297,7 @@ export class CredentialsFormComponent implements OnInit, OnChanges {
       username: [''],
       password: [''],
       become_method: [''],
-      organization: ['', TensorValidators.validateOrganization(this.organizationList)],
+      organization: [''],
       vault_password: [''],
       project: [''],
       authorize: [false],

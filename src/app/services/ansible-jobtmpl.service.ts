@@ -20,37 +20,37 @@ export class AnsibleJobTmplService {
     this.jobTmplUrl = this.config.getConfig('host') + '/v1/job_templates';
   }
 
-  getAll(p?: URLSearchParams): Observable<AnsibleJobTmplResponse> {
+  public getAll(p?: URLSearchParams): Observable<AnsibleJobTmplResponse> {
     return this._http
       .get(this.jobTmplUrl, new RequestOptions({headers: this.headers, search: p}))
-      .map(response => response.json());
+      .map((response) => response.json());
   }
 
-  create(tmpl: AnsibleJobTmpl): Observable<AnsibleJobTmpl> {
+  public create(tmpl: AnsibleJobTmpl): Observable<AnsibleJobTmpl> {
     return this._http
       .post(this.jobTmplUrl + '/', AnsibleJobTmpl,
         new RequestOptions({headers: this.headers}))
-      .map(response => response.json());
+      .map((response) => response.json());
   }
 
-  get(id: string): Observable<AnsibleJobTmpl> {
+  public get(id: string): Observable<AnsibleJobTmpl> {
     return this._http
       .get(this.jobTmplUrl + '/' + id, new RequestOptions({headers: this.headers}))
-      .map(response => response.json())
+      .map((response) => response.json());
   }
 
-  update(tmpl: AnsibleJobTmpl): Observable<AnsibleJobTmpl> {
+  public update(tmpl: AnsibleJobTmpl): Observable<AnsibleJobTmpl> {
     return this._http
       .put(this.jobTmplUrl + '/' + tmpl.id, tmpl, new RequestOptions({headers: this.headers}))
-      .map(response => response.json());
+      .map((response) => response.json());
   }
 
-  delete(id: string) {
+  public delete(id: string) {
     return this._http
-      .delete(this.jobTmplUrl + id, new RequestOptions({headers: this.headers}))
+      .delete(this.jobTmplUrl + id, new RequestOptions({headers: this.headers}));
   }
 
-  getToken(): string {
+  public getToken(): string {
     return JSON.parse(localStorage.getItem('_tensor_user')).token;
   }
 

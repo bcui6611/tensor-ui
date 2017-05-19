@@ -19,10 +19,7 @@ export class LoginComponent implements OnInit {
   }
 
   public ngOnInit(): void {
-    console.log('hello `Login` component');
-
     if (localStorage.getItem('_tensor_user')) {
-      console.log(localStorage.getItem('_tensor_user'));
       this.router.navigate(['/dashboard']);
     }
   }
@@ -30,11 +27,9 @@ export class LoginComponent implements OnInit {
   public login(form: any): void {
     this.auth.login(this.model.username, this.model.password)
       .subscribe((result) => {
-        if (result === true) {
-          // login successful
+        if (result === true) { // login successful
           this.router.navigate(['/dashboard']);
-        } else {
-          // login failed
+        } else { // login failed
           this._notification.error('Sign In failed', 'Please check your username & password');
         }
       }, (err) => {
